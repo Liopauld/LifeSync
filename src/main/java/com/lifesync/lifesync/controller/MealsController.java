@@ -2,6 +2,7 @@ package com.lifesync.lifesync.controller;
 
 import com.lifesync.lifesync.SceneManager;
 import com.lifesync.lifesync.model.Activity;
+import com.lifesync.lifesync.model.ActivityTime;
 import com.lifesync.lifesync.model.NutritionEntry;
 import com.lifesync.lifesync.model.PantryItem;
 import com.lifesync.lifesync.model.Recipe;
@@ -21,7 +22,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -294,22 +294,10 @@ public class MealsController {
         card.getStyleClass().add("meals-recipe-card");
 
         // ── Top colored area with food emoji matching recipe theme ──
-        String[] bgColors = {
-                "#E8F5E9", "#FFFDE7", "#FFF3E0", "#E3F2FD",
-                "#F3E5F5", "#FFF8E1", "#E8EAF6", "#FCE4EC"
-        };
-        String[] darkBgColors = {
-                "#1C2B22", "#2B2818", "#2F2218", "#182433",
-                "#2B1B35", "#2D2618", "#1E2035", "#301B26"
-        };
-        boolean isDark = com.lifesync.lifesync.service.ThemeManager.isDarkMode();
-        String bgColor = isDark ? darkBgColors[index % darkBgColors.length] : bgColors[index % bgColors.length];
-
         StackPane emojiArea = new StackPane();
         emojiArea.setPrefHeight(130);
         emojiArea.setMinHeight(130);
-        emojiArea.setStyle("-fx-background-color: " + bgColor + "; "
-                + "-fx-background-radius: 16 16 0 0;");
+        emojiArea.getStyleClass().addAll("recipe-emoji-backdrop", "recipe-tone-" + (index % 8));
 
         String rNameLower = recipe.getName().toLowerCase();
         String emoji;
@@ -349,10 +337,10 @@ public class MealsController {
 
         int totalTime = recipe.getPrepTimeMinutes() + recipe.getCookTimeMinutes();
         Label timeLabel = new Label("⏱ " + totalTime + " min");
-        timeLabel.getStyleClass().add("meals-meta-pill");
+        timeLabel.getStyleClass().addAll("meals-meta-pill", "metric-time");
 
-        Label calLabel = new Label("≈ " + (int) recipe.getCalories() + " kcal");
-        calLabel.getStyleClass().add("meals-meta-pill");
+        Label calLabel = new Label("🔥 " + (int) recipe.getCalories() + " kcal");
+        calLabel.getStyleClass().addAll("meals-meta-pill", "metric-burn");
 
         metaRow.getChildren().addAll(timeLabel, calLabel);
 
@@ -476,9 +464,10 @@ public class MealsController {
         titleLabel.getStyleClass().add("meal-plan-item-title");
         HBox.setHgrow(titleLabel, Priority.ALWAYS);
 
-        Label statusPill = new Label(meal.getStatus().name());
+        Label statusPill = new Label(meal.getStatus() == Activity.Status.COMPLETED
+                ? "✓ COMPLETED" : meal.getStatus().name());
         statusPill.getStyleClass().addAll("status-pill",
-                meal.getStatus() == Activity.Status.COMPLETED ? "status-completed" : "status-upcoming");
+                "status-" + meal.getStatus().name().toLowerCase(java.util.Locale.ROOT));
 
         Button removeBtn = new Button("✕");
         removeBtn.getStyleClass().add("meal-plan-remove-btn");
@@ -715,7 +704,7 @@ public class MealsController {
         grid.add(datePicker, 1, 1);
         grid.add(new Label("Start Time (HH:mm):"), 0, 2);
         grid.add(startField, 1, 2);
-        grid.add(new Label("End Time (HH:mm):"), 0, 3);
+        grid.add(new Label("End Time (HH:mm, up to 24:00):"), 0, 3);
         grid.add(endField, 1, 3);
 
         dialog.getDialogPane().setContent(grid);
@@ -729,24 +718,13 @@ public class MealsController {
                 String et = endField.getText().trim();
 
                 try {
-                    LocalTime s = LocalTime.parse(st);
-                    LocalTime e = LocalTime.parse(et);
-                    if (!s.isBefore(e)) {
-                        Platform.runLater(() -> {
-                            Alert a = new Alert(Alert.AlertType.ERROR);
-                            ThemeManager.applyTheme(a.getDialogPane());
-                            a.setTitle("Invalid Time");
-                            a.setHeaderText("End time must be after start time.");
-                            a.showAndWait();
-                        });
-                        return null;
-                    }
-                } catch (Exception ex) {
+                    ActivityTime.parse(st, et);
+                } catch (IllegalArgumentException ex) {
                     Platform.runLater(() -> {
                         Alert a = new Alert(Alert.AlertType.ERROR);
                         ThemeManager.applyTheme(a.getDialogPane());
-                        a.setTitle("Invalid Time Format");
-                        a.setHeaderText("Please enter times in HH:mm format (e.g. 12:00).");
+                        a.setTitle("Invalid meal time");
+                        a.setHeaderText(ex.getMessage());
                         a.showAndWait();
                     });
                     return null;
@@ -792,6 +770,7 @@ public class MealsController {
             refreshMealPlan();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            ThemeManager.applyTheme(alert.getDialogPane());
             alert.setTitle("Meal Scheduled");
             alert.setHeaderText("Added to Meal Plan");
             alert.setContentText(activity.getTitle() + " has been scheduled for " + activity.getDate()
@@ -964,6 +943,11 @@ public class MealsController {
             for (String tag : recipe.getTags()) {
                 Label pill = new Label(tag);
                 pill.getStyleClass().add("recipe-tag");
+                if (tag.equalsIgnoreCase("Lunch") || tag.equalsIgnoreCase("Dinner") || tag.equalsIgnoreCase("Breakfast")) {
+                    pill.getStyleClass().add("tag-meal");
+                } else if (tag.equalsIgnoreCase("Healthy") || tag.equalsIgnoreCase("High Protein")) {
+                    pill.getStyleClass().add("badge-healthy");
+                }
                 modalTagsBox.getChildren().add(pill);
             }
         }
@@ -995,8 +979,16 @@ public class MealsController {
     @FXML
     private void handleToggleModalFavorite() {
         if (selectedModalRecipe == null) return;
-        RecipeService.toggleFavorite(selectedModalRecipe.getId());
-        selectedModalRecipe.setFavorite(!selectedModalRecipe.isFavorite());
+        try {
+            selectedModalRecipe.setFavorite(RecipeService.toggleFavorite(selectedModalRecipe));
+        } catch (RuntimeException ex) {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            ThemeManager.applyTheme(error.getDialogPane());
+            error.setTitle("Favorite could not be saved");
+            error.setHeaderText("Your favorite was not changed. Please try again.");
+            error.showAndWait();
+            return;
+        }
         modalFavBtn.setText(selectedModalRecipe.isFavorite() ? "♥ Saved" : "♡ Favorite");
         if (selectedModalRecipe.isFavorite()) {
             if (!modalFavBtn.getStyleClass().contains("fav-heart-active")) {

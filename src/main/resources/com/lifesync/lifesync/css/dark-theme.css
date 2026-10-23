@@ -953,13 +953,13 @@
     -fx-text-fill: #FAF5FF;
 }
 
-/* ── Sidebar btn active MUST override for dark mode ───────────────────── */
+/* ── Active navigation follows the shared, theme-aware palette ───────── */
 
-.sidebar-btn-active {
-    -fx-background-color: #2E1F54 !important;
-    -fx-text-fill: #C084FC !important;
-    -fx-border-color: #9333EA !important;
-    -fx-border-width: 0 0 0 3 !important;
+.sidebar-btn.sidebar-btn-active {
+    -fx-background-color: linear-gradient(to right, -life-nav-start, -life-nav-end);
+    -fx-text-fill: -life-nav-text;
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
     -fx-font-weight: bold;
 }
 
@@ -1376,6 +1376,11 @@
 
 /* ── Dialog & Alert Theming ──────────────────────────────────────────── */
 
+.error-label,
+.dialog-pane .error-label {
+    -fx-text-fill: #FDA4AF;
+}
+
 .dialog-pane {
     -fx-background-color: #1A162B;
 }
@@ -1422,4 +1427,54 @@
 
 .dialog-pane .button:default:hover {
     -fx-background-color: #7E22CE;
+}
+
+/* The same semantic accents stay readable on dark card surfaces. */
+.root, .dark-theme {
+    -life-heading: #FAF5FF;
+    -life-muted: #94A3B8;
+    -life-protein: #C4B5FD;
+    -life-protein-soft: #2E2349;
+    -life-protein-edge: #62458A;
+    -life-carbs: #FBBF24;
+    -life-carbs-soft: #392A1D;
+    -life-carbs-edge: #7A522A;
+    -life-fat: #34D399;
+    -life-fat-soft: #12382F;
+    -life-fat-edge: #246B54;
+    -life-burn: #FFAA85;
+    -life-burn-soft: #3F241F;
+    -life-burn-edge: #8A4939;
+    -life-sky: #7DD3FC;
+    -life-sky-soft: #172F43;
+    -life-sky-edge: #2F607D;
+    -life-rose: #FDA4AF;
+    -life-rose-soft: #3D2139;
+    -life-rose-edge: #7C3C61;
+    -life-outline: #3E325C;
+    -life-hover: #B18BE9;
+    -life-nav-start: #7C3AED;
+    -life-nav-end: #AD421B;
+    -life-nav-text: #FFFFFF;
+    -life-nav-glow: rgba(168, 85, 247, 0.25);
+    -life-note: #322738;
+}
+
+.protein-bar > .track, .macro-bar-protein > .track {
+    -fx-background-color: -life-protein-soft;
+}
+.protein-bar > .bar, .macro-bar-protein > .bar {
+    -fx-background-color: linear-gradient(to right, #8B5CF6, #A78BFA);
+}
+.carbs-bar > .track, .macro-bar-carbs > .track {
+    -fx-background-color: -life-carbs-soft;
+}
+.carbs-bar > .bar, .macro-bar-carbs > .bar {
+    -fx-background-color: linear-gradient(to right, #F59E0B, #FB923C);
+}
+.fat-bar > .track, .macro-bar-fat > .track {
+    -fx-background-color: -life-fat-soft;
+}
+.fat-bar > .bar, .macro-bar-fat > .bar {
+    -fx-background-color: linear-gradient(to right, #10B981, #34D399);
 }

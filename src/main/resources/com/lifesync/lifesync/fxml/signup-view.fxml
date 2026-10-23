@@ -50,7 +50,8 @@
             </ImageView>
 
             <!-- Welcome heading block -->
-            <Label text="Welcome to LifeSync" styleClass="brand-heading" textAlignment="CENTER"/>
+            <Label text="Welcome to&#10;LifeSync" styleClass="brand-heading, signup-brand-heading"
+                   wrapText="true" minHeight="-Infinity" textAlignment="CENTER"/>
             <Label text="Plan. Eat. Move. Grow.&#10;All in one place."
                    styleClass="brand-subtitle" wrapText="true" textAlignment="CENTER"/>
         </VBox>
@@ -184,9 +185,10 @@
                 <!-- Live BMI preview note box -->
                 <HBox alignment="CENTER_LEFT" spacing="8"
                       styleClass="signup-note-box">
-                    <Label text="💡" styleClass="bmi-focus-icon"/>
+                    <Label text="💡" styleClass="bmi-focus-icon" minWidth="-Infinity"/>
                     <Label text="Your BMI and daily energy goals are calculated upon sign-up. The app adapts recipes and workouts to your body metrics!"
                            wrapText="true"
+                           HBox.hgrow="ALWAYS" minWidth="0" minHeight="-Infinity"
                            styleClass="signup-note-text"/>
                 </HBox>
 

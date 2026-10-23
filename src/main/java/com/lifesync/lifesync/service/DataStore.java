@@ -9,6 +9,9 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.AtomicMoveNotSupportedException;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,7 @@ import java.util.List;
  *   <li>{@link #loadAll(String, Type)} reads a JSON array from disk and
  *       deserializes it into a {@code List<T>} using Gson.</li>
  *   <li>{@link #saveAll(String, List)} serializes a {@code List<T>} to
- *       pretty-printed JSON and writes it to disk, overwriting the file.</li>
+ *       pretty-printed UTF-8 JSON and replaces the file after the write completes.</li>
  *   <li>If the data directory or file doesn't exist yet, it's created
  *       automatically on first write.</li>
  * </ol>
@@ -38,6 +41,11 @@ public class DataStore {
 
     /** Directory where all JSON data files are stored. */
     private static final String DATA_DIR = "data";
+
+    /** Override used by tests so they never modify the user's saved data. */
+    public static Path dataDirectory() {
+        return Paths.get(System.getProperty("lifesync.data.dir", DATA_DIR));
+    }
 
     /** Gson instance configured for pretty-printing (human-readable files). */
     private static final Gson GSON = new GsonBuilder()
@@ -55,32 +63,33 @@ public class DataStore {
      *         the file doesn't exist or is empty
      */
     public static <T> List<T> loadAll(String filename, Type type) {
-        Path filePath = Paths.get(DATA_DIR, filename);
+        Path filePath = dataDirectory().resolve(filename);
 
         // If the file doesn't exist yet, return an empty list — no crash
         if (!Files.exists(filePath)) {
             return new ArrayList<>();
         }
 
-        try (Reader reader = new FileReader(filePath.toFile())) {
+        try (Reader reader = Files.newBufferedReader(filePath, StandardCharsets.UTF_8)) {
             List<T> result = GSON.fromJson(reader, type);
             return result != null ? result : new ArrayList<>();
         } catch (IOException e) {
-            // Log the error and return empty rather than crashing the app
-            System.err.println("[DataStore] Error reading " + filename + ": " + e.getMessage());
-            return new ArrayList<>();
+            // Do not treat unreadable data as an empty store that can be overwritten.
+            throw new UncheckedIOException("Could not read " + filename, e);
         }
     }
 
     /**
-     * Saves all items to a JSON file, overwriting any existing content.
+     * Saves all items through a temporary file, using atomic replacement where supported.
+     * A write failure is reported to callers so a dialog cannot report false success.
      *
      * @param filename the JSON file name (e.g., "activities.json")
      * @param items    the list of objects to serialize
      * @param <T>      the element type
      */
     public static <T> void saveAll(String filename, List<T> items) {
-        Path dirPath = Paths.get(DATA_DIR);
+        Path dirPath = dataDirectory();
+        Path temporary = null;
 
         try {
             // Create the data directory if it doesn't exist
@@ -90,11 +99,22 @@ public class DataStore {
 
             Path filePath = dirPath.resolve(filename);
 
-            try (Writer writer = new FileWriter(filePath.toFile())) {
+            temporary = Files.createTempFile(dirPath, ".lifesync-", ".tmp");
+            try (Writer writer = Files.newBufferedWriter(temporary, StandardCharsets.UTF_8)) {
                 GSON.toJson(items, writer);
             }
+            try {
+                Files.move(temporary, filePath, StandardCopyOption.ATOMIC_MOVE,
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (AtomicMoveNotSupportedException e) {
+                Files.move(temporary, filePath, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
-            System.err.println("[DataStore] Error writing " + filename + ": " + e.getMessage());
+            throw new UncheckedIOException("Could not save " + filename, e);
+        } finally {
+            if (temporary != null) {
+                try { Files.deleteIfExists(temporary); } catch (IOException ignored) { }
+            }
         }
     }
 }

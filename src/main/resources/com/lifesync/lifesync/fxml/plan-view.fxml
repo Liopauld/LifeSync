@@ -23,7 +23,7 @@
             fx:controller="com.lifesync.lifesync.controller.PlanController"
             fitToWidth="true"
             fitToHeight="true"
-            hbarPolicy="NEVER"
+            hbarPolicy="AS_NEEDED"
             styleClass="edge-to-edge-scroll">
 
     <!-- ════════════════════════════════════════════════════════════════
@@ -56,7 +56,9 @@
                 <ToggleButton fx:id="weekToggle" text="Week" styleClass="toggle-btn"/>
                 <ToggleButton fx:id="monthToggle" text="Month" styleClass="toggle-btn"/>
             </HBox>
-            <ToggleButton fx:id="toggle24Hour" text="🕒 24H View" onAction="#handleToggle24Hour" styleClass="action-btn"/>
+            <ToggleButton fx:id="toggle24Hour" text="🕒 Full day (24h)" selected="true"
+                          accessibleText="Show all hours from 12 AM to 11 PM"
+                          onAction="#handleToggle24Hour" styleClass="action-btn"/>
 
             <!-- Spacer pushes date nav to the right -->
             <Region HBox.hgrow="ALWAYS"/>
@@ -161,7 +163,7 @@
             <!-- ══════════════════════════════════════════════════════
                  CENTER COLUMN: Day Timeline + Quick Actions
                  ══════════════════════════════════════════════════════ -->
-            <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <VBox spacing="10" minWidth="420" HBox.hgrow="ALWAYS">
 
                 <!-- ── Day View (timeline) ─────────────────────────── -->
                 <VBox styleClass="dashboard-card" VBox.vgrow="ALWAYS">

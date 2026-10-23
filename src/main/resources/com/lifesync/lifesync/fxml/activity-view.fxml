@@ -30,10 +30,10 @@
 <ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.lifesync.lifesync.controller.ActivityViewController"
-            fitToWidth="true" fitToHeight="true"
+            fitToWidth="true" fitToHeight="false"
             styleClass="transparent-scroll-pane">
 
-    <VBox spacing="20">
+    <VBox spacing="20" minHeight="-Infinity">
         <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
 
         <!-- ═══════════════════════════════════════════════════════════════
@@ -43,7 +43,7 @@
             <VBox spacing="4" HBox.hgrow="ALWAYS">
                 <Label text="💪 Activity &amp; Fitness" styleClass="page-heading"/>
                 <Label text="Track your workouts, stay active, and crush your fitness goals."
-                       styleClass="page-subtitle"/>
+                       styleClass="page-subtitle, mascot-note"/>
             </VBox>
             <ImageView fitHeight="70" fitWidth="70" preserveRatio="true">
                 <image>
@@ -59,7 +59,7 @@
             <!-- Card 1: Weekly Progress -->
             <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" spacing="8">
                 <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
-                <Label text="🎯" styleClass="summary-card-icon"/>
+                <Label text="🎯" styleClass="summary-card-icon, icon-badge, icon-activity"/>
                 <Label text="Weekly Progress" styleClass="summary-card-title"/>
                 <Label fx:id="weeklyProgressLabel" text="0 / 0 workouts"
                        styleClass="summary-card-count"/>
@@ -70,7 +70,7 @@
             <!-- Card 2: Calories Burned This Week -->
             <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" spacing="8">
                 <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
-                <Label text="🔥" styleClass="summary-card-icon"/>
+                <Label text="🔥" styleClass="summary-card-icon, icon-badge, icon-burn"/>
                 <Label text="Calories Burned" styleClass="summary-card-title"/>
                 <Label fx:id="caloriesBurnedLabel" text="0 kcal"
                        styleClass="summary-card-count"/>
@@ -82,7 +82,7 @@
             <!-- Card 3: Active Days This Week -->
             <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" spacing="8">
                 <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
-                <Label text="📆" styleClass="summary-card-icon"/>
+                <Label text="📆" styleClass="summary-card-icon, icon-badge, icon-plan"/>
                 <Label text="Active Days" styleClass="summary-card-title"/>
                 <Label fx:id="activeDaysLabel" text="0 / 7 days"
                        styleClass="summary-card-count"/>
@@ -104,20 +104,21 @@
                 <HBox spacing="10" alignment="CENTER_LEFT" styleClass="dashboard-card">
                     <padding><Insets top="12" right="15" bottom="12" left="15"/></padding>
 
-                    <Label text="Filter:" styleClass="filter-label"/>
+                    <Label text="Filter:" styleClass="filter-label" minWidth="-Infinity"/>
 
                     <!-- Type filter combo -->
                     <ComboBox fx:id="typeFilterCombo" promptText="All Types"
-                              prefWidth="160"/>
+                              prefWidth="130" minWidth="120"/>
 
                     <!-- Status filter combo -->
                     <ComboBox fx:id="statusFilterCombo" promptText="All Status"
-                              prefWidth="160"/>
+                              prefWidth="130" minWidth="120"/>
 
                     <Region HBox.hgrow="ALWAYS"/>
 
                     <!-- Add Workout button -->
                     <Button text="➕ Add Workout" onAction="#handleAddWorkout"
+                            minWidth="-Infinity"
                             styleClass="action-btn, activity-add-workout-btn"/>
                 </HBox>
 
@@ -136,11 +137,13 @@
                     <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
                     <HBox alignment="CENTER_LEFT" spacing="8">
                         <Label text="🎯" styleClass="bmi-focus-icon"/>
-                        <Label text="BMI Fitness Focus" styleClass="section-title, bmi-focus-title" minWidth="-Infinity"/>
+                        <Label text="BMI Fitness Focus" styleClass="section-title, bmi-focus-title"
+                               wrapText="true" minWidth="0" minHeight="-Infinity" HBox.hgrow="ALWAYS"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <Label fx:id="bmiCategoryPill" text="Normal" styleClass="status-pill" minWidth="-Infinity"/>
                     </HBox>
                     <Label fx:id="bmiFitnessAdviceLabel" text="Loading personalized fitness plan..." wrapText="true"
+                           minHeight="-Infinity" maxWidth="Infinity"
                            styleClass="bmi-focus-desc"/>
                 </VBox>
 

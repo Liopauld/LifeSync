@@ -312,7 +312,8 @@ public class ActivityViewController {
         // Type icon circle
         String icon = getTypeIcon(activity.getType());
         Label iconLabel = new Label(icon);
-        iconLabel.getStyleClass().add("activity-item-icon");
+        iconLabel.getStyleClass().addAll("activity-item-icon", "icon-badge",
+                "icon-" + activity.getType().name().toLowerCase(java.util.Locale.ROOT));
 
         // Title + time subtitle
         VBox titleBox = new VBox(2);
@@ -320,6 +321,9 @@ public class ActivityViewController {
 
         Label titleLabel = new Label(activity.getTitle());
         titleLabel.getStyleClass().add("activity-item-title");
+        titleLabel.setWrapText(true);
+        titleLabel.setMinWidth(0);
+        titleLabel.setMinHeight(Region.USE_PREF_SIZE);
 
         String timeText = activity.getStartTime() + " - " + activity.getEndTime();
         if (activity.getDescription() != null && !activity.getDescription().isEmpty()) {
@@ -327,6 +331,8 @@ public class ActivityViewController {
         }
         Label subtitleLabel = new Label(timeText);
         subtitleLabel.getStyleClass().add("activity-item-subtitle");
+        subtitleLabel.setWrapText(true);
+        subtitleLabel.setMinHeight(Region.USE_PREF_SIZE);
 
         titleBox.getChildren().addAll(titleLabel, subtitleLabel);
 
@@ -340,7 +346,8 @@ public class ActivityViewController {
         }
 
         // Status pill
-        Label statusPill = new Label(activity.getStatus().name());
+        Label statusPill = new Label(activity.getStatus() == Activity.Status.COMPLETED
+                ? "✓ COMPLETED" : activity.getStatus().name());
         statusPill.getStyleClass().addAll("status-pill",
                 "status-" + activity.getStatus().name().toLowerCase());
 
@@ -377,6 +384,7 @@ public class ActivityViewController {
         deleteBtn.setOnAction(e -> {
             // Confirm before deleting
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            ThemeManager.applyTheme(confirm.getDialogPane());
             confirm.setTitle("Delete Activity");
             confirm.setHeaderText("Are you sure?");
             confirm.setContentText("Delete \"" + activity.getTitle() + "\"? This cannot be undone.");
@@ -508,7 +516,7 @@ public class ActivityViewController {
         startField.setPromptText("Start time (HH:mm)");
 
         TextField endField = new TextField("08:00");
-        endField.setPromptText("End time (HH:mm)");
+        endField.setPromptText("End time (HH:mm, up to 24:00)");
 
         TextField caloriesField = new TextField("0");
         caloriesField.setPromptText("Est. calories burned");
@@ -578,25 +586,33 @@ public class ActivityViewController {
         Optional<Activity> result = dialog.showAndWait();
         result.ifPresent(activity -> {
             // Check for scheduling conflicts
-            List<Activity> conflicts = ActivityService.findConflicts(
-                    currentUser.getId(),
-                    activity.getDate(),
-                    activity.getStartTime(),
-                    activity.getEndTime(),
-                    null // new activity, no ID to exclude
-            );
+            List<Activity> conflicts;
+            try {
+                conflicts = ActivityService.findConflicts(
+                        currentUser.getId(), activity.getDate(),
+                        activity.getStartTime(), activity.getEndTime(), null);
+            } catch (IllegalArgumentException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                ThemeManager.applyTheme(alert.getDialogPane());
+                alert.setTitle("Invalid activity time");
+                alert.setHeaderText(ex.getMessage());
+                alert.showAndWait();
+                return;
+            }
 
             if (!conflicts.isEmpty()) {
-                // Warn about conflicts but still allow adding
+                // Apply the same strict conflict rule as the calendar and meal planner.
                 String conflictNames = conflicts.stream()
                         .map(Activity::getTitle)
                         .collect(Collectors.joining(", "));
-                Alert warn = new Alert(Alert.AlertType.WARNING);
+                Alert warn = new Alert(Alert.AlertType.ERROR);
+                ThemeManager.applyTheme(warn.getDialogPane());
                 warn.setTitle("Schedule Conflict");
                 warn.setHeaderText("Time overlap detected");
                 warn.setContentText("This overlaps with: " + conflictNames
-                        + "\n\nThe activity will be added anyway.");
+                        + "\n\nChoose a non-overlapping time before adding this activity.");
                 warn.showAndWait();
+                return;
             }
 
             ActivityService.addActivity(activity);

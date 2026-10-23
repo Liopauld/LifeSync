@@ -42,19 +42,19 @@
         <HBox spacing="15">
             <VBox styleClass="summary-card" prefWidth="180">
                 <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-                <Label text="📦" styleClass="summary-card-icon"/>
+                <Label text="📦" styleClass="summary-card-icon, icon-badge, icon-pantry"/>
                 <Label text="Total Items" styleClass="summary-card-title"/>
                 <Label fx:id="totalItemsLabel" text="0" styleClass="summary-card-count"/>
             </VBox>
             <VBox styleClass="summary-card" prefWidth="180">
                 <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-                <Label text="⚠️" styleClass="summary-card-icon"/>
+                <Label text="⚠️" styleClass="summary-card-icon, icon-badge, icon-burn"/>
                 <Label text="Low Stock" styleClass="summary-card-title"/>
                 <Label fx:id="lowStockLabel" text="0" styleClass="summary-card-count, summary-card-count-danger"/>
             </VBox>
             <VBox styleClass="summary-card" prefWidth="180">
                 <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-                <Label text="📂" styleClass="summary-card-icon"/>
+                <Label text="📂" styleClass="summary-card-icon, icon-badge, icon-plan"/>
                 <Label text="Categories" styleClass="summary-card-title"/>
                 <Label fx:id="categoriesLabel" text="0" styleClass="summary-card-count"/>
             </VBox>

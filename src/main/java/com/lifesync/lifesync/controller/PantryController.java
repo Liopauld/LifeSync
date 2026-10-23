@@ -239,30 +239,43 @@ public class PantryController {
         ButtonType saveBtn = new ButtonType(isNew ? "Add" : "Save", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveBtn, ButtonType.CANCEL);
 
+        // Validate before closing so a typo never discards the user's ingredient form.
+        dialog.getDialogPane().lookupButton(saveBtn).addEventFilter(javafx.event.ActionEvent.ACTION, event -> {
+            try {
+                PantryItem proposed = new PantryItem(currentUser.getId(), nameField.getText().trim(),
+                        categoryCombo.getEditor().getText().trim(), unitCombo.getEditor().getText().trim(),
+                        Double.parseDouble(qtyField.getText().trim()));
+                proposed.setLowThreshold(Double.parseDouble(thresholdField.getText().trim()));
+                PantryService.validateItem(proposed);
+            } catch (IllegalArgumentException ex) {
+                dialog.setHeaderText(ex instanceof NumberFormatException
+                        ? "Enter numeric quantities and thresholds, for example 2 or 0.5."
+                        : ex.getMessage());
+                event.consume();
+            }
+        });
+
         dialog.setResultConverter(btn -> {
             if (btn == saveBtn) {
                 String name = nameField.getText().trim();
                 if (name.isEmpty()) return null;
 
-                double qty;
-                try { qty = Double.parseDouble(qtyField.getText().trim()); }
-                catch (NumberFormatException e) { qty = 0; }
-
-                double threshold;
-                try { threshold = Double.parseDouble(thresholdField.getText().trim()); }
-                catch (NumberFormatException e) { threshold = 1; }
+                double qty = Double.parseDouble(qtyField.getText().trim());
+                double threshold = Double.parseDouble(thresholdField.getText().trim());
+                String category = categoryCombo.getEditor().getText().trim();
+                String unit = unitCombo.getEditor().getText().trim();
 
                 if (isNew) {
                     PantryItem newItem = new PantryItem(
                             currentUser.getId(), name,
-                            categoryCombo.getValue(), unitCombo.getValue(), qty);
+                            category, unit, qty);
                     newItem.setLowThreshold(threshold);
                     return newItem;
                 } else {
                     item.setName(name);
-                    item.setCategory(categoryCombo.getValue());
+                    item.setCategory(category);
                     item.setQuantity(qty);
-                    item.setUnit(unitCombo.getValue());
+                    item.setUnit(unit);
                     item.setLowThreshold(threshold);
                     return item;
                 }

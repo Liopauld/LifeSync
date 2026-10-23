@@ -113,7 +113,7 @@ public class SignUpController {
         double heightCm;
         try {
             heightCm = Double.parseDouble(heightField.getText().trim());
-            if (heightCm < 60 || heightCm > 260) {
+            if (!Double.isFinite(heightCm) || heightCm < 60 || heightCm > 260) {
                 showError("Height must be between 60 cm and 260 cm.");
                 return;
             }
@@ -125,7 +125,7 @@ public class SignUpController {
         double weightKg;
         try {
             weightKg = Double.parseDouble(weightField.getText().trim());
-            if (weightKg < 20 || weightKg > 350) {
+            if (!Double.isFinite(weightKg) || weightKg < 20 || weightKg > 350) {
                 showError("Weight must be between 20 kg and 350 kg.");
                 return;
             }
@@ -189,7 +189,19 @@ public class SignUpController {
 
             alert.setContentText(content);
             alert.getDialogPane().setPrefWidth(480);
+            com.lifesync.lifesync.service.ThemeManager.applyTheme(alert.getDialogPane());
             alert.showAndWait();
+
+            // Issue a recovery secret only after verifying the newly created credentials.
+            try {
+                AccountRecoveryDialogs.showCode(AuthService.issueRecoveryCode(username, password));
+            } catch (RuntimeException e) {
+                Alert recoveryError = new Alert(Alert.AlertType.ERROR,
+                        "Your account was created, but a recovery code could not be saved. "
+                                + "Sign in and generate one from My Profile.");
+                com.lifesync.lifesync.service.ThemeManager.applyTheme(recoveryError.getDialogPane());
+                recoveryError.showAndWait();
+            }
 
             // Redirect to login
             SceneManager.showLogin();

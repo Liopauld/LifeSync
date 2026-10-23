@@ -22,6 +22,13 @@ import java.util.stream.Collectors;
  */
 public class NutritionService {
 
+    /** Column indices for the daily food-entry by nutrient matrix. */
+    public static final int CALORIES_COLUMN = 0;
+    public static final int PROTEIN_COLUMN = 1;
+    public static final int CARBS_COLUMN = 2;
+    public static final int FAT_COLUMN = 3;
+    public static final int NUTRIENT_COLUMNS = 4;
+
     /** JSON file for nutrition entry persistence. */
     private static final String NUTRITION_FILE = "nutrition.json";
 
@@ -105,6 +112,25 @@ public class NutritionService {
         return getEntriesForDate(userId, date).stream()
                 .mapToDouble(NutritionEntry::getFatG)
                 .sum();
+    }
+
+    /**
+     * Returns a two-dimensional snapshot of the day's nutrition records.
+     * Each row is one logged food entry in persistence order. Columns contain
+     * calories (kcal), protein (g), carbohydrates (g), and fat (g), respectively.
+     * One file read supplies all four dashboard metrics; callers own the returned array.
+     */
+    public static double[][] getDailyNutritionMatrix(String userId, String date) {
+        List<NutritionEntry> entries = getEntriesForDate(userId, date);
+        double[][] matrix = new double[entries.size()][NUTRIENT_COLUMNS];
+        for (int row = 0; row < entries.size(); row++) {
+            NutritionEntry entry = entries.get(row);
+            matrix[row][CALORIES_COLUMN] = entry.getCalories();
+            matrix[row][PROTEIN_COLUMN] = entry.getProteinG();
+            matrix[row][CARBS_COLUMN] = entry.getCarbsG();
+            matrix[row][FAT_COLUMN] = entry.getFatG();
+        }
+        return matrix;
     }
 
     /**

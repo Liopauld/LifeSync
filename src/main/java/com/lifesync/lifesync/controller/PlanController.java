@@ -1,6 +1,7 @@
 package com.lifesync.lifesync.controller;
 
 import com.lifesync.lifesync.model.Activity;
+import com.lifesync.lifesync.model.ActivityTime;
 import com.lifesync.lifesync.model.User;
 import com.lifesync.lifesync.service.ActivityService;
 import com.lifesync.lifesync.service.AuthService;
@@ -173,10 +174,6 @@ public class PlanController {
         weekToggle.setToggleGroup(viewGroup);
         monthToggle.setToggleGroup(viewGroup);
         dayToggle.setSelected(true);
-
-        if (toggle24Hour != null && LocalTime.now().getHour() >= 21) {
-            toggle24Hour.setSelected(true);
-        }
 
         // Listener for view mode toggles
         viewGroup.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
@@ -639,17 +636,23 @@ public class PlanController {
                     timeLabel.setMinWidth(95);
 
                     Label iconLabel = new Label(getTypeIcon(a.getType()));
-                    iconLabel.getStyleClass().add("card-icon");
+                    iconLabel.getStyleClass().addAll("card-icon", "icon-badge",
+                            "icon-" + a.getType().name().toLowerCase(java.util.Locale.ROOT));
+                    iconLabel.setMinWidth(Region.USE_PREF_SIZE);
 
                     Label actTitle = new Label(a.getTitle());
                     actTitle.getStyleClass().add("upcoming-title");
+                    actTitle.setWrapText(true);
+                    actTitle.setMinWidth(0);
+                    actTitle.setMinHeight(Region.USE_PREF_SIZE);
 
                     Region rSpacer = new Region();
                     HBox.setHgrow(rSpacer, Priority.ALWAYS);
 
                     Label statusPill = new Label(a.getStatus().name());
                     statusPill.getStyleClass().addAll("status-pill",
-                            a.getStatus() == Activity.Status.COMPLETED ? "status-completed" : "status-upcoming");
+                            "status-" + a.getStatus().name().toLowerCase(java.util.Locale.ROOT));
+                    statusPill.setMinWidth(Region.USE_PREF_SIZE);
 
                     row.getChildren().addAll(timeLabel, iconLabel, actTitle, rSpacer, statusPill);
                     eventsBox.getChildren().add(row);
@@ -710,7 +713,7 @@ public class PlanController {
             cell.setMinHeight(75);
             cell.setPrefHeight(85);
             cell.setPadding(new Insets(6));
-            cell.getStyleClass().add("dashboard-card");
+            cell.getStyleClass().addAll("dashboard-card", "calendar-month-cell");
             cell.setStyle("-fx-cursor: hand; -fx-background-radius: 8; -fx-border-radius: 8;");
 
             if (thisDate.equals(selectedDate)) {
@@ -719,10 +722,11 @@ public class PlanController {
                 cell.setStyle("-fx-cursor: hand; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #7C6FE4; -fx-border-width: 1.5;");
             }
 
-            HBox top = new HBox(4);
+            HBox top = new HBox(1);
             top.setAlignment(Pos.CENTER_LEFT);
             Label numLabel = new Label(String.valueOf(day));
             numLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 12px;");
+            numLabel.setMinWidth(Region.USE_PREF_SIZE);
 
             Region sp = new Region();
             HBox.setHgrow(sp, Priority.ALWAYS);
@@ -730,8 +734,11 @@ public class PlanController {
             top.getChildren().addAll(numLabel, sp);
 
             if (!dayActs.isEmpty()) {
-                Label badge = new Label(String.valueOf(dayActs.size()));
-                badge.setStyle("-fx-background-color: #F5A623; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 1 5;");
+                Label badge = new Label(dayActs.size() > 9 ? "9+" : String.valueOf(dayActs.size()));
+                badge.getStyleClass().add("calendar-event-count");
+                badge.setMinWidth(Region.USE_PREF_SIZE);
+                badge.setTooltip(new Tooltip(dayActs.size() + " scheduled activities"));
+                badge.setAccessibleText(dayActs.size() + " scheduled activities");
                 top.getChildren().add(badge);
             }
             cell.getChildren().add(top);
@@ -739,13 +746,17 @@ public class PlanController {
             for (int aIdx = 0; aIdx < Math.min(dayActs.size(), 2); aIdx++) {
                 Activity act = dayActs.get(aIdx);
                 Label actLabel = new Label(getTypeIcon(act.getType()) + " " + act.getTitle());
+                actLabel.getStyleClass().add("calendar-event-preview");
                 actLabel.setStyle("-fx-font-size: 10px; -fx-text-overrun: ellipsis;");
+                actLabel.setTooltip(new Tooltip(act.getTitle() + "\n" + act.getStartTime() + " - " + act.getEndTime()));
                 actLabel.setMaxWidth(Double.MAX_VALUE);
                 cell.getChildren().add(actLabel);
             }
             if (dayActs.size() > 2) {
-                Label more = new Label("+" + (dayActs.size() - 2) + " more");
+                Label more = new Label("+" + (dayActs.size() - 2));
                 more.getStyleClass().add("muted-text");
+                more.setTooltip(new Tooltip((dayActs.size() - 2) + " more activities. Open this day to view them."));
+                more.setAccessibleText((dayActs.size() - 2) + " more activities");
                 more.setStyle("-fx-font-size: 9px;");
                 cell.getChildren().add(more);
             }
@@ -799,30 +810,40 @@ public class PlanController {
         // Type icon (emoji)
         String icon = getTypeIcon(activity.getType());
         Label iconLabel = new Label(icon);
-        iconLabel.getStyleClass().add("card-icon");
+        iconLabel.getStyleClass().addAll("card-icon", "icon-badge",
+                "icon-" + activity.getType().name().toLowerCase(java.util.Locale.ROOT));
+        iconLabel.setMinWidth(Region.USE_PREF_SIZE);
 
         // Title
         Label titleLabel = new Label(activity.getTitle());
         titleLabel.getStyleClass().add("card-title");
+        titleLabel.setWrapText(true);
+        titleLabel.setMinWidth(0);
+        titleLabel.setMinHeight(Region.USE_PREF_SIZE);
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // Duration Badge
         int sh = getHour(activity.getStartTime());
-        int eh = getHour(activity.getEndTime());
-        int durationHrs = Math.max(1, eh - sh);
-        Label durationBadge = new Label("⏱ " + durationHrs + "h (" + activity.getStartTime() + " - " + activity.getEndTime() + ")");
+        ActivityTime time = ActivityTime.parse(activity.getStartTime(), activity.getEndTime());
+        int minutes = time.endMinutes() - time.startMinutes();
+        String duration = minutes < 60 ? minutes + " min"
+                : minutes / 60 + "h" + (minutes % 60 == 0 ? "" : " " + minutes % 60 + "m");
+        Label durationBadge = new Label("⏱ " + duration);
         durationBadge.getStyleClass().add("category-tag");
+        durationBadge.setMinWidth(Region.USE_PREF_SIZE);
 
         // Status pill (COMPLETED / UPCOMING / etc.)
-        Label statusPill = new Label(activity.getStatus().name());
+        Label statusPill = new Label(activity.getStatus() == Activity.Status.COMPLETED
+                ? "✓ COMPLETED" : activity.getStatus().name());
         statusPill.getStyleClass().addAll("status-pill",
-                activity.getStatus() == Activity.Status.COMPLETED
-                        ? "status-completed" : "status-upcoming");
+                "status-" + activity.getStatus().name().toLowerCase(java.util.Locale.ROOT));
+        statusPill.setMinWidth(Region.USE_PREF_SIZE);
 
         Button addSubBtn = new Button("➕ Sub-plan");
         addSubBtn.setStyle("-fx-font-size: 11px; -fx-padding: 2 6; -fx-cursor: hand;");
+        addSubBtn.setMinWidth(Region.USE_PREF_SIZE);
         addSubBtn.setOnAction(e -> showAddEventDialog(sh, activity));
 
         header.getChildren().addAll(iconLabel, titleLabel, spacer, durationBadge, statusPill, addSubBtn);
@@ -1009,13 +1030,15 @@ public class PlanController {
         TextField startField = new TextField(String.format("%02d:00", hour));
         startField.setPromptText("Start time (HH:mm)");
 
-        int defaultEndHour = hour + 1;
+        int defaultEndMinutes = (hour + 1) * 60;
         if (parentActivity != null) {
-            int pEnd = getHour(parentActivity.getEndTime());
-            if (defaultEndHour > pEnd) defaultEndHour = pEnd;
+            int parentEndMinutes = ActivityTime.parse(parentActivity.getStartTime(),
+                    parentActivity.getEndTime()).endMinutes();
+            defaultEndMinutes = Math.min(defaultEndMinutes, parentEndMinutes);
         }
-        TextField endField = new TextField(String.format("%02d:00", defaultEndHour));
-        endField.setPromptText("End time (HH:mm)");
+        TextField endField = new TextField(String.format("%02d:%02d",
+                defaultEndMinutes / 60, defaultEndMinutes % 60));
+        endField.setPromptText("End time (HH:mm, up to 24:00)");
 
         // ── Layout ────────────────────────────────────────────────
         GridPane grid = new GridPane();
@@ -1031,7 +1054,7 @@ public class PlanController {
         grid.add(typeCombo, 1, 2);
         grid.add(new Label("Start Time:"), 0, 3);
         grid.add(startField, 1, 3);
-        grid.add(new Label("End Time:"), 0, 4);
+        grid.add(new Label("End Time (up to 24:00):"), 0, 4);
         grid.add(endField, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
@@ -1060,45 +1083,7 @@ public class PlanController {
 
         Optional<Activity> result = dialog.showAndWait();
         result.ifPresent(activity -> {
-            try {
-                LocalTime st = LocalTime.parse(activity.getStartTime());
-                LocalTime et = LocalTime.parse(activity.getEndTime());
-                if (!st.isBefore(et)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Time Range");
-                    alert.setHeaderText("End time must be after start time.");
-                    alert.setContentText("Please provide a valid time range where start time is before end time.");
-                    alert.showAndWait();
-                    return;
-                }
-
-                // If this is a sub-schedule, enforce bounds within parent activity
-                if (parentActivity != null) {
-                    LocalTime pStart = LocalTime.parse(parentActivity.getStartTime());
-                    LocalTime pEnd = LocalTime.parse(parentActivity.getEndTime());
-                    if (st.isBefore(pStart) || et.isAfter(pEnd)) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Sub-schedule Out of Bounds");
-                        alert.setHeaderText("Sub-schedule must fall within " + parentActivity.getTitle()
-                                + " (" + parentActivity.getStartTime() + " - " + parentActivity.getEndTime() + ").");
-                        alert.showAndWait();
-                        return;
-                    }
-                } else {
-                    // Top-level activity: if outside standard 6am-9pm, automatically enable 24h mode
-                    if (st.getHour() < 6 || et.getHour() > 21 || (et.getHour() == 21 && et.getMinute() > 0)) {
-                        if (toggle24Hour != null) {
-                            toggle24Hour.setSelected(true);
-                        }
-                    }
-                }
-            } catch (Exception ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Invalid Time Format");
-                alert.setHeaderText("Please enter times in HH:mm format (e.g. 08:00, 14:30).");
-                alert.showAndWait();
-                return;
-            }
+            if (!validateEventTime(activity, parentActivity)) return;
 
             // Check for scheduling conflicts (sub-schedules do NOT conflict with parent)
             String parentId = parentActivity != null ? parentActivity.getId() : null;
@@ -1108,6 +1093,7 @@ public class PlanController {
 
             if (!conflicts.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                ThemeManager.applyTheme(alert.getDialogPane());
                 alert.setTitle("Schedule Conflict Detected");
                 alert.setHeaderText("Cannot schedule overlapping activities:");
                 StringBuilder conflictList = new StringBuilder();
@@ -1124,6 +1110,29 @@ public class PlanController {
             ActivityService.addActivity(activity);
             refreshAll();
         });
+    }
+
+    /** Validates same-day time ranges, including midnight and parent bounds. */
+    private boolean validateEventTime(Activity activity, Activity parent) {
+        try {
+            ActivityTime time = ActivityTime.parse(activity.getStartTime(), activity.getEndTime());
+            if (parent != null && !ActivityTime.parse(parent.getStartTime(), parent.getEndTime()).contains(time)) {
+                throw new IllegalArgumentException("Sub-schedule must fall within " + parent.getTitle()
+                        + " (" + parent.getStartTime() + " - " + parent.getEndTime() + ").");
+            }
+            return true;
+        } catch (IllegalArgumentException ex) {
+            showTimeError(ex.getMessage());
+            return false;
+        }
+    }
+
+    private void showTimeError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        ThemeManager.applyTheme(alert.getDialogPane());
+        alert.setTitle("Invalid activity time");
+        alert.setHeaderText(message);
+        alert.showAndWait();
     }
 
     /**
@@ -1165,7 +1174,7 @@ public class PlanController {
         grid.add(typeCombo, 1, 2);
         grid.add(new Label("Start Time:"), 0, 3);
         grid.add(startField, 1, 3);
-        grid.add(new Label("End Time:"), 0, 4);
+        grid.add(new Label("End Time (up to 24:00):"), 0, 4);
         grid.add(endField, 1, 4);
 
         dialog.getDialogPane().setContent(grid);
@@ -1176,58 +1185,46 @@ public class PlanController {
         dialog.getDialogPane().getButtonTypes().addAll(
                 saveButton, deleteButton, ButtonType.CANCEL);
 
-        // Convert result: update the activity or return a delete sentinel
+        // Keep the chosen action separate from user-entered activity titles.
+        boolean[] deleteRequested = {false};
         dialog.setResultConverter(btn -> {
             if (btn == saveButton) {
-                activity.setTitle(titleField.getText().trim());
-                activity.setDescription(descField.getText().trim());
-                activity.setType(typeCombo.getValue());
-                activity.setStartTime(startField.getText().trim());
-                activity.setEndTime(endField.getText().trim());
-                return activity;
+                // Validate a copy so rejected edits cannot mutate the displayed activity.
+                Activity updated = new Activity(activity.getUserId(), titleField.getText().trim(),
+                        typeCombo.getValue(), activity.getDate(),
+                        startField.getText().trim(), endField.getText().trim());
+                updated.setId(activity.getId());
+                updated.setDescription(descField.getText().trim());
+                updated.setParentId(activity.getParentId());
+                updated.setStatus(activity.getStatus());
+                updated.setCaloriesBurned(activity.getCaloriesBurned());
+                return updated;
             } else if (btn == deleteButton) {
-                // Return a sentinel object whose title is "DELETE"
-                Activity sentinel = new Activity();
-                sentinel.setId(activity.getId());
-                sentinel.setTitle("DELETE");
-                return sentinel;
+                deleteRequested[0] = true;
+                return activity;
             }
             return null;
         });
 
         Optional<Activity> result = dialog.showAndWait();
         result.ifPresent(updated -> {
-            // Handle delete sentinel
-            if ("DELETE".equals(updated.getTitle())
-                    && updated.getId().equals(activity.getId())) {
+            if (deleteRequested[0]) {
                 ActivityService.deleteActivity(activity.getId());
             } else {
-                try {
-                    LocalTime st = LocalTime.parse(updated.getStartTime());
-                    LocalTime et = LocalTime.parse(updated.getEndTime());
-                    if (!st.isBefore(et)) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Invalid Time Range");
-                        alert.setHeaderText("End time must be after start time.");
-                        alert.showAndWait();
-                        return;
-                    }
-                } catch (Exception ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Time Format");
-                    alert.setHeaderText("Please enter times in HH:mm format.");
-                    alert.showAndWait();
-                    return;
-                }
+                Activity parent = updated.getParentId() == null ? null
+                        : ActivityService.getAllActivities(currentUser.getId()).stream()
+                                .filter(a -> a.getId().equals(updated.getParentId())).findFirst().orElse(null);
+                if (!validateEventTime(updated, parent)) return;
 
                 // Check for conflicts (excluding self) - STRICT BLOCKING
                 List<Activity> conflicts = ActivityService.findConflicts(
-                        currentUser.getId(), selectedDate.toString(),
+                        currentUser.getId(), updated.getDate(),
                         updated.getStartTime(), updated.getEndTime(),
-                        updated.getId());
+                        updated.getId(), updated.getParentId());
 
                 if (!conflicts.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
+                    ThemeManager.applyTheme(alert.getDialogPane());
                     alert.setTitle("Schedule Conflict Detected");
                     alert.setHeaderText("This change conflicts with existing activities:");
                     StringBuilder conflictList = new StringBuilder();
@@ -1254,12 +1251,8 @@ public class PlanController {
     @FXML
     private void handleAddEvent() {
         int currentHour = LocalTime.now().getHour();
-        boolean isPast9pm = selectedDate.equals(LocalDate.now()) && LocalTime.now().getHour() >= 21;
-        if (!isPast9pm) {
-            if (currentHour < 6) currentHour = 6;
-            if (currentHour > 20) currentHour = 20;
-        } else {
-            if (currentHour > 23) currentHour = 23;
+        if (toggle24Hour != null && !toggle24Hour.isSelected()) {
+            currentHour = Math.max(6, Math.min(20, currentHour));
         }
         showAddEventDialog(currentHour);
     }
@@ -1289,6 +1282,7 @@ public class PlanController {
 
         if (allUpcoming.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            ThemeManager.applyTheme(alert.getDialogPane());
             alert.setTitle("Reschedule Event");
             alert.setHeaderText("No Upcoming Activities");
             alert.setContentText("You don't have any upcoming activities to reschedule. Add a new activity first!");
@@ -1375,24 +1369,9 @@ public class PlanController {
                 String newEnd = newEndField.getText().trim();
 
                 try {
-                    LocalTime st = LocalTime.parse(newStart);
-                    LocalTime et = LocalTime.parse(newEnd);
-                    if (!st.isBefore(et)) {
-                        Platform.runLater(() -> {
-                            Alert a = new Alert(Alert.AlertType.ERROR);
-                            a.setTitle("Invalid Time Range");
-                            a.setHeaderText("End time must be after start time.");
-                            a.showAndWait();
-                        });
-                        return null;
-                    }
-                } catch (Exception ex) {
-                    Platform.runLater(() -> {
-                        Alert a = new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("Invalid Time Format");
-                        a.setHeaderText("Times must be in HH:mm format (e.g. 09:00, 15:30).");
-                        a.showAndWait();
-                    });
+                    ActivityTime.parse(newStart, newEnd);
+                } catch (IllegalArgumentException ex) {
+                    Platform.runLater(() -> showTimeError(ex.getMessage()));
                     return null;
                 }
 
@@ -1402,6 +1381,7 @@ public class PlanController {
                 if (!conflicts.isEmpty()) {
                     Platform.runLater(() -> {
                         Alert a = new Alert(Alert.AlertType.ERROR);
+                        ThemeManager.applyTheme(a.getDialogPane());
                         a.setTitle("Schedule Conflict Detected");
                         a.setHeaderText("Cannot reschedule to an overlapping time slot:");
                         StringBuilder sb = new StringBuilder();
@@ -1431,6 +1411,7 @@ public class PlanController {
             refreshAll();
 
             Alert success = new Alert(Alert.AlertType.INFORMATION);
+            ThemeManager.applyTheme(success.getDialogPane());
             success.setTitle("Rescheduled");
             success.setHeaderText("Activity Successfully Rescheduled");
             success.setContentText("\"" + updated.getTitle() + "\" was rescheduled to " + updated.getDate() + " (" + updated.getStartTime() + " - " + updated.getEndTime() + ").");
@@ -1462,14 +1443,13 @@ public class PlanController {
                 Activity b = activities.get(j);
                 if (b.getStatus() == Activity.Status.CANCELLED) continue;
 
-                // Parse times and check for overlap
-                LocalTime aStart = LocalTime.parse(a.getStartTime());
-                LocalTime aEnd   = LocalTime.parse(a.getEndTime());
-                LocalTime bStart = LocalTime.parse(b.getStartTime());
-                LocalTime bEnd   = LocalTime.parse(b.getEndTime());
+                // Parent blocks and their sub-schedules occupy separate scheduling levels.
+                if (!java.util.Objects.equals(a.getParentId(), b.getParentId())) continue;
 
-                // Two intervals overlap if each starts before the other ends
-                if (aStart.isBefore(bEnd) && bStart.isBefore(aEnd)) {
+                // Parse times and check for overlap, preserving the 24:00 end boundary.
+                ActivityTime aTime = ActivityTime.parse(a.getStartTime(), a.getEndTime());
+                ActivityTime bTime = ActivityTime.parse(b.getStartTime(), b.getEndTime());
+                if (aTime.overlaps(bTime)) {
                     conflictCount++;
                     conflicts.append("• \"").append(a.getTitle()).append("\" (")
                             .append(a.getStartTime()).append("-").append(a.getEndTime())
@@ -1483,6 +1463,7 @@ public class PlanController {
         // Show result alert
         Alert alert = new Alert(conflictCount > 0
                 ? Alert.AlertType.WARNING : Alert.AlertType.INFORMATION);
+        ThemeManager.applyTheme(alert.getDialogPane());
         alert.setTitle("Conflict Check");
         alert.setHeaderText(conflictCount > 0
                 ? conflictCount + " conflict(s) found!"

@@ -47,7 +47,7 @@ public class Activity {
     private ActivityType type;   // Category of the activity
     private String date;         // ISO date string (yyyy-MM-dd)
     private String startTime;    // Start time string (HH:mm), e.g. "07:00"
-    private String endTime;      // End time string (HH:mm), e.g. "08:00"
+    private String endTime;      // End time string (HH:mm), including "24:00" for end of day
     private Status status;       // Current lifecycle status
     private int caloriesBurned;  // Estimated calories burned (for workouts)
     private String parentId;     // Optional parent activity ID for nested sub-schedules

@@ -42,7 +42,7 @@
                        text="☀ Good morning, User!"
                        styleClass="greeting-heading"/>
                 <Label text="Healthy choices today, a better you tomorrow. 🧡"
-                       styleClass="greeting-subtitle"/>
+                       styleClass="greeting-subtitle, mascot-note"/>
             </VBox>
             <ImageView fitHeight="76" fitWidth="76" preserveRatio="true">
                 <image>
@@ -61,7 +61,7 @@
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
-                <Label text="📋" styleClass="card-icon"/>
+                <Label text="📋" styleClass="card-icon, icon-badge, icon-plan"/>
                 <Label text="Today's Plan" styleClass="card-title"/>
                 <Label fx:id="planCountLabel" text="0 / 0 tasks" styleClass="card-count"/>
                 <ProgressBar fx:id="planProgressBar" progress="0" maxWidth="Infinity"
@@ -73,7 +73,7 @@
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
-                <Label text="🍽️" styleClass="card-icon"/>
+                <Label text="🍽️" styleClass="card-icon, icon-badge, icon-meal"/>
                 <Label text="Meals" styleClass="card-title"/>
                 <Label fx:id="mealsCountLabel" text="0 / 3 meals" styleClass="card-count"/>
                 <ProgressBar fx:id="mealsProgressBar" progress="0" maxWidth="Infinity"
@@ -85,7 +85,7 @@
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
-                <Label text="💪" styleClass="card-icon"/>
+                <Label text="💪" styleClass="card-icon, icon-badge, icon-activity"/>
                 <Label text="Activity" styleClass="card-title"/>
                 <Label fx:id="activityCountLabel" text="0 / 0 activities" styleClass="card-count"/>
                 <ProgressBar fx:id="activityProgressBar" progress="0" maxWidth="Infinity"
@@ -97,7 +97,7 @@
                 <padding>
                     <Insets top="20" right="20" bottom="20" left="20"/>
                 </padding>
-                <Label text="📦" styleClass="card-icon"/>
+                <Label text="📦" styleClass="card-icon, icon-badge, icon-pantry"/>
                 <Label text="Pantry" styleClass="card-title"/>
                 <Label fx:id="pantryCountLabel" text="0 items low" styleClass="card-count"/>
                 <ProgressBar fx:id="pantryProgressBar" progress="1.0" maxWidth="Infinity"
@@ -156,7 +156,7 @@
                         <VBox alignment="CENTER" spacing="2">
                             <Label fx:id="calorieCountLabel" text="0"
                                    styleClass="calorie-count"/>
-                            <Label text="kcal" styleClass="calorie-unit"/>
+                            <Label text="🔥 kcal" styleClass="calorie-unit"/>
                             <Label fx:id="calorieTargetLabel" text="of 2,000"
                                    styleClass="muted-text"/>
                         </VBox>
@@ -174,12 +174,12 @@
                         <!-- Protein -->
                         <VBox spacing="4">
                             <HBox alignment="CENTER_LEFT">
-                                <Label text="Protein" styleClass="macro-label"/>
+                                <Label text="• Protein" styleClass="macro-label, macro-protein"/>
                                 <Region HBox.hgrow="ALWAYS"/>
                                 <Label fx:id="proteinGramsLabel" text="0 g"
-                                       styleClass="macro-value"/>
+                                       styleClass="macro-value, macro-protein"/>
                                 <Label fx:id="proteinPercentLabel" text="0%"
-                                       styleClass="macro-percent">
+                                       styleClass="macro-percent, macro-protein">
                                     <HBox.margin>
                                         <Insets left="8"/>
                                     </HBox.margin>
@@ -192,12 +192,12 @@
                         <!-- Carbs -->
                         <VBox spacing="4">
                             <HBox alignment="CENTER_LEFT">
-                                <Label text="Carbs" styleClass="macro-label"/>
+                                <Label text="• Carbs" styleClass="macro-label, macro-carbs"/>
                                 <Region HBox.hgrow="ALWAYS"/>
                                 <Label fx:id="carbsGramsLabel" text="0 g"
-                                       styleClass="macro-value"/>
+                                       styleClass="macro-value, macro-carbs"/>
                                 <Label fx:id="carbsPercentLabel" text="0%"
-                                       styleClass="macro-percent">
+                                       styleClass="macro-percent, macro-carbs">
                                     <HBox.margin>
                                         <Insets left="8"/>
                                     </HBox.margin>
@@ -210,12 +210,12 @@
                         <!-- Fats -->
                         <VBox spacing="4">
                             <HBox alignment="CENTER_LEFT">
-                                <Label text="Fats" styleClass="macro-label"/>
+                                <Label text="• Fats" styleClass="macro-label, macro-fat"/>
                                 <Region HBox.hgrow="ALWAYS"/>
                                 <Label fx:id="fatGramsLabel" text="0 g"
-                                       styleClass="macro-value"/>
+                                       styleClass="macro-value, macro-fat"/>
                                 <Label fx:id="fatPercentLabel" text="0%"
-                                       styleClass="macro-percent">
+                                       styleClass="macro-percent, macro-fat">
                                     <HBox.margin>
                                         <Insets left="8"/>
                                     </HBox.margin>

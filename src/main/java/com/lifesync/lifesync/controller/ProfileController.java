@@ -204,7 +204,7 @@ public class ProfileController {
             String heightText = heightField.getText().trim();
             if (!heightText.isEmpty()) {
                 height = Double.parseDouble(heightText);
-                if (height < 30 || height > 300) {
+                if (!Double.isFinite(height) || height < 30 || height > 300) {
                     showStatus("❌ Height must be between 30 and 300 cm.", true);
                     return;
                 }
@@ -218,7 +218,7 @@ public class ProfileController {
             String weightText = weightField.getText().trim();
             if (!weightText.isEmpty()) {
                 weight = Double.parseDouble(weightText);
-                if (weight < 10 || weight > 500) {
+                if (!Double.isFinite(weight) || weight < 10 || weight > 500) {
                     showStatus("❌ Weight must be between 10 and 500 kg.", true);
                     return;
                 }
@@ -262,6 +262,12 @@ public class ProfileController {
 
     // ── Logout ─────────────────────────────────────────────────────────
 
+    /** Verifies the current password before replacing the account's recovery code. */
+    @FXML
+    private void handleRecoveryCode() {
+        if (currentUser != null) AccountRecoveryDialogs.showGenerateCode(currentUser.getUsername());
+    }
+
     /**
      * Handles the Logout button click.
      * Clears the current session and navigates to the login screen.
@@ -273,6 +279,7 @@ public class ProfileController {
         confirm.setTitle("Log Out");
         confirm.setHeaderText("Are you sure you want to log out?");
         confirm.setContentText("Any unsaved changes will be lost.");
+        com.lifesync.lifesync.service.ThemeManager.applyTheme(confirm.getDialogPane());
 
         confirm.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {

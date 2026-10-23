@@ -259,16 +259,20 @@ public class HomeController {
         // Activity title
         Label titleLabel = new Label(activity.getTitle());
         titleLabel.getStyleClass().add("activity-title");
+        titleLabel.setWrapText(true);
+        titleLabel.setMinWidth(0);
+        titleLabel.setMinHeight(Region.USE_PREF_SIZE);
 
         // Spacer pushes status pill to the right
         Region spacer = new Region();
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
 
         // Status pill badge
-        Label statusPill = new Label(activity.getStatus().name());
+        Label statusPill = new Label(activity.getStatus() == Activity.Status.COMPLETED
+                ? "✓ COMPLETED" : activity.getStatus().name());
         statusPill.getStyleClass().addAll("status-pill",
-                activity.getStatus() == Activity.Status.COMPLETED
-                        ? "status-completed" : "status-upcoming");
+                "status-" + activity.getStatus().name().toLowerCase(java.util.Locale.ROOT));
+        statusPill.setMinWidth(Region.USE_PREF_SIZE);
 
         row.getChildren().addAll(timeLabel, statusDot, titleLabel, spacer, statusPill);
         return row;
@@ -282,11 +286,18 @@ public class HomeController {
         if (currentUser == null) return;
         String userId = currentUser.getId();
 
-        // Fetch today's totals from the nutrition service
-        double totalCal = NutritionService.getTotalCalories(userId, today);
-        double totalProtein = NutritionService.getTotalProtein(userId, today);
-        double totalCarbs = NutritionService.getTotalCarbs(userId, today);
-        double totalFat = NutritionService.getTotalFat(userId, today);
+        // Aggregate the entry-by-nutrient matrix from a single consistent file snapshot.
+        double[][] nutrition = NutritionService.getDailyNutritionMatrix(userId, today);
+        double[] totals = new double[NutritionService.NUTRIENT_COLUMNS];
+        for (double[] entry : nutrition) {
+            for (int column = 0; column < totals.length; column++) {
+                totals[column] += entry[column];
+            }
+        }
+        double totalCal = totals[NutritionService.CALORIES_COLUMN];
+        double totalProtein = totals[NutritionService.PROTEIN_COLUMN];
+        double totalCarbs = totals[NutritionService.CARBS_COLUMN];
+        double totalFat = totals[NutritionService.FAT_COLUMN];
         int target = currentUser.getDailyCalorieTarget();
 
         // ── Calorie display ──
@@ -390,6 +401,9 @@ public class HomeController {
             // Activity title
             Label titleLabel = new Label(activity.getTitle());
             titleLabel.getStyleClass().add("upcoming-title");
+            titleLabel.setWrapText(true);
+            titleLabel.setMinWidth(0);
+            titleLabel.setMinHeight(Region.USE_PREF_SIZE);
 
             // Spacer
             Region spacer = new Region();
