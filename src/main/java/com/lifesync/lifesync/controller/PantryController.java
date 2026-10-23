@@ -4,6 +4,7 @@ import com.lifesync.lifesync.model.PantryItem;
 import com.lifesync.lifesync.model.User;
 import com.lifesync.lifesync.service.AuthService;
 import com.lifesync.lifesync.service.PantryService;
+import com.lifesync.lifesync.service.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -196,6 +197,7 @@ public class PantryController {
     private void showItemDialog(PantryItem item) {
         boolean isNew = (item == null);
         Dialog<PantryItem> dialog = new Dialog<>();
+        ThemeManager.applyTheme(dialog.getDialogPane());
         dialog.setTitle(isNew ? "Add Ingredient" : "Edit Ingredient");
         dialog.setHeaderText(isNew ? "Add a new ingredient to your pantry"
                 : "Modify ingredient details");
