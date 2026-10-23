@@ -734,6 +734,7 @@ public class MealsController {
                     if (!s.isBefore(e)) {
                         Platform.runLater(() -> {
                             Alert a = new Alert(Alert.AlertType.ERROR);
+                            ThemeManager.applyTheme(a.getDialogPane());
                             a.setTitle("Invalid Time");
                             a.setHeaderText("End time must be after start time.");
                             a.showAndWait();
@@ -743,6 +744,7 @@ public class MealsController {
                 } catch (Exception ex) {
                     Platform.runLater(() -> {
                         Alert a = new Alert(Alert.AlertType.ERROR);
+                        ThemeManager.applyTheme(a.getDialogPane());
                         a.setTitle("Invalid Time Format");
                         a.setHeaderText("Please enter times in HH:mm format (e.g. 12:00).");
                         a.showAndWait();
@@ -755,6 +757,7 @@ public class MealsController {
                 if (!conflicts.isEmpty()) {
                     Platform.runLater(() -> {
                         Alert conflictAlert = new Alert(Alert.AlertType.ERROR);
+                        ThemeManager.applyTheme(conflictAlert.getDialogPane());
                         conflictAlert.setTitle("Schedule Conflict Detected");
                         conflictAlert.setHeaderText("Cannot schedule meal due to overlapping time:");
                         StringBuilder sb = new StringBuilder();

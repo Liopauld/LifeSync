@@ -8,6 +8,7 @@ import com.lifesync.lifesync.service.AuthService;
 import com.lifesync.lifesync.service.ChatScopeValidator;
 import com.lifesync.lifesync.service.GeminiService;
 import com.lifesync.lifesync.service.PantryService;
+import com.lifesync.lifesync.service.ThemeManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -496,6 +497,7 @@ public class ChatController {
                 addBtn.setDisable(true);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                ThemeManager.applyTheme(alert.getDialogPane());
                 alert.setTitle("Plan Integrated");
                 alert.setHeaderText("Activities Successfully Scheduled!");
                 alert.setContentText(addedCount + " items from the AI Coach have been added to your calendar and will adapt based on your needs.");

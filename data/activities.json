@@ -545,5 +545,94 @@
     "endTime": "15:00",
     "status": "CANCELLED",
     "caloriesBurned": 0
+  },
+  {
+    "id": "5dae92bc-fee9-4ebe-b58c-ca64ff38958a",
+    "userId": "test-user-1792781511975",
+    "title": "Morning Workout",
+    "type": "WORKOUT",
+    "date": "2026-10-24",
+    "startTime": "07:00",
+    "endTime": "08:00",
+    "status": "UPCOMING",
+    "caloriesBurned": 0
+  },
+  {
+    "id": "144c3330-abe2-4e32-8244-b108b6811617",
+    "userId": "test-user-1792781512083",
+    "title": "School Schedule",
+    "type": "STUDY",
+    "date": "2026-10-24",
+    "startTime": "08:00",
+    "endTime": "12:00",
+    "status": "UPCOMING",
+    "caloriesBurned": 0
+  },
+  {
+    "id": "a8ab2bc1-531d-4629-be59-b5a1dc7e82b9",
+    "userId": "test-user-1792781512092",
+    "title": "Long Seminar",
+    "type": "STUDY",
+    "date": "2026-10-24",
+    "startTime": "10:00",
+    "endTime": "14:00",
+    "status": "UPCOMING",
+    "caloriesBurned": 0
+  },
+  {
+    "id": "89f4b705-e7d4-4a4e-9b3a-e448c54f2310",
+    "userId": "test-user-1792781512103",
+    "title": "School Schedule",
+    "type": "STUDY",
+    "date": "2026-10-24",
+    "startTime": "08:00",
+    "endTime": "12:00",
+    "status": "UPCOMING",
+    "caloriesBurned": 0
+  },
+  {
+    "id": "d446d840-8e1b-4d6c-99d6-8147de242dbf",
+    "userId": "test-user-1792781512103",
+    "title": "Math Class",
+    "type": "STUDY",
+    "date": "2026-10-24",
+    "startTime": "08:00",
+    "endTime": "09:30",
+    "status": "UPCOMING",
+    "caloriesBurned": 0,
+    "parentId": "89f4b705-e7d4-4a4e-9b3a-e448c54f2310"
+  },
+  {
+    "id": "c06ae23a-c660-4eaf-a807-7fe5a3ab6d4e",
+    "userId": "test-user-1792781512135",
+    "title": "Breakfast",
+    "type": "MEAL",
+    "date": "2026-10-24",
+    "startTime": "07:30",
+    "endTime": "08:30",
+    "status": "UPCOMING",
+    "caloriesBurned": 0
+  },
+  {
+    "id": "17d622e7-4eec-418e-8b45-3836fe52d953",
+    "userId": "test-user-1792781512142",
+    "title": "Study Session",
+    "type": "STUDY",
+    "date": "2026-10-24",
+    "startTime": "09:00",
+    "endTime": "11:00",
+    "status": "UPCOMING",
+    "caloriesBurned": 0
+  },
+  {
+    "id": "2fb8361e-8ff8-4fbc-9aff-abfd11869728",
+    "userId": "test-user-1792781512147",
+    "title": "Cancelled Meeting",
+    "type": "OTHER",
+    "date": "2026-10-24",
+    "startTime": "14:00",
+    "endTime": "15:00",
+    "status": "CANCELLED",
+    "caloriesBurned": 0
   }
 ]
