@@ -68,6 +68,7 @@ public class User {
     private String username;        // Login username (unique)
     private String email;           // Email address (unique)
     private String passwordHash;    // SHA-256 hashed password
+    private String recoveryCodeHash; // Single-use recovery secret; null for legacy accounts
 
     private String firstName;       // Display first name
     private String lastName;        // Display last name
@@ -180,6 +181,9 @@ public class User {
 
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+
+    public String getRecoveryCodeHash() { return recoveryCodeHash; }
+    public void setRecoveryCodeHash(String recoveryCodeHash) { this.recoveryCodeHash = recoveryCodeHash; }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }

@@ -57,7 +57,7 @@
                         onAction="#handleHome"
                         maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic>
-                        <Label text="🏠"/>
+                        <Label text="🏠" styleClass="icon-badge, icon-home"/>
                     </graphic>
                 </Button>
 
@@ -67,7 +67,7 @@
                         onAction="#handlePlan"
                         maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic>
-                        <Label text="📅"/>
+                        <Label text="📅" styleClass="icon-badge, icon-plan"/>
                     </graphic>
                 </Button>
 
@@ -77,7 +77,7 @@
                         onAction="#handleMeals"
                         maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic>
-                        <Label text="🍽"/>
+                        <Label text="🍽" styleClass="icon-badge, icon-meal"/>
                     </graphic>
                 </Button>
 
@@ -87,7 +87,7 @@
                         onAction="#handlePantry"
                         maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic>
-                        <Label text="🥫"/>
+                        <Label text="🥫" styleClass="icon-badge, icon-pantry"/>
                     </graphic>
                 </Button>
 
@@ -97,7 +97,7 @@
                         onAction="#handleActivity"
                         maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic>
-                        <Label text="🏃"/>
+                        <Label text="🏃" styleClass="icon-badge, icon-activity"/>
                     </graphic>
                 </Button>
 
@@ -107,7 +107,7 @@
                         onAction="#handleChat"
                         maxWidth="Infinity" alignment="CENTER_LEFT">
                     <graphic>
-                        <Label text="💬"/>
+                        <Label text="💬" styleClass="icon-badge, icon-chat"/>
                     </graphic>
                 </Button>
             </VBox>

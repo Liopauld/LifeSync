@@ -76,15 +76,10 @@ public class LoginController {
     }
 
     /**
-     * Shows a placeholder alert for the forgot password feature.
-     * Full implementation deferred to a later phase.
+     * Opens the themed password recovery form using a saved single-use code.
      */
     @FXML
     private void handleForgotPassword() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Forgot Password");
-        alert.setHeaderText("Password Reset");
-        alert.setContentText("Password reset functionality will be available in a future update.");
-        alert.showAndWait();
+        AccountRecoveryDialogs.showReset(usernameField.getText().trim());
     }
 }

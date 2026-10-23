@@ -32,7 +32,9 @@ public class ThemeManager {
     public static final String DARK_THEME_CSS_PATH = "css/dark-theme.css";
 
     /** File location for theme persistence. */
-    private static final String THEME_FILE_PATH = "data/theme.json";
+    private static File themeFile() {
+        return DataStore.dataDirectory().resolve("theme.json").toFile();
+    }
 
     /** Current active theme state (false = Light/Orange, true = Dark/Purple). */
     private static boolean darkMode = false;
@@ -199,7 +201,7 @@ public class ThemeManager {
      * Loads the saved theme preference from disk.
      */
     private static void loadPersistedTheme() {
-        File file = new File(THEME_FILE_PATH);
+        File file = themeFile();
         if (!file.exists()) {
             darkMode = false;
             return;
@@ -220,7 +222,7 @@ public class ThemeManager {
      * Saves the current theme preference to disk.
      */
     private static void persistTheme() {
-        File file = new File(THEME_FILE_PATH);
+        File file = themeFile();
         File parent = file.getParentFile();
         if (parent != null && !parent.exists()) {
             parent.mkdirs();

@@ -1,6 +1,7 @@
 package com.lifesync.lifesync.controller;
 
 import com.lifesync.lifesync.model.Activity;
+import com.lifesync.lifesync.model.ActivityTime;
 import com.lifesync.lifesync.model.PantryItem;
 import com.lifesync.lifesync.model.User;
 import com.lifesync.lifesync.service.ActivityService;
@@ -69,6 +70,12 @@ public class ChatController {
     /** Static conversation turns for multi-turn Gemini API context. */
     private static final List<String[]> persistentConversationHistory = new ArrayList<>();
 
+    /** Tab persistence belongs to one account and one clear-chat generation. */
+    private static String historyUserId;
+    private static long conversationGeneration;
+    private static boolean awaitingReply;
+    private static ChatController activeController;
+
     // ── Regex Pattern for Machine-Parseable Plan Events ─────────────────────
 
     private static final Pattern EVENT_PATTERN = Pattern.compile(
@@ -95,6 +102,16 @@ public class ChatController {
     public void initialize() {
         currentUser = AuthService.getCurrentUser();
 
+        String userId = currentUser == null ? null : currentUser.getId();
+        if (!java.util.Objects.equals(historyUserId, userId)) {
+            persistentMessages.clear();
+            persistentConversationHistory.clear();
+            historyUserId = userId;
+            conversationGeneration++;
+            awaitingReply = false;
+        }
+        activeController = this;
+
         if (persistentMessages.isEmpty()) {
             showWelcomeMessage();
         } else {
@@ -109,6 +126,8 @@ public class ChatController {
             }
             scrollToBottom();
         }
+        showTypingIndicator(awaitingReply);
+        sendButton.setDisable(awaitingReply);
     }
 
     /**
@@ -152,6 +171,7 @@ public class ChatController {
 
     @FXML
     private void handleSendMessage() {
+        if (awaitingReply || currentUser == null) return;
         String userMessage = chatInputField.getText().trim();
         if (userMessage.isEmpty()) return;
 
@@ -177,15 +197,24 @@ public class ChatController {
         }
 
         // Show typing indicator
+        awaitingReply = true;
         showTypingIndicator(true);
         sendButton.setDisable(true);
 
         String contextualPrompt = buildContextualPrompt(userMessage);
+        long requestGeneration = conversationGeneration;
+        String requestUserId = currentUser == null ? null : currentUser.getId();
 
         GeminiService.sendChatMessage(contextualPrompt, persistentConversationHistory, buildFallbackReply(userMessage))
                 .thenAccept(reply -> Platform.runLater(() -> {
-                    showTypingIndicator(false);
-                    sendButton.setDisable(false);
+                    User activeUser = AuthService.getCurrentUser();
+                    if (requestGeneration != conversationGeneration) return;
+                    awaitingReply = false;
+                    if (activeUser == null
+                            || !activeUser.getId().equals(requestUserId)) return;
+                    ChatController target = activeController;
+                    target.showTypingIndicator(false);
+                    target.sendButton.setDisable(false);
 
                     persistentConversationHistory.add(new String[]{"model", reply});
 
@@ -193,8 +222,8 @@ public class ChatController {
                     ChatMessageRecord botRec = new ChatMessageRecord("model", reply, LocalTime.now().format(TIME_FMT), plans);
                     persistentMessages.add(botRec);
 
-                    renderBotBubble(botRec);
-                    scrollToBottom();
+                    target.renderBotBubble(botRec);
+                    target.scrollToBottom();
                 }));
     }
 
@@ -206,6 +235,10 @@ public class ChatController {
         chatMessagesBox.getChildren().clear();
         persistentConversationHistory.clear();
         persistentMessages.clear();
+        conversationGeneration++;
+        awaitingReply = false;
+        showTypingIndicator(false);
+        sendButton.setDisable(false);
         showWelcomeMessage();
     }
 
@@ -354,6 +387,8 @@ public class ChatController {
                 String title = m.group(2).trim();
                 String start = normalizeTime(m.group(3).trim());
                 String end = normalizeTime(m.group(4).trim());
+                LocalDate.parse(date);
+                ActivityTime.parse(start, end);
                 String typeStr = m.group(5).trim().toUpperCase();
                 String desc = m.group(6).trim();
 
@@ -471,27 +506,40 @@ public class ChatController {
             Label planIcon = new Label("📅");
             Label planTitle = new Label("AI Actionable Plan (" + record.extractedActivities.size() + " scheduled items)");
             planTitle.setStyle("-fx-font-weight: bold; -fx-font-size: 13px;");
+            planTitle.setWrapText(true);
+            planTitle.setMinHeight(Region.USE_PREF_SIZE);
+            HBox.setHgrow(planTitle, Priority.ALWAYS);
             cardHeader.getChildren().addAll(planIcon, planTitle);
 
             VBox previewList = new VBox(3);
             for (Activity a : record.extractedActivities) {
                 Label item = new Label("• " + a.getDate() + " (" + a.getStartTime() + " - " + a.getEndTime() + "): " + a.getTitle());
                 item.setStyle("-fx-font-size: 11px;");
+                item.setWrapText(true);
+                item.setMinHeight(Region.USE_PREF_SIZE);
                 previewList.getChildren().add(item);
             }
 
             Button addBtn = new Button(record.planAdded ? "✅ Plan Added to Calendar" : "➕ Add All to My Schedule & Plan");
-            addBtn.setStyle("-fx-background-color: #F5A623; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-cursor: hand; -fx-padding: 6 12;");
+            addBtn.getStyleClass().add("chat-plan-add-btn");
             addBtn.setDisable(record.planAdded);
 
             addBtn.setOnAction(e -> {
                 String userId = currentUser != null ? currentUser.getId() : "default_user";
-                int addedCount = 0;
-                for (Activity a : record.extractedActivities) {
-                    a.setUserId(userId);
-                    ActivityService.addActivity(a);
-                    addedCount++;
+                try {
+                    for (Activity a : record.extractedActivities) a.setUserId(userId);
+                    ActivityService.addActivitiesWithoutConflicts(record.extractedActivities);
+                } catch (RuntimeException ex) {
+                    Alert error = new Alert(Alert.AlertType.ERROR);
+                    ThemeManager.applyTheme(error.getDialogPane());
+                    error.setTitle("Plan could not be added");
+                    error.setHeaderText("No activities were added.");
+                    error.setContentText(ex instanceof IllegalArgumentException
+                            ? ex.getMessage() : "Check the plan's dates and your data folder, then try again.");
+                    error.showAndWait();
+                    return;
                 }
+                int addedCount = record.extractedActivities.size();
                 record.planAdded = true;
                 addBtn.setText("✅ Added to Calendar (" + addedCount + " items)");
                 addBtn.setDisable(true);

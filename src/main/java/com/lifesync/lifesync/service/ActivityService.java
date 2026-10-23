@@ -2,14 +2,15 @@ package com.lifesync.lifesync.service;
 
 import com.google.gson.reflect.TypeToken;
 import com.lifesync.lifesync.model.Activity;
+import com.lifesync.lifesync.model.ActivityTime;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -34,9 +35,6 @@ public class ActivityService {
     /** Gson type token for List<Activity>. */
     private static final Type ACTIVITY_LIST_TYPE =
             new TypeToken<List<Activity>>() {}.getType();
-
-    /** Time format used in Activity start/end time fields. */
-    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm");
 
     /**
      * Returns all activities for a given user, sorted by date then start time.
@@ -94,6 +92,39 @@ public class ActivityService {
     }
 
     /**
+     * Commits a generated plan as one JSON write after checking every interval.
+     * A conflict with existing events or within the proposed plan rejects the whole batch.
+     */
+    public static void addActivitiesWithoutConflicts(List<Activity> proposed) {
+        List<Activity> all = DataStore.loadAll(ACTIVITIES_FILE, ACTIVITY_LIST_TYPE);
+        List<Activity> merged = new ArrayList<>(all);
+        Set<String> ids = all.stream().map(Activity::getId).collect(Collectors.toSet());
+        for (Activity activity : proposed) {
+            if (activity.getUserId() == null || activity.getUserId().isBlank()
+                    || activity.getTitle() == null || activity.getTitle().isBlank()) {
+                throw new IllegalArgumentException("Each plan item needs an account and a title.");
+            }
+            LocalDate.parse(activity.getDate());
+            ActivityTime time = ActivityTime.parse(activity.getStartTime(), activity.getEndTime());
+            if (!ids.add(activity.getId())) {
+                throw new IllegalArgumentException("This plan contains an item already on your calendar.");
+            }
+            for (Activity existing : merged) {
+                if (existing.getStatus() == Activity.Status.CANCELLED
+                        || !activity.getUserId().equals(existing.getUserId())
+                        || !activity.getDate().equals(existing.getDate())
+                        || !java.util.Objects.equals(activity.getParentId(), existing.getParentId())) continue;
+                if (time.overlaps(ActivityTime.parse(existing.getStartTime(), existing.getEndTime()))) {
+                    throw new IllegalArgumentException("\"" + activity.getTitle() + "\" overlaps with \""
+                            + existing.getTitle() + "\" on " + activity.getDate() + ".");
+                }
+            }
+            merged.add(activity);
+        }
+        DataStore.saveAll(ACTIVITIES_FILE, merged);
+    }
+
+    /**
      * Updates an existing activity (finds by ID and replaces).
      *
      * @param updated the activity with modified fields
@@ -116,7 +147,19 @@ public class ActivityService {
      */
     public static void deleteActivity(String activityId) {
         List<Activity> all = DataStore.loadAll(ACTIVITIES_FILE, ACTIVITY_LIST_TYPE);
-        all.removeIf(a -> a.getId().equals(activityId) || activityId.equals(a.getParentId()));
+        // Expand the deletion set until every descendant is included; cycles terminate too.
+        Set<String> removedIds = new HashSet<>();
+        removedIds.add(activityId);
+        boolean changed;
+        do {
+            changed = false;
+            for (Activity activity : all) {
+                if (activity.getParentId() != null && removedIds.contains(activity.getParentId())) {
+                    changed |= removedIds.add(activity.getId());
+                }
+            }
+        } while (changed);
+        all.removeIf(a -> removedIds.contains(a.getId()));
         DataStore.saveAll(ACTIVITIES_FILE, all);
     }
 
@@ -201,8 +244,7 @@ public class ActivityService {
     public static List<Activity> findConflicts(String userId, String date,
                                                String startTime, String endTime,
                                                String excludeId, String parentId) {
-        LocalTime newStart = LocalTime.parse(startTime, TIME_FMT);
-        LocalTime newEnd = LocalTime.parse(endTime, TIME_FMT);
+        ActivityTime proposed = ActivityTime.parse(startTime, endTime);
 
         List<Activity> dayActivities = getActivitiesForDate(userId, date);
         List<Activity> conflicts = new ArrayList<>();
@@ -222,11 +264,10 @@ public class ActivityService {
                 if (existing.getParentId() != null) continue;
             }
 
-            LocalTime existStart = LocalTime.parse(existing.getStartTime(), TIME_FMT);
-            LocalTime existEnd = LocalTime.parse(existing.getEndTime(), TIME_FMT);
+            ActivityTime existingTime = ActivityTime.parse(existing.getStartTime(), existing.getEndTime());
 
             // Overlap check: A.start < B.end AND B.start < A.end
-            if (newStart.isBefore(existEnd) && existStart.isBefore(newEnd)) {
+            if (proposed.overlaps(existingTime)) {
                 conflicts.add(existing);
             }
         }

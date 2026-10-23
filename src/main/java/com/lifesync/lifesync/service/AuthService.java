@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Base64;
+import java.security.SecureRandom;
 
 /**
  * Handles user authentication: sign-up, login, and session management.
@@ -162,6 +164,64 @@ public class AuthService {
      */
     public static void logout() {
         currentUser = null;
+    }
+
+    /**
+     * Issues a new single-use recovery code after verifying the current password.
+     * Only its hash is persisted. Reissuing immediately invalidates the previous code.
+     * Returns null when the supplied credentials do not match an account.
+     */
+    public static String issueRecoveryCode(String usernameOrEmail, String password) {
+        if (usernameOrEmail == null || password == null) return null;
+        List<User> users = DataStore.loadAll(USERS_FILE, USER_LIST_TYPE);
+        for (User user : users) {
+            if (matchesIdentity(user, usernameOrEmail)
+                    && user.getPasswordHash().equals(hashPassword(password))) {
+                byte[] bytes = new byte[32];
+                new SecureRandom().nextBytes(bytes);
+                String code = Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+                String hash = hashPassword(code);
+                user.setRecoveryCodeHash(hash);
+                DataStore.saveAll(USERS_FILE, users);
+                if (currentUser != null && currentUser.getId().equals(user.getId())) {
+                    currentUser.setRecoveryCodeHash(hash);
+                }
+                return code;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Resets a password using a saved recovery code, consuming the code on success.
+     * Username/email alone is never sufficient proof of account ownership.
+     * Existing accounts without recovery codes can enroll after signing in.
+     */
+    public static boolean resetPassword(String usernameOrEmail, String recoveryCode, String newPassword) {
+        if (usernameOrEmail == null || recoveryCode == null || recoveryCode.isBlank()) return false;
+        if (newPassword == null || newPassword.isBlank() || newPassword.length() < 6) {
+            throw new IllegalArgumentException("Password must be at least 6 characters long.");
+        }
+        List<User> users = DataStore.loadAll(USERS_FILE, USER_LIST_TYPE);
+        String suppliedHash = hashPassword(recoveryCode.trim());
+        for (User user : users) {
+            if (matchesIdentity(user, usernameOrEmail) && user.getRecoveryCodeHash() != null
+                    && MessageDigest.isEqual(user.getRecoveryCodeHash().getBytes(StandardCharsets.UTF_8),
+                            suppliedHash.getBytes(StandardCharsets.UTF_8))) {
+                user.setPasswordHash(hashPassword(newPassword));
+                user.setRecoveryCodeHash(null);
+                DataStore.saveAll(USERS_FILE, users);
+                if (currentUser != null && currentUser.getId().equals(user.getId())) logout();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean matchesIdentity(User user, String identity) {
+        String normalized = identity.trim();
+        return user.getUsername().equalsIgnoreCase(normalized)
+                || user.getEmail().equalsIgnoreCase(normalized);
     }
 
     /**

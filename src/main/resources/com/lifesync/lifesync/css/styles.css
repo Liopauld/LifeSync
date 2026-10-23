@@ -172,8 +172,9 @@
 }
 
 /* Error message label */
-.error-label {
-    -fx-text-fill: #FF5252;
+.error-label,
+.dialog-pane .error-label {
+    -fx-text-fill: #C62828;
     -fx-font-size: 13px;
 }
 
@@ -2583,4 +2584,328 @@
 
 .dialog-pane > .button-bar > .container {
     -fx-background-color: #FFFDF9;
+}
+
+/* ── LifeSync color accents: shared by both themes ──────────────────────
+ * Looked-up colors keep generated cards and FXML labels in the same palette.
+ * Dark mode overrides the palette; component structure and spacing stay intact.
+ */
+.root {
+    -life-heading: #1A1A1A;
+    -life-muted: #58677C;
+    -life-protein: #7C3AED;
+    -life-protein-soft: #F1EAFF;
+    -life-protein-edge: #DCCBFA;
+    -life-carbs: #98500A;
+    -life-carbs-soft: #FFF3DB;
+    -life-carbs-edge: #F2D09A;
+    -life-fat: #047857;
+    -life-fat-soft: #E4F7ED;
+    -life-fat-edge: #A8DEC7;
+    -life-burn: #B93815;
+    -life-burn-soft: #FFF0E6;
+    -life-burn-edge: #F7C5A7;
+    -life-sky: #0369A1;
+    -life-sky-soft: #E5F4FD;
+    -life-sky-edge: #AFDDF4;
+    -life-rose: #BE185D;
+    -life-rose-soft: #FDECF2;
+    -life-rose-edge: #F3BED0;
+    -life-outline: #E9DFD2;
+    -life-hover: #CE8B39;
+    -life-nav-start: #FF993A;
+    -life-nav-end: #FF7700;
+    -life-nav-text: #3B1B09;
+    -life-nav-glow: rgba(249, 115, 22, 0.24);
+    -life-note: #FFF5DF;
+}
+
+.label.page-heading, .label.greeting-heading, .label.section-heading,
+.label.section-title, .label.card-section-title, .label.meals-page-title,
+.label.meals-sub-title, .label.recipe-card-title, .label.meals-plan-heading {
+    -fx-text-fill: -life-heading;
+}
+.label.page-subtitle, .label.greeting-subtitle, .label.meals-sub-desc,
+.label.muted-text, .label.recipe-card-desc, .label.summary-card-title,
+.label.macro-percent, .label.calorie-target, .label.activity-item-subtitle {
+    -fx-text-fill: -life-muted;
+}
+
+/* Text carries a label as well as a colored dot, so color is never the only cue. */
+.label.macro-protein { -fx-text-fill: -life-protein; }
+.label.macro-carbs { -fx-text-fill: -life-carbs; }
+.label.macro-fat { -fx-text-fill: -life-fat; }
+.label.calorie-count, .label.calorie-unit, .label#caloriesBurnedLabel {
+    -fx-text-fill: -life-burn;
+}
+
+/* Both legacy and current bar names resolve to the same nutrient colors. */
+.protein-bar > .track, .macro-bar-protein > .track {
+    -fx-background-color: -life-protein-soft;
+    -fx-background-radius: 6;
+}
+.protein-bar > .bar, .macro-bar-protein > .bar {
+    -fx-background-color: linear-gradient(to right, #7C3AED, #A78BFA);
+    -fx-background-radius: 6;
+}
+.carbs-bar > .track, .macro-bar-carbs > .track {
+    -fx-background-color: -life-carbs-soft;
+    -fx-background-radius: 6;
+}
+.carbs-bar > .bar, .macro-bar-carbs > .bar {
+    -fx-background-color: linear-gradient(to right, #F59E0B, #FB923C);
+    -fx-background-radius: 6;
+}
+.fat-bar > .track, .macro-bar-fat > .track {
+    -fx-background-color: -life-fat-soft;
+    -fx-background-radius: 6;
+}
+.fat-bar > .bar, .macro-bar-fat > .bar {
+    -fx-background-color: linear-gradient(to right, #059669, #34D399);
+    -fx-background-radius: 6;
+}
+#planProgressBar > .bar, #planGoalBar > .bar {
+    -fx-background-color: linear-gradient(to right, #7C3AED, #A78BFA);
+}
+#mealsProgressBar > .bar, #nutritionGoalBar > .bar {
+    -fx-background-color: linear-gradient(to right, #F59E0B, #FB923C);
+}
+#activityProgressBar > .bar, #weeklyProgressBar > .bar, #activityGoalBar > .bar {
+    -fx-background-color: linear-gradient(to right, #DB2777, #F472B6);
+}
+#pantryProgressBar > .bar, #activeDaysBar > .bar {
+    -fx-background-color: linear-gradient(to right, #059669, #34D399);
+}
+#caloriesBurnedBar > .bar {
+    -fx-background-color: linear-gradient(to right, #F97316, #FF6B6B);
+}
+
+/* Existing Label nodes become soft icon containers without wrapper nodes. */
+.label.icon-badge {
+    -fx-background-radius: 11;
+    -fx-border-radius: 11;
+    -fx-border-width: 1;
+    -fx-padding: 4 5;
+    -fx-alignment: CENTER;
+}
+.icon-badge.icon-home, .icon-badge.icon-rest {
+    -fx-background-color: -life-sky-soft;
+    -fx-border-color: -life-sky-edge;
+}
+.icon-badge.icon-plan, .icon-badge.icon-study, .icon-badge.icon-chat {
+    -fx-background-color: -life-protein-soft;
+    -fx-border-color: -life-protein-edge;
+}
+.icon-badge.icon-meal, .icon-badge.icon-pantry, .icon-badge.icon-other {
+    -fx-background-color: -life-carbs-soft;
+    -fx-border-color: -life-carbs-edge;
+}
+.icon-badge.icon-activity, .icon-badge.icon-workout {
+    -fx-background-color: -life-rose-soft;
+    -fx-border-color: -life-rose-edge;
+}
+.icon-badge.icon-burn {
+    -fx-background-color: -life-burn-soft;
+    -fx-border-color: -life-burn-edge;
+}
+
+.sidebar-btn {
+    -fx-border-color: transparent;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+.sidebar-btn.sidebar-btn-active, .sidebar-btn.sidebar-btn-active:hover {
+    -fx-background-color: linear-gradient(to right, -life-nav-start, -life-nav-end);
+    -fx-text-fill: -life-nav-text;
+    -fx-effect: dropshadow(gaussian, -life-nav-glow, 12, 0.12, 0, 3);
+}
+.sidebar-btn.sidebar-btn-active .icon-badge {
+    -fx-background-color: rgba(255, 255, 255, 0.24);
+    -fx-border-color: rgba(255, 255, 255, 0.42);
+}
+.sidebar-btn:hover, .sidebar-btn:focused {
+    -fx-border-color: -life-hover;
+}
+.sidebar-btn:focused {
+    -fx-border-width: 2;
+    -fx-border-insets: -1;
+}
+.sidebar-btn.sidebar-btn-active:focused {
+    -fx-border-color: -life-protein;
+    -fx-border-width: 2;
+}
+
+.label.status-pill, .label.category-tag, .label.recipe-tag,
+.label.meals-meta-pill, .label.diet-pill, .label.calorie-badge,
+.label.metric-time, .label.metric-burn {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+.label.status-upcoming, .label.beta-pill, .label.tag-study,
+.label.metric-time, .label.meals-banner-badge {
+    -fx-background-color: -life-protein-soft;
+    -fx-text-fill: -life-protein;
+    -fx-border-color: -life-protein-edge;
+    -fx-border-radius: 20;
+}
+.label.metric-burn, .label.calorie-badge {
+    -fx-background-color: -life-burn-soft;
+    -fx-text-fill: -life-burn;
+    -fx-border-color: -life-burn-edge;
+    -fx-border-radius: 20;
+}
+.label.status-completed, .label.badge-high-protein, .label.badge-healthy,
+.label.diet-pill-success, .label.tag-rest {
+    -fx-background-color: -life-fat-soft;
+    -fx-text-fill: -life-fat;
+    -fx-border-color: -life-fat-edge;
+    -fx-border-radius: 20;
+}
+.label.tag-meal, .label.badge-quick {
+    -fx-background-color: -life-carbs-soft;
+    -fx-text-fill: -life-carbs;
+    -fx-border-color: -life-carbs-edge;
+}
+.label.tag-workout {
+    -fx-background-color: -life-rose-soft;
+    -fx-text-fill: -life-rose;
+}
+.label.stat-rate, .label.stat-completed, .label#activeDaysLabel {
+    -fx-text-fill: -life-fat;
+}
+.label.stat-upcoming { -fx-text-fill: -life-protein; }
+
+.label.mascot-note, .label.mascot-speech-bubble {
+    -fx-background-color: -life-note;
+    -fx-background-radius: 14 14 3 14;
+    -fx-border-color: -life-carbs-edge;
+    -fx-border-radius: 14 14 3 14;
+    -fx-padding: 6 10;
+    -fx-text-fill: -life-carbs;
+    -fx-font-size: 13;
+}
+
+/* Decorative feedback preserves card positions and active theme surfaces. */
+.summary-card, .meals-recipe-card, .activity-card {
+    -fx-border-color: -life-outline;
+    -fx-border-width: 1;
+}
+.clickable-card:hover, .meals-recipe-card:hover, .activity-card:hover,
+.recipe-search-row:hover, .meal-plan-item-row:hover {
+    -fx-border-color: -life-hover;
+    -fx-effect: dropshadow(gaussian, -life-nav-glow, 10, 0.05, 0, 2);
+}
+.action-btn:hover, .filter-chip:hover, .meals-add-to-plan-btn:hover,
+.recipe-search-add-btn:hover {
+    -fx-border-color: -life-hover;
+    -fx-effect: dropshadow(gaussian, -life-nav-glow, 8, 0.05, 0, 2);
+}
+.action-btn:focused, .meals-add-to-plan-btn:focused,
+.recipe-search-add-btn:focused, .filter-chip:focused {
+    -fx-border-color: -life-protein;
+    -fx-border-width: 2;
+}
+.sidebar-btn:pressed, .action-btn:pressed, .meals-add-to-plan-btn:pressed {
+    -fx-background-insets: 1;
+    -fx-effect: null;
+}
+
+/* CSS backdrops update with the theme even while recipe cards remain on screen. */
+.recipe-emoji-backdrop { -fx-background-radius: 16 16 0 0; }
+.recipe-tone-0 { -fx-background-color: -life-fat-soft; }
+.recipe-tone-1, .recipe-tone-5 { -fx-background-color: -life-carbs-soft; }
+.recipe-tone-2 { -fx-background-color: -life-burn-soft; }
+.recipe-tone-3 { -fx-background-color: -life-sky-soft; }
+.recipe-tone-4, .recipe-tone-6 { -fx-background-color: -life-protein-soft; }
+.recipe-tone-7 { -fx-background-color: -life-rose-soft; }
+.hyperlink.view-all-link, .hyperlink.meals-plan-link {
+    -fx-text-fill: -life-protein;
+}
+
+/* Category colors must outrank both generic .label and .status-pill rules. */
+.label.badge-underweight {
+    -fx-background-color: -life-sky-soft;
+    -fx-text-fill: -life-sky;
+}
+.label.badge-normal {
+    -fx-background-color: -life-fat-soft;
+    -fx-text-fill: -life-fat;
+}
+.label.badge-overweight {
+    -fx-background-color: -life-carbs-soft;
+    -fx-text-fill: -life-carbs;
+}
+.label.badge-obese {
+    -fx-background-color: -life-rose-soft;
+    -fx-text-fill: -life-rose;
+}
+.label.badge-pending {
+    -fx-background-color: -life-protein-soft;
+    -fx-text-fill: -life-heading;
+}
+
+/* Small supporting text needs readable contrast too, including account details. */
+.label.activity-time, .label.upcoming-date, .label.upcoming-time,
+.label.calendar-day-header, .label.timeline-time, .label.card-subtitle,
+.label.this-week-date, .label.profile-username, .label.profile-membersince,
+.label.form-label, .label.profile-calc-label, .label.profile-healthy-range,
+.label.profile-hint-label, .label.chat-bot-time, .label.meals-section-label,
+.label.form-subtitle {
+    -fx-text-fill: -life-muted;
+}
+.label.calendar-selected, .label.calendar-today {
+    -fx-text-fill: -life-nav-text;
+}
+.label.this-week-day-today { -fx-text-fill: -life-carbs; }
+.label.summary-card-count-danger, .label.stat-cancelled {
+    -fx-text-fill: -life-rose;
+}
+.label.timeline-add-btn { -fx-text-fill: -life-protein; }
+.label.ai-chef-title { -fx-text-fill: -life-burn; }
+.label.status-success-text { -fx-text-fill: -life-fat; }
+.label.status-error-text { -fx-text-fill: -life-rose; }
+.signup-brand-heading { -fx-font-size: 40; }
+.chat-plan-add-btn {
+    -fx-background-color: linear-gradient(to right, -life-nav-start, -life-nav-end);
+    -fx-text-fill: -life-nav-text;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+.chat-plan-add-btn:hover, .chat-plan-add-btn:focused {
+    -fx-effect: dropshadow(gaussian, -life-nav-glow, 10, 0.08, 0, 2);
+}
+.toggle-btn.sidebar-btn-active, .toggle-btn.sidebar-btn-active:hover {
+    -fx-background-color: -life-protein-soft;
+    -fx-text-fill: -life-protein;
+    -fx-border-color: -life-protein-edge;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+}
+.button.meals-add-plan-btn, .button.meals-add-recipe-btn,
+.button.meals-add-to-plan-btn, .button.chat-send-btn {
+    -fx-text-fill: -life-nav-text;
+}
+.button.action-delete-btn { -fx-text-fill: -life-rose; }
+.button.toggle-btn, .toggle-button.toggle-btn, .button.chat-clear-btn {
+    -fx-text-fill: -life-muted;
+}
+.hyperlink.form-link, .hyperlink.form-link:visited, .hyperlink.form-link:hover {
+    -fx-text-fill: -life-protein;
+}
+.label.signup-section-heading { -fx-text-fill: -life-carbs; }
+.label.signup-section-sub { -fx-text-fill: -life-muted; }
+.toggle-button.toggle-btn:selected, .button.toggle-btn.sidebar-btn-active {
+    -fx-background-color: -life-protein-soft;
+    -fx-text-fill: -life-protein;
+}
+.calendar-month-cell { -fx-padding: 6; }
+.label.calendar-event-count {
+    -fx-background-color: -life-carbs-soft;
+    -fx-text-fill: -life-carbs;
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 1 3;
 }

@@ -26,7 +26,7 @@
       styleClass="login-root">
 
     <!-- ==================== LEFT PANEL: Brand Area ==================== -->
-    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="12"
+    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="12" prefWidth="500" minWidth="360"
           styleClass="login-brand-panel">
         <padding>
             <Insets top="35" right="45" bottom="35" left="45"/>
@@ -41,14 +41,16 @@
 
         <!-- Mascot Illustration - Prominent hero placement with transparent alpha -->
         <VBox alignment="CENTER" spacing="12">
-            <ImageView fitHeight="210" fitWidth="210" preserveRatio="true">
+            <ImageView fitHeight="300" fitWidth="300" preserveRatio="true" smooth="true"
+                       accessibleText="LifeSync mascot welcoming you" mouseTransparent="true">
                 <image>
                     <Image url="@../images/login.png"/>
                 </image>
             </ImageView>
 
             <!-- Welcome heading block -->
-            <Label text="Welcome to LifeSync" styleClass="brand-heading" textAlignment="CENTER"/>
+            <Label text="Welcome to" styleClass="brand-welcome" textAlignment="CENTER"/>
+            <Label text="LifeSync" styleClass="brand-heading" textAlignment="CENTER"/>
             <Label text="Plan. Eat. Move. Grow.&#10;All in one place."
                    styleClass="brand-subtitle" wrapText="true" textAlignment="CENTER"/>
         </VBox>
@@ -61,7 +63,7 @@
     </VBox>
 
     <!-- ==================== RIGHT PANEL: Login Form ==================== -->
-    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" styleClass="login-form-panel">
+    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" prefWidth="600" minWidth="500" styleClass="login-form-panel">
         <padding>
             <Insets top="40" right="60" bottom="40" left="60"/>
         </padding>
@@ -85,11 +87,13 @@
             <!-- Username / Email field -->
             <TextField fx:id="usernameField"
                        promptText="Username or Email"
+                       accessibleText="Username or email"
                        styleClass="login-field"/>
 
             <!-- Password field -->
             <PasswordField fx:id="passwordField"
                            promptText="Password"
+                           accessibleText="Password" onAction="#handleLogin"
                            styleClass="login-field"/>
 
             <!-- Remember me + Forgot password row -->
@@ -109,6 +113,7 @@
             <!-- Login button -->
             <Button text="Log In →"
                     onAction="#handleLogin"
+                    defaultButton="true"
                     styleClass="login-button"
                     maxWidth="Infinity"/>
 

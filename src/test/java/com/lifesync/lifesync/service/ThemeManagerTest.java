@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ThemeManagerTest {
 
     private boolean originalState;
-    private static final String THEME_FILE = "data/theme.json";
 
     @BeforeEach
     void setUp() {
@@ -87,7 +86,7 @@ class ThemeManagerTest {
     @DisplayName("Theme preference is saved to disk")
     void testPersistence() {
         ThemeManager.setDarkMode(true);
-        File file = new File(THEME_FILE);
+        File file = DataStore.dataDirectory().resolve("theme.json").toFile();
         assertTrue(file.exists(), "theme.json file should exist after setting dark mode");
 
         ThemeManager.setDarkMode(false);

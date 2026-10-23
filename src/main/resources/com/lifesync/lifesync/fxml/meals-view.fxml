@@ -49,8 +49,8 @@
             <HBox alignment="CENTER_LEFT">
                 <VBox spacing="4">
                     <Label text="Meals &amp; Nutrition" styleClass="meals-sub-title"/>
-                    <Label text="Organize recipes, meal plans, and estimated nutrition information."
-                           styleClass="meals-sub-desc"/>
+                    <Label text="Good food. Good mood. Make every meal a little brighter."
+                           styleClass="meals-sub-desc, mascot-note"/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Button text="+ Add recipe" styleClass="meals-add-recipe-btn" onAction="#handleAddRecipe"/>
@@ -122,31 +122,31 @@
             <HBox spacing="16" alignment="CENTER_LEFT" styleClass="recipe-modal-specs-box">
                 <VBox spacing="2">
                     <Label text="Calories" styleClass="macro-name"/>
-                    <Label fx:id="modalCalories" text="420 kcal" styleClass="macro-value"/>
+                    <Label fx:id="modalCalories" text="420 kcal" styleClass="macro-value, metric-burn"/>
                 </VBox>
                 <Separator orientation="VERTICAL"/>
                 <VBox spacing="2">
-                    <Label text="Protein" styleClass="macro-name"/>
-                    <Label fx:id="modalProtein" text="40g" styleClass="macro-value, stat-completed"/>
+                    <Label text="• Protein" styleClass="macro-name, macro-protein"/>
+                    <Label fx:id="modalProtein" text="40g" styleClass="macro-value, macro-protein"/>
                 </VBox>
                 <Separator orientation="VERTICAL"/>
                 <VBox spacing="2">
-                    <Label text="Carbs" styleClass="macro-name"/>
-                    <Label fx:id="modalCarbs" text="35g" styleClass="macro-value, stat-upcoming"/>
+                    <Label text="• Carbs" styleClass="macro-name, macro-carbs"/>
+                    <Label fx:id="modalCarbs" text="35g" styleClass="macro-value, macro-carbs"/>
                 </VBox>
                 <Separator orientation="VERTICAL"/>
                 <VBox spacing="2">
-                    <Label text="Fat" styleClass="macro-name"/>
-                    <Label fx:id="modalFat" text="12g" styleClass="macro-value, stat-cancelled"/>
+                    <Label text="• Fat" styleClass="macro-name, macro-fat"/>
+                    <Label fx:id="modalFat" text="12g" styleClass="macro-value, macro-fat"/>
                 </VBox>
                 <Region HBox.hgrow="ALWAYS"/>
                 <VBox spacing="2">
                     <Label text="Prep Time" styleClass="macro-name"/>
-                    <Label fx:id="modalPrepTime" text="15 min" styleClass="macro-value"/>
+                    <Label fx:id="modalPrepTime" text="15 min" styleClass="macro-value, metric-time"/>
                 </VBox>
                 <VBox spacing="2">
                     <Label text="Cook Time" styleClass="macro-name"/>
-                    <Label fx:id="modalCookTime" text="10 min" styleClass="macro-value"/>
+                    <Label fx:id="modalCookTime" text="10 min" styleClass="macro-value, metric-time"/>
                 </VBox>
             </HBox>
 

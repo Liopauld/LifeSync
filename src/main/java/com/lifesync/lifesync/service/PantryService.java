@@ -98,6 +98,7 @@ public class PantryService {
      * @param item the pantry item to add
      */
     public static void addItem(PantryItem item) {
+        validateItem(item);
         List<PantryItem> all = DataStore.loadAll(PANTRY_FILE, ITEM_LIST_TYPE);
         all.add(item);
         DataStore.saveAll(PANTRY_FILE, all);
@@ -109,6 +110,7 @@ public class PantryService {
      * @param updated the item with modified fields
      */
     public static void updateItem(PantryItem updated) {
+        validateItem(updated);
         List<PantryItem> all = DataStore.loadAll(PANTRY_FILE, ITEM_LIST_TYPE);
         for (int i = 0; i < all.size(); i++) {
             if (all.get(i).getId().equals(updated.getId())) {
@@ -144,6 +146,19 @@ public class PantryService {
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    /** Reject invalid quantities before they can corrupt JSON or stock calculations. */
+    public static void validateItem(PantryItem item) {
+        if (item == null || item.getName() == null || item.getName().isBlank()) {
+            throw new IllegalArgumentException("Enter an ingredient name.");
+        }
+        if (!Double.isFinite(item.getQuantity()) || item.getQuantity() < 0) {
+            throw new IllegalArgumentException("Quantity must be a finite number greater than or equal to zero.");
+        }
+        if (!Double.isFinite(item.getLowThreshold()) || item.getLowThreshold() < 0) {
+            throw new IllegalArgumentException("Low-stock threshold must be a finite number greater than or equal to zero.");
+        }
     }
 
     /** Null-safe string comparison helper. */

@@ -1,0 +1,133 @@
+[
+  {
+    "id": "J01",
+    "requirement": "Classes and Objects",
+    "status": "Covered",
+    "evidence": "User, NutritionEntry, PantryItem, Recipe, Activity, ActivityTime and RecipeMatch represent the proposal domain. Food records are NutritionEntry; ingredients are PantryItem and recipe ingredient strings; local calendar events are Activity.",
+    "sources": [
+      "model/User.java:23",
+      "model/Activity.java:15",
+      "service/RecipeService.java:346"
+    ]
+  },
+  {
+    "id": "J02",
+    "requirement": "Arrays / ArrayLists",
+    "status": "Covered",
+    "evidence": "ArrayList collections hold persisted records, recipes and chat messages. Arrays provide nutrient rows, food emojis and day names.",
+    "sources": [
+      "service/DataStore.java:70",
+      "controller/ChatController.java:68"
+    ]
+  },
+  {
+    "id": "J03",
+    "requirement": "Strings",
+    "status": "Covered",
+    "evidence": "Names, dietary preferences, ISO dates, HH:mm times, statuses, ingredient keywords and AI text are processed as strings.",
+    "sources": [
+      "model/Recipe.java:23",
+      "service/RecipeService.java:60"
+    ]
+  },
+  {
+    "id": "J04",
+    "requirement": "Methods",
+    "status": "Covered",
+    "evidence": "Reusable methods own calculations, validation, searching, sorting, authentication, CRUD and scheduling.",
+    "sources": [
+      "service/UserService.java:84",
+      "service/ActivityService.java:225"
+    ]
+  },
+  {
+    "id": "J05",
+    "requirement": "Conditionals",
+    "status": "Covered",
+    "evidence": "If/switch branches validate inputs, classify BMI, select activity multipliers, route themes and reject conflicts.",
+    "sources": [
+      "service/UserService.java:99",
+      "model/ActivityTime.java:23"
+    ]
+  },
+  {
+    "id": "J06",
+    "requirement": "Loops",
+    "status": "Covered",
+    "evidence": "Loops process entities, compare schedule intervals, expand cascade deletion, and aggregate the nutrition matrix with nested loops.",
+    "sources": [
+      "controller/HomeController.java:290",
+      "service/ActivityService.java:153"
+    ]
+  },
+  {
+    "id": "J07",
+    "requirement": "Searching",
+    "status": "Covered",
+    "evidence": "Case-insensitive recipe name/ingredient/tag searches, category filtering, ID lookups and pantry matching are implemented.",
+    "sources": [
+      "service/RecipeService.java:60",
+      "service/RecipeService.java:306"
+    ]
+  },
+  {
+    "id": "J08",
+    "requirement": "Sorting",
+    "status": "Covered",
+    "evidence": "Recipes sort by name, popularity, prep time or calories; activities sort by date/time; pantry items by category/name.",
+    "sources": [
+      "service/RecipeService.java:221",
+      "service/ActivityService.java:45"
+    ]
+  },
+  {
+    "id": "J09",
+    "requirement": "Multidimensional Data",
+    "status": "Completed in this audit",
+    "evidence": "getDailyNutritionMatrix returns double[n][4]: one food-entry row and kcal/protein/carbs/fat columns. HomeController aggregates the matrix from one file snapshot. Chat context also uses List<String[]>.",
+    "sources": [
+      "service/NutritionService.java:123",
+      "controller/HomeController.java:290"
+    ]
+  },
+  {
+    "id": "J10",
+    "requirement": "Encapsulation",
+    "status": "Covered",
+    "evidence": "Model fields are private with controlled accessors. Services own persistence and business operations; controllers own UI behavior.",
+    "sources": [
+      "model/User.java:67",
+      "model/Recipe.java:74"
+    ]
+  },
+  {
+    "id": "J11",
+    "requirement": "Exception Handling",
+    "status": "Covered",
+    "evidence": "Validation blocks invalid input; storage failures propagate instead of false success; AI failures return local fallback results.",
+    "sources": [
+      "service/DataStore.java:78",
+      "service/GeminiService.java:140"
+    ]
+  },
+  {
+    "id": "J12",
+    "requirement": "File Handling",
+    "status": "Covered",
+    "evidence": "Gson loads/saves JSON using UTF-8 and temporary-file replacement. Theme selection is persisted. Generated favorites now enter the catalog.",
+    "sources": [
+      "service/DataStore.java:90",
+      "service/RecipeService.java:116"
+    ]
+  },
+  {
+    "id": "J13",
+    "requirement": "API / External Integration",
+    "status": "Covered through Gemini; Calendar excluded",
+    "evidence": "Java HttpClient integrates the existing Gemini generateContent service asynchronously. No Google Calendar API, OAuth, sync or calendar credentials are added.",
+    "sources": [
+      "service/GeminiService.java:64",
+      "service/GeminiService.java:100"
+    ]
+  }
+]

@@ -1,0 +1,209 @@
+{
+  "date": "2026-10-24",
+  "tests": 75,
+  "failures": 0,
+  "errors": 0,
+  "source_snapshot_sha256": "91352cfd9037d3ce76dbfa5105e44cab7435de59c9d3f60d1d53ddcaacea2834",
+  "suites": [
+    {
+      "suite": "ActivityTimeTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.004,
+      "cases": [
+        "midnightParentContainsLateChildrenButRejectsOutsideBounds",
+        "lateNightOverlapsAndAdjacentRangesUseHalfOpenBoundaries",
+        "malformedTimesAndMidnightStartsAreRejected",
+        "midnightEndRemainsAtTheEndOfTheDay",
+        "zeroDurationAndReversedRangesAreRejected"
+      ]
+    },
+    {
+      "suite": "FxmlValidationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.035,
+      "cases": [
+        "testAllFxmlFilesParse"
+      ]
+    },
+    {
+      "suite": "MascotAssetTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.112,
+      "cases": [
+        "mascotAssetsHaveTransparentSurroundingsAndVisibleArtwork"
+      ]
+    },
+    {
+      "suite": "ActivityServiceTest",
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.041,
+      "cases": [
+        "malformedGeneratedTimeDoesNotPersistEarlierValidItems",
+        "persistedMidnightEndConflictsUntilEndOfDayButNotOnNextDate",
+        "nestedPlansRoundTripThroughDiskAndRemainLinkedAfterUpdate",
+        "deletingChildPreservesItsParentAndSibling",
+        "legacyEntriesWithoutParentIdSurviveUpdateAndReload",
+        "lateNightSubPlansIgnoreParentAndStillDetectSiblingConflicts",
+        "testAdjacentSlotsDoNotConflict",
+        "deletingParentRemovesAllDescendantsAndPreservesOtherPlans",
+        "testSubScheduleDoesNotConflictWithParent",
+        "testContainedSubIntervalConflicts",
+        "proposedMidnightEndConflictsWithLateEveningActivity",
+        "generatedPlanCommitsAdjacentMidnightActivitiesTogether",
+        "generatedPlanConflictWithExistingActivityRejectsWholeBatch",
+        "testOverlappingSiblingSubSchedulesConflict",
+        "testDeletingParentCascadesToSubSchedules",
+        "midnightIsAnEndBoundaryNotAStartTime",
+        "generatedPlanConflictsWithinBatchDoNotPersistPartialPlans",
+        "testOverlappingSlotsConflict",
+        "generatedPlansCannotDuplicateAnExistingItem",
+        "testEditingExcludesSelf",
+        "testCancelledActivitiesIgnoredInConflicts"
+      ]
+    },
+    {
+      "suite": "AuthServiceTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.019,
+      "cases": [
+        "codeCannotResetAnotherAccount",
+        "invalidPasswordDoesNotConsumeRecoveryCode",
+        "resetAcceptsTrimmedCaseInsensitiveEmailAndCode",
+        "incorrectCodeDoesNotChangePasswordOrConsumeValidCode",
+        "legacyAccountCanLoginButCannotResetWithoutEnrolling",
+        "codeCannotBeReusedAndSuccessfulResetClearsActiveSession",
+        "replacingCodeInvalidatesPreviousCodeAndUpdatesCurrentProfile",
+        "onlyHashesArePersistedAndCodeSurvivesReload",
+        "issuingCodeRequiresPasswordAndDoesNotLogIn"
+      ]
+    },
+    {
+      "suite": "ChatScopeValidatorTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.004,
+      "cases": [
+        "testRefusalMessageContent",
+        "testOnTopicQueriesAreAllowed",
+        "testOffTopicQueriesAreRejected",
+        "testNullOrBlankHandling"
+      ]
+    },
+    {
+      "suite": "DataStoreTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.007,
+      "cases": [
+        "unreadableStoreIsNotTreatedAsAnEmptyAccountList",
+        "utf8DataSurvivesReplacementWithoutTemporaryFiles",
+        "writeFailuresAreReportedInsteadOfClaimingSuccess"
+      ]
+    },
+    {
+      "suite": "GeminiServiceTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 1.346,
+      "cases": [
+        "testFitnessGuidance",
+        "testMealRecommendationsFromPantry",
+        "testGenerateRecipesFromPantry",
+        "testDirectGeminiCallReturnsResponseOrFallback",
+        "testSendChatMessage",
+        "testScheduleOptimization",
+        "testDailyLifestyleSuggestion"
+      ]
+    },
+    {
+      "suite": "PantryServiceTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.018,
+      "cases": [
+        "unnamedIngredientsAreRejected",
+        "invalidThresholdsAreRejected",
+        "invalidEditPreservesExistingStockOnDisk",
+        "validStockAndZeroThresholdSurviveDiskReload",
+        "invalidQuantitiesAreRejectedWithoutPersistingAnything"
+      ]
+    },
+    {
+      "suite": "RecipeServiceTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.013,
+      "cases": [
+        "testGetRecommendedRecipes",
+        "testGetAllRecipesNotEmpty",
+        "testFilterByPrepTime",
+        "testFilterByMealType",
+        "testFilterByDietaryPreference",
+        "testToggleFavorite",
+        "testGenerateLocalPantryRecipesEmptyPantry",
+        "testGenerateLocalPantryRecipesWithEggAndBread"
+      ]
+    },
+    {
+      "suite": "RequirementCoverageTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.027,
+      "cases": [
+        "matrixPreservesAllFourNutrientColumnsAcrossRows",
+        "catalogRecipeToggleRetainsOtherRecipes",
+        "matrixColumnAggregationAgreesWithExistingTotals",
+        "changingReturnedMatrixCannotModifySavedNutrition",
+        "matrixIsScopedToTheRequestedAccountAndDay",
+        "generatedRecipeFavoriteSurvivesCatalogReload",
+        "generatedRecipeCanBeUnfavoritedWithoutDuplicatingIt"
+      ]
+    },
+    {
+      "suite": "ThemeManagerTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.006,
+      "cases": [
+        "testPersistence",
+        "testListenerNotification",
+        "testToggleTheme",
+        "testSetDarkMode"
+      ]
+    }
+  ],
+  "google_calendar": "Explicitly excluded; no integration implemented",
+  "reference_images": {
+    "Unknown.jpeg": "720cf4932a3ea00ddb679cfe08025fd6ef9569f9f0ff23279036137a3a56421f",
+    "Unknown-2.jpeg": "97b505eee022e0e2a88f9dabd5589c1da41d1f39b5e07bd190e0f9c81ffe9572"
+  }
+}

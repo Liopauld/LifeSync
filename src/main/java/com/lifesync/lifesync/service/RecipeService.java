@@ -110,6 +110,29 @@ public class RecipeService {
     }
 
     /**
+     * Toggles a displayed recipe, first retaining generated recipes in the catalog.
+     * Returns the persisted favorite state; restores the old state if saving fails.
+     */
+    public static boolean toggleFavorite(Recipe recipe) {
+        List<Recipe> all = getAllRecipes();
+        Recipe stored = all.stream().filter(r -> r.getId().equals(recipe.getId()))
+                .findFirst().orElse(null);
+        if (stored == null) {
+            stored = recipe;
+            all.add(stored);
+        }
+        boolean previous = stored.isFavorite();
+        stored.setFavorite(!previous);
+        try {
+            DataStore.saveAll(RECIPES_FILE, all);
+        } catch (RuntimeException ex) {
+            stored.setFavorite(previous);
+            throw ex;
+        }
+        return stored.isFavorite();
+    }
+
+    /**
      * Retrieves curated recommended recipes, personalized by the currently logged-in
      * user's Body Mass Index (BMI) and dietary focus.
      *
