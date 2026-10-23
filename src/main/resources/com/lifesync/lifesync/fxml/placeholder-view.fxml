@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    placeholder-view.fxml
+    ─────────────────────
+    Generic placeholder shown for features that are still under development
+    (Meals, Pantry, Activity). Displays a simple "Coming Soon" message
+    centered in the content area. No controller is required.
+-->
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER" spacing="10"
+      styleClass="placeholder-root">
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+    <!-- Construction emoji -->
+    <Label text="🚧" styleClass="placeholder-icon"/>
+
+    <!-- Main heading -->
+    <Label text="Coming Soon"
+           styleClass="placeholder-heading"/>
+
+    <!-- Subtitle -->
+    <Label text="This feature is under development."
+           styleClass="placeholder-subtitle"/>
+</VBox>

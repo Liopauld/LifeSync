@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.paint.Color?>
+
+<!--
+    main-view.fxml
+    ──────────────
+    Post-login application shell for LifeSync.
+    Layout: sidebar (LEFT), header bar (TOP), swappable content area (CENTER).
+    The sidebar provides navigation buttons; the center StackPane is where
+    child views (Home, Plan, Meals, etc.) are dynamically loaded by SceneManager.
+-->
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.MainController"
+            styleClass="main-root">
+
+    <!-- ════════════════════════════════════════════════════════════════
+         LEFT – Sidebar navigation
+         ════════════════════════════════════════════════════════════════ -->
+    <left>
+        <VBox prefWidth="180" styleClass="sidebar">
+
+            <!-- Logo area -->
+            <HBox styleClass="sidebar-logo" alignment="CENTER_LEFT" spacing="10">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <ImageView fitHeight="34" fitWidth="34" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/mascot.png"/>
+                    </image>
+                </ImageView>
+                <Label text="LifeSync" styleClass="sidebar-title"/>
+            </HBox>
+
+            <Separator/>
+
+            <!-- Navigation buttons -->
+            <VBox spacing="5">
+                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+                <!-- Home -->
+                <Button fx:id="btnHome" text="Home"
+                        styleClass="sidebar-btn"
+                        onAction="#handleHome"
+                        maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Label text="🏠"/>
+                    </graphic>
+                </Button>
+
+                <!-- Plan -->
+                <Button fx:id="btnPlan" text="Plan"
+                        styleClass="sidebar-btn"
+                        onAction="#handlePlan"
+                        maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Label text="📅"/>
+                    </graphic>
+                </Button>
+
+                <!-- Meals -->
+                <Button fx:id="btnMeals" text="Meals"
+                        styleClass="sidebar-btn"
+                        onAction="#handleMeals"
+                        maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Label text="🍽"/>
+                    </graphic>
+                </Button>
+
+                <!-- Pantry -->
+                <Button fx:id="btnPantry" text="Pantry"
+                        styleClass="sidebar-btn"
+                        onAction="#handlePantry"
+                        maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Label text="🥫"/>
+                    </graphic>
+                </Button>
+
+                <!-- Activity -->
+                <Button fx:id="btnActivity" text="Activity"
+                        styleClass="sidebar-btn"
+                        onAction="#handleActivity"
+                        maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Label text="🏃"/>
+                    </graphic>
+                </Button>
+
+                <!-- Chatbot -->
+                <Button fx:id="btnChat" text="Chatbot"
+                        styleClass="sidebar-btn"
+                        onAction="#handleChat"
+                        maxWidth="Infinity" alignment="CENTER_LEFT">
+                    <graphic>
+                        <Label text="💬"/>
+                    </graphic>
+                </Button>
+            </VBox>
+
+            <!-- Spacer pushes motto to bottom -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- User Profile Area (moved from header) -->
+            <Separator/>
+            <VBox spacing="10" alignment="CENTER_LEFT">
+                <padding><Insets top="12" right="14" bottom="16" left="14"/></padding>
+
+                <!-- Dark / Light Mode Toggle Button -->
+                <Button fx:id="btnThemeToggle" text="🌙 Dark Mode"
+                        styleClass="theme-toggle-btn"
+                        maxWidth="Infinity" alignment="CENTER_LEFT"
+                        onAction="#handleToggleTheme"/>
+
+                <HBox fx:id="profileArea" alignment="CENTER_LEFT" spacing="10">
+                    <StackPane>
+                        <Circle radius="18" styleClass="sidebar-avatar-circle"/>
+                        <Label text="👤" styleClass="sidebar-avatar-icon"/>
+                    </StackPane>
+                    <Label fx:id="userNameLabel" text="Hi, User!" styleClass="header-username"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         CENTER – Swappable content area
+         ════════════════════════════════════════════════════════════════ -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+
+</BorderPane>

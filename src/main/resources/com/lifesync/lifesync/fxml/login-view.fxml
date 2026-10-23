@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    login-view.fxml
+    Login screen for LifeSync application.
+    Split layout: left brand panel with warm gradient, right login form.
+    Controller: com.lifesync.lifesync.controller.LoginController
+-->
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.lifesync.lifesync.controller.LoginController"
+      prefHeight="700.0" prefWidth="1100.0"
+      styleClass="login-root">
+
+    <!-- ==================== LEFT PANEL: Brand Area ==================== -->
+    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" spacing="12"
+          styleClass="login-brand-panel">
+        <padding>
+            <Insets top="35" right="45" bottom="35" left="45"/>
+        </padding>
+
+        <!-- Top brand title with leaf icon -->
+        <HBox alignment="CENTER_LEFT" maxWidth="Infinity">
+            <Label text="🌿 LifeSync" styleClass="brand-title"/>
+        </HBox>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <!-- Mascot Illustration - Prominent hero placement with transparent alpha -->
+        <VBox alignment="CENTER" spacing="12">
+            <ImageView fitHeight="210" fitWidth="210" preserveRatio="true">
+                <image>
+                    <Image url="@../images/login.png"/>
+                </image>
+            </ImageView>
+
+            <!-- Welcome heading block -->
+            <Label text="Welcome to LifeSync" styleClass="brand-heading" textAlignment="CENTER"/>
+            <Label text="Plan. Eat. Move. Grow.&#10;All in one place."
+                   styleClass="brand-subtitle" wrapText="true" textAlignment="CENTER"/>
+        </VBox>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <!-- Motivational motto -->
+        <Label text="Small steps build great changes! 🌱"
+               styleClass="brand-motto" wrapText="true" textAlignment="CENTER"/>
+    </VBox>
+
+    <!-- ==================== RIGHT PANEL: Login Form ==================== -->
+    <VBox HBox.hgrow="ALWAYS" alignment="CENTER" styleClass="login-form-panel">
+        <padding>
+            <Insets top="40" right="60" bottom="40" left="60"/>
+        </padding>
+
+        <!-- Form container with max width for readability -->
+        <VBox maxWidth="420" spacing="12" alignment="CENTER_LEFT">
+
+            <!-- App icon + title -->
+            <Label text="🌿 LifeSync" styleClass="form-app-title"/>
+
+            <!-- Heading -->
+            <Label text="Log in to your account" styleClass="form-heading"/>
+
+            <!-- Subtitle -->
+            <Label text="Continue your journey to a healthier, happier you."
+                   styleClass="form-subtitle" wrapText="true"/>
+
+            <!-- Spacer -->
+            <Region prefHeight="20"/>
+
+            <!-- Username / Email field -->
+            <TextField fx:id="usernameField"
+                       promptText="Username or Email"
+                       styleClass="login-field"/>
+
+            <!-- Password field -->
+            <PasswordField fx:id="passwordField"
+                           promptText="Password"
+                           styleClass="login-field"/>
+
+            <!-- Remember me + Forgot password row -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <CheckBox fx:id="rememberMeCheckbox" text="Remember me"
+                          styleClass="remember-check"/>
+                <!-- Spacer pushes forgot link to the right -->
+                <Region HBox.hgrow="ALWAYS"/>
+                <Hyperlink text="Forgot password?"
+                           onAction="#handleForgotPassword"
+                           styleClass="form-link"/>
+            </HBox>
+
+            <!-- Spacer -->
+            <Region prefHeight="15"/>
+
+            <!-- Login button -->
+            <Button text="Log In →"
+                    onAction="#handleLogin"
+                    styleClass="login-button"
+                    maxWidth="Infinity"/>
+
+            <!-- Error label (initially empty) -->
+            <Label fx:id="errorLabel" text=""
+                   styleClass="error-label" wrapText="true"/>
+
+            <!-- Spacer -->
+            <Region prefHeight="20"/>
+
+            <!-- Sign-up prompt -->
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Don't have an account?" styleClass="form-footer-text"/>
+                <Hyperlink text="Sign up →"
+                           onAction="#handleSignUp"
+                           styleClass="form-link"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</HBox>

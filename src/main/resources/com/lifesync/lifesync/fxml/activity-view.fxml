@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    activity-view.fxml
+    ──────────────────
+    Dedicated Activity & Fitness tracking view.
+    Shows a weekly workout summary, progress ring placeholder, and
+    a filterable list of all activities with their completion status.
+
+    Layout:
+      ScrollPane > VBox
+        Row 1: Page heading + subtitle
+        Row 2: Three summary cards (Weekly Progress, Calories Burned, Active Days)
+        Row 3: Main content — filter bar + activity list + right-side weekly breakdown
+-->
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.ActivityViewController"
+            fitToWidth="true" fitToHeight="true"
+            styleClass="transparent-scroll-pane">
+
+    <VBox spacing="20">
+        <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 1 — Page Heading
+             ═══════════════════════════════════════════════════════════════ -->
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="💪 Activity &amp; Fitness" styleClass="page-heading"/>
+                <Label text="Track your workouts, stay active, and crush your fitness goals."
+                       styleClass="page-subtitle"/>
+            </VBox>
+            <ImageView fitHeight="70" fitWidth="70" preserveRatio="true">
+                <image>
+                    <Image url="@../images/activity.png"/>
+                </image>
+            </ImageView>
+        </HBox>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 2 — Summary Cards
+             ═══════════════════════════════════════════════════════════════ -->
+        <HBox spacing="15">
+            <!-- Card 1: Weekly Progress -->
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" spacing="8">
+                <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
+                <Label text="🎯" styleClass="summary-card-icon"/>
+                <Label text="Weekly Progress" styleClass="summary-card-title"/>
+                <Label fx:id="weeklyProgressLabel" text="0 / 0 workouts"
+                       styleClass="summary-card-count"/>
+                <ProgressBar fx:id="weeklyProgressBar" progress="0"
+                             maxWidth="Infinity" prefHeight="8"/>
+            </VBox>
+
+            <!-- Card 2: Calories Burned This Week -->
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" spacing="8">
+                <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
+                <Label text="🔥" styleClass="summary-card-icon"/>
+                <Label text="Calories Burned" styleClass="summary-card-title"/>
+                <Label fx:id="caloriesBurnedLabel" text="0 kcal"
+                       styleClass="summary-card-count"/>
+                <ProgressBar fx:id="caloriesBurnedBar" progress="0"
+                             maxWidth="Infinity" prefHeight="8"
+                             styleClass="progress-red"/>
+            </VBox>
+
+            <!-- Card 3: Active Days This Week -->
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS" spacing="8">
+                <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
+                <Label text="📆" styleClass="summary-card-icon"/>
+                <Label text="Active Days" styleClass="summary-card-title"/>
+                <Label fx:id="activeDaysLabel" text="0 / 7 days"
+                       styleClass="summary-card-count"/>
+                <ProgressBar fx:id="activeDaysBar" progress="0"
+                             maxWidth="Infinity" prefHeight="8"
+                             styleClass="progress-green"/>
+            </VBox>
+        </HBox>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 3 — Main Content: Filter + Activity List + Weekly Breakdown
+             ═══════════════════════════════════════════════════════════════ -->
+        <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+            <!-- LEFT COLUMN — Filter bar + Activity list -->
+            <VBox HBox.hgrow="ALWAYS" spacing="15">
+
+                <!-- Filter bar -->
+                <HBox spacing="10" alignment="CENTER_LEFT" styleClass="dashboard-card">
+                    <padding><Insets top="12" right="15" bottom="12" left="15"/></padding>
+
+                    <Label text="Filter:" styleClass="filter-label"/>
+
+                    <!-- Type filter combo -->
+                    <ComboBox fx:id="typeFilterCombo" promptText="All Types"
+                              prefWidth="160"/>
+
+                    <!-- Status filter combo -->
+                    <ComboBox fx:id="statusFilterCombo" promptText="All Status"
+                              prefWidth="160"/>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Add Workout button -->
+                    <Button text="➕ Add Workout" onAction="#handleAddWorkout"
+                            styleClass="action-btn, activity-add-workout-btn"/>
+                </HBox>
+
+                <!-- Activity list -->
+                <VBox fx:id="activityListContainer" spacing="10" VBox.vgrow="ALWAYS">
+                    <!-- Activity rows are added here programmatically -->
+                </VBox>
+
+            </VBox>
+
+            <!-- RIGHT COLUMN — Weekly Breakdown + BMI Focus -->
+            <VBox prefWidth="320" minWidth="300" spacing="15">
+
+                <!-- Personalized BMI Fitness Guidance Card -->
+                <VBox styleClass="dashboard-card, bmi-focus-card" spacing="8">
+                    <padding><Insets top="16" right="18" bottom="16" left="18"/></padding>
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="🎯" styleClass="bmi-focus-icon"/>
+                        <Label text="BMI Fitness Focus" styleClass="section-title, bmi-focus-title" minWidth="-Infinity"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="bmiCategoryPill" text="Normal" styleClass="status-pill" minWidth="-Infinity"/>
+                    </HBox>
+                    <Label fx:id="bmiFitnessAdviceLabel" text="Loading personalized fitness plan..." wrapText="true"
+                           styleClass="bmi-focus-desc"/>
+                </VBox>
+
+                <!-- This Week Overview Card -->
+                <VBox styleClass="dashboard-card" spacing="12">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    <Label text="📊 This Week" styleClass="section-title"/>
+                    <Separator/>
+                    <VBox fx:id="weeklyBreakdownList" spacing="8">
+                        <!-- Populated programmatically: one row per day (Mon-Sun) -->
+                    </VBox>
+                </VBox>
+
+                <!-- Quick Stats Card -->
+                <VBox styleClass="dashboard-card" spacing="10">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    <Label text="⚡ Quick Stats" styleClass="section-title"/>
+                    <Separator/>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Total Workouts:" styleClass="stat-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="totalWorkoutsLabel" text="0"
+                               styleClass="stat-value"/>
+                    </HBox>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Completed:" styleClass="stat-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="completedCountLabel" text="0"
+                               styleClass="stat-value, stat-completed"/>
+                    </HBox>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Upcoming:" styleClass="stat-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="upcomingCountLabel" text="0"
+                               styleClass="stat-value, stat-upcoming"/>
+                    </HBox>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Cancelled:" styleClass="stat-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="cancelledCountLabel" text="0"
+                               styleClass="stat-value, stat-cancelled"/>
+                    </HBox>
+
+                    <Separator/>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="Completion Rate:" styleClass="stat-label"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="completionRateLabel" text="0%"
+                               styleClass="stat-value, stat-rate"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

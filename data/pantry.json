@@ -1,0 +1,29 @@
+[
+  {
+    "id": "03ba9940-2812-4b5f-a78b-b93866af90e3",
+    "userId": "02e94926-7499-4fb3-bfe7-1f7e4c55f68d",
+    "name": "Egg",
+    "category": "Meat",
+    "unit": "pieces",
+    "quantity": 10.0,
+    "lowThreshold": 1.0
+  },
+  {
+    "id": "0f3e533c-8ece-413a-9747-d21f53a05338",
+    "userId": "02e94926-7499-4fb3-bfe7-1f7e4c55f68d",
+    "name": "Bread",
+    "category": "Grains",
+    "unit": "pieces",
+    "quantity": 10.0,
+    "lowThreshold": 1.0
+  },
+  {
+    "id": "6a95b175-3712-41f2-b557-181b766e08f7",
+    "userId": "030be97a-f0d6-4e46-aa29-0393fcf5ab95",
+    "name": "Eggs",
+    "category": "Meat",
+    "unit": "pieces",
+    "quantity": 10.0,
+    "lowThreshold": 3.0
+  }
+]

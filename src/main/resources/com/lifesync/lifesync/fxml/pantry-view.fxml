@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  pantry-view.fxml — Ingredient & Stock management
+  
+  Displays the user's available ingredients grouped by category,
+  with low-stock indicators. Allows adding, editing, and removing items.
+  
+  Controller: PantryController
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.PantryController"
+            fitToWidth="true" hbarPolicy="NEVER">
+
+    <VBox spacing="20" styleClass="dashboard-root">
+        <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+        <!-- ═══ Header ═══ -->
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="📦 Pantry — Ingredients &amp; Stock" styleClass="page-heading"/>
+                <Label text="Track what you have at home and get notified when supplies run low."
+                       styleClass="page-subtitle"/>
+            </VBox>
+            <ImageView fitHeight="68" fitWidth="68" preserveRatio="true">
+                <image>
+                    <Image url="@../images/pantry.png"/>
+                </image>
+            </ImageView>
+            <Button text="➕ Add Ingredient" onAction="#handleAddItem" styleClass="login-button"/>
+        </HBox>
+
+        <!-- ═══ Summary Cards ═══ -->
+        <HBox spacing="15">
+            <VBox styleClass="summary-card" prefWidth="180">
+                <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                <Label text="📦" styleClass="summary-card-icon"/>
+                <Label text="Total Items" styleClass="summary-card-title"/>
+                <Label fx:id="totalItemsLabel" text="0" styleClass="summary-card-count"/>
+            </VBox>
+            <VBox styleClass="summary-card" prefWidth="180">
+                <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                <Label text="⚠️" styleClass="summary-card-icon"/>
+                <Label text="Low Stock" styleClass="summary-card-title"/>
+                <Label fx:id="lowStockLabel" text="0" styleClass="summary-card-count, summary-card-count-danger"/>
+            </VBox>
+            <VBox styleClass="summary-card" prefWidth="180">
+                <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+                <Label text="📂" styleClass="summary-card-icon"/>
+                <Label text="Categories" styleClass="summary-card-title"/>
+                <Label fx:id="categoriesLabel" text="0" styleClass="summary-card-count"/>
+            </VBox>
+        </HBox>
+
+        <!-- ═══ Category Filter ═══ -->
+        <HBox fx:id="categoryFilters" spacing="8" alignment="CENTER_LEFT">
+            <Label text="Filter:" styleClass="filter-label"/>
+            <!-- Category buttons are added programmatically -->
+        </HBox>
+
+        <!-- ═══ Pantry Items Table ═══ -->
+        <VBox styleClass="dashboard-card" spacing="10">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <VBox fx:id="pantryItemsList" spacing="8">
+                <!-- Ingredient rows are populated programmatically -->
+            </VBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

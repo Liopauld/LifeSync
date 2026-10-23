@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<!--
+    profile-view.fxml
+    ─────────────────
+    User profile editing screen.
+    Displays the user's personal information, body metrics, and lifestyle
+    preferences in an editable form. Includes BMR/TDEE readout and a
+    logout button.
+
+    Layout:
+      ScrollPane > VBox
+        Row 1: Page heading
+        Row 2: Profile card (avatar + name) + Account info
+        Row 3: Body metrics form + Calculated nutrition stats
+        Row 4: Preferences + Save/Logout buttons
+-->
+
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.ProfileController"
+            fitToWidth="true" fitToHeight="true"
+            styleClass="transparent-scroll-pane">
+
+    <VBox spacing="20">
+        <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 1 — Page Heading
+             ═══════════════════════════════════════════════════════════════ -->
+        <VBox spacing="4">
+            <Label text="👤 My Profile" styleClass="page-heading"/>
+            <Label text="Manage your personal information and preferences."
+                   styleClass="page-subtitle"/>
+        </VBox>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 2 — Profile Identity + Account Info
+             ═══════════════════════════════════════════════════════════════ -->
+        <HBox spacing="20">
+
+            <!-- Profile identity card with avatar -->
+            <VBox styleClass="dashboard-card" alignment="CENTER" spacing="12"
+                  prefWidth="280">
+                <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+                <!-- Avatar circle with initials -->
+                <StackPane>
+                    <Circle radius="45" styleClass="profile-avatar-circle"/>
+                    <Label fx:id="avatarInitialsLabel" text="U"
+                           styleClass="profile-avatar-initials"/>
+                </StackPane>
+
+                <Label fx:id="profileFullNameLabel" text="Full Name"
+                       styleClass="profile-fullname"/>
+                <Label fx:id="profileUsernameLabel" text="@username"
+                       styleClass="profile-username"/>
+                <Label fx:id="memberSinceLabel" text="Member since ..."
+                       styleClass="profile-membersince"/>
+            </VBox>
+
+            <!-- Account details form -->
+            <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS" spacing="15">
+                <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+                <Label text="Account Information" styleClass="section-title"/>
+                <Separator/>
+
+                <!-- First Name / Last Name -->
+                <HBox spacing="15">
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="First Name" styleClass="form-label"/>
+                        <TextField fx:id="firstNameField" promptText="First Name"
+                                   styleClass="profile-field"/>
+                    </VBox>
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Last Name" styleClass="form-label"/>
+                        <TextField fx:id="lastNameField" promptText="Last Name"
+                                   styleClass="profile-field"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Email (read-only display) -->
+                <VBox spacing="4">
+                    <Label text="Email" styleClass="form-label"/>
+                    <TextField fx:id="emailField" promptText="Email"
+                               styleClass="profile-field, profile-field-readonly" editable="false"/>
+                </VBox>
+
+                <!-- Username (read-only display) -->
+                <VBox spacing="4">
+                    <Label text="Username" styleClass="form-label"/>
+                    <TextField fx:id="usernameDisplayField" promptText="Username"
+                               styleClass="profile-field, profile-field-readonly" editable="false"/>
+                </VBox>
+            </VBox>
+        </HBox>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 3 — Body Metrics + Calculated Nutrition
+             ═══════════════════════════════════════════════════════════════ -->
+        <HBox spacing="20">
+
+            <!-- Body metrics form -->
+            <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS" spacing="15">
+                <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+                <Label text="Body Metrics" styleClass="section-title"/>
+                <Separator/>
+
+                <HBox spacing="15">
+                    <!-- Age -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Age (years)" styleClass="form-label"/>
+                        <TextField fx:id="ageField" promptText="e.g. 25"
+                                   styleClass="profile-field"/>
+                    </VBox>
+                    <!-- Gender -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Gender" styleClass="form-label"/>
+                        <ComboBox fx:id="genderCombo" promptText="Select Gender"
+                                  maxWidth="Infinity"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="15">
+                    <!-- Height -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Height (cm)" styleClass="form-label"/>
+                        <TextField fx:id="heightField" promptText="e.g. 170"
+                                   styleClass="profile-field"/>
+                    </VBox>
+                    <!-- Weight -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="4">
+                        <Label text="Weight (kg)" styleClass="form-label"/>
+                        <TextField fx:id="weightField" promptText="e.g. 65"
+                                   styleClass="profile-field"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Activity Level -->
+                <VBox spacing="4">
+                    <Label text="Activity Level" styleClass="form-label"/>
+                    <ComboBox fx:id="activityLevelCombo" promptText="Select Activity Level"
+                              maxWidth="Infinity"/>
+                </VBox>
+            </VBox>
+
+            <!-- Calculated nutrition stats -->
+            <VBox prefWidth="300" spacing="15">
+
+                <!-- BMR / TDEE / BMI Card -->
+                <VBox styleClass="dashboard-card" spacing="10">
+                    <padding><Insets top="18" right="20" bottom="18" left="20"/></padding>
+                    <Label text="📊 Body &amp; Nutrition Calculator" styleClass="section-title"/>
+                    <Separator/>
+
+                    <!-- BMI readout block -->
+                    <VBox alignment="CENTER" spacing="3">
+                        <Label text="BODY MASS INDEX (BMI)" styleClass="profile-calc-label"/>
+                        <HBox alignment="CENTER" spacing="8">
+                            <Label fx:id="bmiValueLabel" text="--.-"
+                                   styleClass="profile-bmi-value"/>
+                            <Label fx:id="bmiCategoryBadge" text="Normal"
+                                   styleClass="profile-bmi-badge"/>
+                        </HBox>
+                        <Label fx:id="bmiHealthyRangeLabel" text="Healthy range: 18.5 – 24.9"
+                               styleClass="profile-healthy-range"/>
+                    </VBox>
+
+                    <Separator/>
+
+                    <!-- BMR readout block -->
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <VBox HBox.hgrow="ALWAYS" spacing="1">
+                            <Label text="BMR (Resting Burn)" styleClass="profile-calc-label"/>
+                            <Label fx:id="bmrValueLabel" text="-- kcal"
+                                   styleClass="profile-bmr-value"/>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS" alignment="CENTER_RIGHT" spacing="1">
+                            <Label text="TDEE (Daily Target)" styleClass="profile-calc-label"/>
+                            <Label fx:id="tdeeValueLabel" text="-- kcal"
+                                   styleClass="profile-tdee-value"/>
+                        </VBox>
+                    </HBox>
+
+                    <Separator/>
+
+                    <Label fx:id="nutritionHintLabel"
+                           text="Fill in your body metrics to calculate."
+                           wrapText="true"
+                           styleClass="profile-hint-label"/>
+                </VBox>
+            </VBox>
+        </HBox>
+
+        <!-- ═══════════════════════════════════════════════════════════════
+             ROW 4 — Dietary Preferences + Action Buttons
+             ═══════════════════════════════════════════════════════════════ -->
+        <HBox spacing="20">
+
+            <!-- Dietary preferences -->
+            <VBox styleClass="dashboard-card" HBox.hgrow="ALWAYS" spacing="12">
+                <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+                <Label text="Dietary Preferences" styleClass="section-title"/>
+                <Separator/>
+                <Label text="List any dietary restrictions, allergies, or food preferences (e.g. vegetarian, no pork, lactose intolerant)."
+                       wrapText="true" styleClass="form-label"/>
+                <TextArea fx:id="dietaryPreferencesArea" promptText="Enter your dietary preferences..."
+                          prefRowCount="3" wrapText="true"
+                          styleClass="profile-textarea"/>
+            </VBox>
+
+            <!-- Action buttons panel -->
+            <VBox prefWidth="300" spacing="12">
+
+                <!-- Save button -->
+                <Button text="💾  Save Profile" onAction="#handleSave"
+                        maxWidth="Infinity"
+                        styleClass="profile-save-btn"/>
+
+                <!-- Status message -->
+                <Label fx:id="statusLabel" text="" wrapText="true"
+                       styleClass="profile-status-label"/>
+
+                <!-- Spacer -->
+                <Region prefHeight="20"/>
+
+                <!-- Logout button -->
+                <Button text="🚪  Log Out" onAction="#handleLogout"
+                        maxWidth="Infinity"
+                        styleClass="profile-logout-btn"/>
+            </VBox>
+        </HBox>
+
+    </VBox>
+</ScrollPane>

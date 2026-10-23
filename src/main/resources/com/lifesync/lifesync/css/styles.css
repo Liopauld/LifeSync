@@ -1,0 +1,2586 @@
+/*
+ * ============================================================================
+ * LifeSync Global Stylesheet
+ * ============================================================================
+ *
+ * Color palette derived from the team's UI mockups:
+ *   - Primary (golden amber):  #F5A623 (buttons, accents, progress bars)
+ *   - Secondary (purple):      #7C6FE4 (logo accent, some icons)
+ *   - Background (warm white): #F8F6F1 (page backgrounds)
+ *   - Card background:         #FFFFFF (white cards with shadows)
+ *   - Text primary:            #2D2D2D (main text)
+ *   - Text muted:              #8E8E93 (secondary text)
+ *   - Success (green):         #4CAF50 (completed status)
+ *   - Warning (amber):         #F5A623 (upcoming status)
+ *   - Danger (red):            #FF5252 (errors, cancelled)
+ *
+ * All cards use 16px border-radius, subtle shadows, and white backgrounds.
+ * Fonts default to the system font with fallback to Arial/sans-serif.
+ * ============================================================================
+ */
+
+/* ── Root ──────────────────────────────────────────────────────────────── */
+
+.root {
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #F8F6F1;
+    -fx-background: #F8F6F1;
+    -fx-text-fill: #2D2D2D;
+}
+
+.label {
+    -fx-text-fill: #2D2D2D;
+}
+
+.card-section-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.day-view-heading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.calendar-month-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.detail-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.detail-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4A4A4A;
+}
+
+/* ── Login Screen ─────────────────────────────────────────────────────── */
+
+/* Left brand panel with warm gradient background */
+.login-brand-panel {
+    -fx-background-color: linear-gradient(to bottom right, #FFF3D6, #FFE4B5, #FFDAB0);
+    -fx-padding: 50;
+}
+
+/* Main brand title at top of login left panel */
+.brand-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* Large "LifeSync" heading on login */
+.brand-heading {
+    -fx-font-size: 52px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* "Welcome to" text above the brand heading */
+.brand-welcome {
+    -fx-font-size: 22px;
+    -fx-font-style: italic;
+    -fx-text-fill: #6B5B3C;
+}
+
+/* Subtitle text below the brand heading */
+.brand-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6B5B3C;
+}
+
+/* "Small steps great changes" motto */
+.brand-motto {
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-text-fill: #D4842A;
+    -fx-font-weight: bold;
+}
+
+/* Right form panel (white/light background) */
+.login-form-panel {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0;
+    -fx-padding: 50 40 50 40;
+}
+
+/* Form title "LifeSync" on login right panel */
+.form-brand-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* "Log in to your account" heading */
+.form-heading {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* Subtitle under form heading */
+.form-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #8E8E93;
+}
+
+/* Input fields with rounded borders */
+.login-field {
+    -fx-background-color: #F0EBF8;
+    -fx-background-radius: 12;
+    -fx-border-color: transparent;
+    -fx-border-radius: 12;
+    -fx-padding: 12 16;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #A0A0A0;
+}
+
+.login-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #F5A623;
+    -fx-border-width: 2;
+}
+
+/* Golden login/signup button */
+.login-button {
+    -fx-background-color: linear-gradient(to right, #F5C842, #F5A623);
+    -fx-background-radius: 12;
+    -fx-text-fill: #2D2D2D;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.3), 8, 0, 0, 3);
+}
+
+.login-button:hover {
+    -fx-background-color: linear-gradient(to right, #F5D060, #F5B035);
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.5), 12, 0, 0, 4);
+}
+
+.login-button:pressed {
+    -fx-background-color: linear-gradient(to right, #E0A520, #D99015);
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.2), 4, 0, 0, 1);
+}
+
+/* Error message label */
+.error-label {
+    -fx-text-fill: #FF5252;
+    -fx-font-size: 13px;
+}
+
+/* "Forgot password?" and "Sign up" links */
+.link-text {
+    -fx-text-fill: #F5A623;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+/* Remember me checkbox */
+.check-box {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6B6B6B;
+}
+
+.check-box .box {
+    -fx-background-color: #F0EBF8;
+    -fx-background-radius: 4;
+    -fx-border-color: #D0D0D0;
+    -fx-border-radius: 4;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #F5A623;
+    -fx-border-color: #F5A623;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────── */
+
+/* Main sidebar container */
+.sidebar {
+    -fx-background-color: #FFF8ED;
+    -fx-padding: 20 10;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 0 1 0 0;
+}
+
+/* LifeSync logo in sidebar */
+.sidebar-logo {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+    -fx-padding: 0 0 15 10;
+}
+
+/* Sidebar navigation buttons */
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B6B6B;
+    -fx-font-size: 13px;
+    -fx-padding: 10 15;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+    -fx-content-display: LEFT;
+    -fx-graphic-text-gap: 10;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: #FFF0D4;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* Active (selected) sidebar button */
+.sidebar-btn-active {
+    -fx-background-color: #FFE4B5;
+    -fx-text-fill: #D4842A;
+    -fx-font-weight: bold;
+}
+
+/* ── Header Bar ───────────────────────────────────────────────────────── */
+
+.header-bar {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 10 25;
+}
+
+.header-icon {
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+
+.header-username {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Content Area ─────────────────────────────────────────────────────── */
+
+.content-area {
+    -fx-background-color: #F8F6F1;
+    -fx-padding: 0;
+}
+
+/* ── Dashboard Cards ──────────────────────────────────────────────────── */
+
+/* Standard card styling used throughout the app */
+.dashboard-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);
+    -fx-padding: 20;
+}
+
+/* Summary cards (top row of dashboard) */
+.summary-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+    -fx-padding: 18 20;
+    -fx-pref-width: 200;
+}
+
+.summary-card-icon,
+.card-icon {
+    -fx-font-size: 24px;
+    -fx-text-fill: #2D2D2D;
+}
+
+.summary-card-title,
+.card-title {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8E8E93;
+    -fx-font-weight: bold;
+}
+
+.summary-card-count,
+.card-count {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.clickable-card {
+    -fx-cursor: hand;
+}
+
+.clickable-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(245, 166, 35, 0.3), 12, 0, 0, 4);
+    -fx-border-color: #F5A623;
+}
+
+/* AI Suggestion card - slightly different purple-ish tint */
+.ai-card {
+    -fx-background-color: #F0ECFF;
+    -fx-background-radius: 16px;
+    -fx-border-radius: 16px;
+}
+
+.ai-card .label {
+    -fx-text-fill: #000000;
+}
+
+.ai-card .section-heading {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.ai-card .muted-text {
+    -fx-text-fill: #2D2D2D;
+    -fx-font-size: 12px;
+}
+
+.ai-suggestion-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+    -fx-line-spacing: 4px;
+}
+
+.ai-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.beta-pill {
+    -fx-background-color: #E0D9FF;
+    -fx-background-radius: 8;
+    -fx-text-fill: #5B4FC4;
+    -fx-font-size: 10px;
+    -fx-padding: 2 8;
+    -fx-font-weight: bold;
+}
+
+/* ── Greeting ─────────────────────────────────────────────────────────── */
+
+.greeting-heading {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.greeting-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ── Page headings (Plan, Meals, etc.) ────────────────────────────────── */
+
+.page-heading {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.page-subtitle {
+    -fx-font-size: 15px;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ── Progress Bars ────────────────────────────────────────────────────── */
+
+/* Default progress bar track */
+.progress-bar > .track {
+    -fx-background-color: #F0EBE0;
+    -fx-background-radius: 6;
+    -fx-pref-height: 8;
+}
+
+/* Default progress bar fill (golden) */
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #F5C842, #F5A623);
+    -fx-background-radius: 6;
+    -fx-background-insets: 0;
+}
+
+/* Green progress bar variant */
+.progress-green > .bar {
+    -fx-background-color: #4CAF50;
+}
+
+/* Blue progress bar variant */
+.progress-blue > .bar {
+    -fx-background-color: #42A5F5;
+}
+
+/* Red/orange progress bar variant */
+.progress-red > .bar {
+    -fx-background-color: #FF7043;
+}
+
+/* ── Activity Rows (Today's Plan on Dashboard) ────────────────────────── */
+
+.activity-row {
+    -fx-padding: 8 12;
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 10;
+}
+
+.activity-row:hover {
+    -fx-background-color: #FFF8ED;
+}
+
+.activity-time {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8E8E93;
+    -fx-font-weight: bold;
+}
+
+.activity-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2D2D2D;
+    -fx-font-weight: bold;
+}
+
+/* Status indicator dots */
+.status-dot-completed {
+    -fx-fill: #4CAF50;
+}
+
+.status-dot-upcoming {
+    -fx-fill: #F5A623;
+}
+
+/* ── Status Pills ─────────────────────────────────────────────────────── */
+
+.status-pill {
+    -fx-background-radius: 10;
+    -fx-padding: 3 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-completed {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+}
+
+.status-upcoming {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+}
+
+.status-cancelled {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+}
+
+/* ── Category Tags ────────────────────────────────────────────────────── */
+
+.category-tag {
+    -fx-background-radius: 8;
+    -fx-padding: 2 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.tag-workout {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+}
+
+.tag-meal {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+}
+
+.tag-study {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1565C0;
+}
+
+.tag-rest {
+    -fx-background-color: #F3E5F5;
+    -fx-text-fill: #7B1FA2;
+}
+
+.tag-other {
+    -fx-background-color: #ECEFF1;
+    -fx-text-fill: #546E7A;
+}
+
+/* ── Upcoming Plans Rows ──────────────────────────────────────────────── */
+
+.upcoming-row {
+    -fx-padding: 6 8;
+    -fx-background-radius: 8;
+}
+
+.upcoming-row:hover {
+    -fx-background-color: #FFF8ED;
+}
+
+.upcoming-date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8E8E93;
+    -fx-font-weight: bold;
+}
+
+.upcoming-time {
+    -fx-font-size: 12px;
+    -fx-text-fill: #B0B0B0;
+}
+
+.upcoming-title {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Recent Update Rows ───────────────────────────────────────────────── */
+
+.update-row {
+    -fx-padding: 6 8;
+}
+
+.update-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4A4A4A;
+}
+
+/* ── Muted Text ───────────────────────────────────────────────────────── */
+
+.muted-text {
+    -fx-text-fill: #B0B0B0;
+    -fx-font-style: italic;
+    -fx-font-size: 13px;
+}
+
+/* ── Nutrition Labels ─────────────────────────────────────────────────── */
+
+.calorie-count {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.calorie-unit {
+    -fx-font-size: 14px;
+    -fx-text-fill: #8E8E93;
+}
+
+.calorie-target {
+    -fx-font-size: 13px;
+    -fx-text-fill: #B0B0B0;
+}
+
+.macro-name,
+.macro-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6B6B6B;
+}
+
+.macro-value {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.macro-percent {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ── View Toggle Buttons (Day/Week/Month) ─────────────────────────────── */
+
+.view-toggle {
+    -fx-spacing: 0;
+}
+
+.toggle-btn {
+    -fx-background-color: #F0EBE0;
+    -fx-text-fill: #6B6B6B;
+    -fx-font-size: 13px;
+    -fx-padding: 8 18;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.toggle-btn:selected {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #2D2D2D;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 4, 0, 0, 1);
+}
+
+/* ── Navigation Arrows & Today Button ─────────────────────────────────── */
+
+.nav-arrow {
+    -fx-background-color: transparent;
+    -fx-text-fill: #6B6B6B;
+    -fx-font-size: 16px;
+    -fx-padding: 6 10;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
+}
+
+.nav-arrow:hover {
+    -fx-background-color: #F0EBE0;
+}
+
+.current-date-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.today-btn {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+    -fx-font-size: 13px;
+    -fx-padding: 6 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.today-btn:hover {
+    -fx-background-color: #C8E6C9;
+}
+
+/* ── Mini Calendar ────────────────────────────────────────────────────── */
+
+.calendar-day-header {
+    -fx-font-size: 11px;
+    -fx-text-fill: #8E8E93;
+    -fx-font-weight: bold;
+}
+
+.calendar-date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #2D2D2D;
+    -fx-cursor: hand;
+    -fx-background-radius: 15;
+    -fx-padding: 4;
+}
+
+.calendar-date:hover {
+    -fx-background-color: #FFF0D4;
+}
+
+/* Today's date highlighted with golden circle */
+.calendar-today {
+    -fx-background-color: #F5A623;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15;
+}
+
+/* Selected date (when different from today) */
+.calendar-selected {
+    -fx-border-color: #F5A623;
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+    -fx-font-weight: bold;
+}
+
+/* ── Timeline (Plan View) ─────────────────────────────────────────────── */
+
+.timeline-slot {
+    -fx-padding: 4 0;
+}
+
+.timeline-time {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8E8E93;
+    -fx-font-weight: bold;
+}
+
+.timeline-line {
+    -fx-background-color: #E0D8CC;
+    -fx-background-radius: 1;
+}
+
+.timeline-add-btn {
+    -fx-font-size: 16px;
+    -fx-text-fill: #C0C0C0;
+    -fx-cursor: hand;
+    -fx-padding: 4 12;
+    -fx-background-color: transparent;
+    -fx-background-radius: 8;
+}
+
+.timeline-add-btn:hover {
+    -fx-background-color: #FFF0D4;
+    -fx-text-fill: #F5A623;
+}
+
+/* Timeline activity cards */
+.timeline-activity-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 4, 0, 0, 1);
+}
+
+.timeline-activity-card:hover {
+    -fx-border-color: #F5A623;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.15), 8, 0, 0, 2);
+}
+
+/* Card type color accents (left border or tint) */
+.card-workout {
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 1 1 1 4;
+}
+
+.card-meal {
+    -fx-border-color: #FF9800;
+    -fx-border-width: 1 1 1 4;
+}
+
+.card-study {
+    -fx-border-color: #42A5F5;
+    -fx-border-width: 1 1 1 4;
+}
+
+.card-rest {
+    -fx-border-color: #AB47BC;
+    -fx-border-width: 1 1 1 4;
+}
+
+.card-other {
+    -fx-border-color: #78909C;
+    -fx-border-width: 1 1 1 4;
+}
+
+.card-icon {
+    -fx-font-size: 18px;
+    -fx-text-fill: #2D2D2D;
+}
+
+.card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.card-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ── Quick Action Buttons ─────────────────────────────────────────────── */
+
+.action-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E0D8CC;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8 16;
+    -fx-font-size: 13px;
+    -fx-text-fill: #4A4A4A;
+    -fx-cursor: hand;
+}
+
+.action-btn:hover {
+    -fx-background-color: #FFF8ED;
+    -fx-border-color: #F5A623;
+    -fx-text-fill: #D4842A;
+}
+
+/* ── Scroll Pane ──────────────────────────────────────────────────────── */
+
+/* Remove default scroll pane borders and backgrounds */
+.scroll-pane,
+.dashboard-scroll-pane,
+.edge-to-edge-scroll,
+.transparent-scroll-pane,
+.timeline-scroll {
+    -fx-background-color: transparent;
+    -fx-background: #F8F6F1;
+}
+
+.scroll-pane > .viewport,
+.dashboard-scroll-pane > .viewport,
+.edge-to-edge-scroll > .viewport,
+.transparent-scroll-pane > .viewport,
+.timeline-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+/* Scrollbar styling */
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #D0C8B8;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #B0A898;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+/* ── Separator ────────────────────────────────────────────────────────── */
+
+.separator > .line {
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* ── Hyperlinks ───────────────────────────────────────────────────────── */
+
+.hyperlink {
+    -fx-text-fill: #F5A623;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #D4842A;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #F5A623;
+}
+
+/* ── Section Titles ───────────────────────────────────────────────────── */
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Goals Progress ───────────────────────────────────────────────────── */
+
+.goal-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6B6B6B;
+}
+
+.goal-percent {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Placeholder view ─────────────────────────────────────────────────── */
+
+.placeholder-icon {
+    -fx-font-size: 48px;
+}
+
+.placeholder-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8E8E93;
+}
+
+.placeholder-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #B0B0B0;
+}
+
+/* ── Tooltip ──────────────────────────────────────────────────────────── */
+
+.tooltip {
+    -fx-background-color: #2D2D2D;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12;
+    -fx-font-size: 12px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   Phase 2 Additions
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Activity View Cards ─────────────────────────────────────────────── */
+
+/* Individual activity card in the Activity list */
+.activity-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 4, 0, 0, 1);
+}
+
+.activity-card:hover {
+    -fx-background-color: #FFFCF5;
+    -fx-border-color: #F5A623;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.12), 8, 0, 0, 2);
+}
+
+/* Date header separating groups of activities */
+.activity-date-header {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6B6B6B;
+}
+
+/* Calorie burned badge on activity cards */
+.calorie-badge {
+    -fx-background-color: #FFF3E0;
+    -fx-background-radius: 8;
+    -fx-padding: 2 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E65100;
+}
+
+/* Small icon-style action button (checkmark, cancel, delete) */
+.action-icon-btn {
+    -fx-padding: 4 8;
+    -fx-font-size: 13px;
+    -fx-min-width: 28;
+    -fx-min-height: 28;
+}
+
+/* ── Recipe Cards (Meals View) ───────────────────────────────────────── */
+
+/* Card wrapper for a recipe in the meals browser */
+.recipe-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 6, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.recipe-card:hover {
+    -fx-border-color: #F5A623;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.15), 10, 0, 0, 3);
+}
+
+/* Small pill/badge for recipe tags (e.g. "High Protein", "Quick") */
+.recipe-tag {
+    -fx-background-color: #F0EBE0;
+    -fx-background-radius: 10;
+    -fx-padding: 2 8;
+    -fx-font-size: 10px;
+    -fx-text-fill: #6B6B6B;
+    -fx-font-weight: bold;
+}
+
+/* Ingredient item in recipe detail */
+.ingredient-item {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4A4A4A;
+    -fx-padding: 2 0 2 8;
+}
+
+/* ── Pantry View ─────────────────────────────────────────────────────── */
+
+/* Pantry item row */
+.pantry-item-row {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-padding: 10 14;
+}
+
+.pantry-item-row:hover {
+    -fx-background-color: #FFFCF5;
+    -fx-border-color: #F5A623;
+}
+
+/* Low stock warning badge */
+.low-stock-badge {
+    -fx-background-color: #FFEBEE;
+    -fx-background-radius: 8;
+    -fx-padding: 2 8;
+    -fx-font-size: 10px;
+    -fx-text-fill: #C62828;
+    -fx-font-weight: bold;
+}
+
+/* ── Profile View ────────────────────────────────────────────────────── */
+
+/* Form label above profile input fields */
+.form-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8E8E93;
+}
+
+/* Profile input fields (slightly different from login fields) */
+.profile-field {
+    -fx-background-color: #F8F6F1;
+    -fx-background-radius: 10;
+    -fx-border-color: #E0D8CC;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 10 14;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1A1A1A;
+    -fx-prompt-text-fill: #8E8E93;
+}
+
+.profile-field .text {
+    -fx-fill: #1A1A1A;
+}
+
+.profile-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #F5A623;
+    -fx-border-width: 2;
+    -fx-text-fill: #1A1A1A;
+}
+
+/* ── Close Button ────────────────────────────────────────────────────── */
+
+/* Small X close button for panels */
+.close-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 2 6;
+    -fx-background-radius: 8;
+}
+
+.close-btn:hover {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+}
+
+/* ── ComboBox Styling ────────────────────────────────────────────────── */
+
+.combo-box {
+    -fx-background-color: #F8F6F1;
+    -fx-background-radius: 10;
+    -fx-border-color: #E0D8CC;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 6 10;
+    -fx-font-size: 13px;
+}
+
+.combo-box:focused {
+    -fx-border-color: #F5A623;
+    -fx-border-width: 2;
+}
+
+.combo-box .list-cell {
+    -fx-font-size: 13px;
+    -fx-padding: 6 10;
+    -fx-text-fill: #1A1A1A;
+}
+
+.combo-box .list-cell .text {
+    -fx-fill: #1A1A1A;
+}
+
+/* ── TextArea Styling ────────────────────────────────────────────────── */
+
+.text-area {
+    -fx-background-color: #F8F6F1;
+    -fx-border-color: #E0D8CC;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1A1A1A;
+}
+
+.text-area .text {
+    -fx-fill: #1A1A1A;
+}
+
+.text-area:focused {
+    -fx-border-color: #F5A623;
+    -fx-border-width: 2;
+}
+
+.text-area .content {
+    -fx-background-color: #F8F6F1;
+}
+
+.text-area:focused .content {
+    -fx-background-color: #FFFFFF;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   Meals Screen Redesign (Official Team Mockup)
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Top Mascot Banner ────────────────────────────────────────────────── */
+
+.meals-banner-card {
+    -fx-background-color: linear-gradient(to right, #FFF9F0 0%, #FFF3DF 60%, #FFE9C9 100%);
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #F5E5C9;
+    -fx-border-width: 1;
+    -fx-padding: 20 28;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.08), 12, 0, 0, 3);
+}
+
+.meals-banner-badge {
+    -fx-background-color: #FFE4B5;
+    -fx-background-radius: 8;
+    -fx-text-fill: #D4842A;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-padding: 3 10;
+}
+
+.meals-banner-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.meals-banner-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #7A6F5D;
+}
+
+.mascot-speech-bubble {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #F0E2CA;
+    -fx-border-width: 1;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Sub-Navigation Tabs ──────────────────────────────────────────────── */
+
+.meals-subnav-bar {
+    -fx-spacing: 8;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.meals-subnav-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #6B6B6B;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 18;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #E8E2D6;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.meals-subnav-btn:hover {
+    -fx-background-color: #FFF8ED;
+    -fx-border-color: #F5A623;
+    -fx-text-fill: #2D2D2D;
+}
+
+.meals-subnav-btn-active {
+    -fx-background-color: #FFE4B5;
+    -fx-border-color: #F5A623;
+    -fx-text-fill: #D4842A;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.2), 6, 0, 0, 2);
+}
+
+/* ── Left Sidebar Filters ─────────────────────────────────────────────── */
+
+.filter-panel {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 8, 0, 0, 2);
+}
+
+.filter-section-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.filter-chip {
+    -fx-background-color: #F8F6F1;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #E8E2D6;
+    -fx-border-width: 1;
+    -fx-padding: 5 12;
+    -fx-font-size: 12px;
+    -fx-text-fill: #5A5A5A;
+    -fx-cursor: hand;
+}
+
+.filter-chip:hover {
+    -fx-background-color: #FFF8ED;
+    -fx-border-color: #F5A623;
+    -fx-text-fill: #2D2D2D;
+}
+
+.filter-chip-selected {
+    -fx-background-color: #FFE4B5;
+    -fx-border-color: #F5A623;
+    -fx-text-fill: #D4842A;
+    -fx-font-weight: bold;
+}
+
+.reset-filters-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: #8E8E93;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-padding: 6 10;
+}
+
+.reset-filters-btn:hover {
+    -fx-text-fill: #FF5252;
+}
+
+.recipe-search-field {
+    -fx-background-color: #F8F6F1;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #E0D8CC;
+    -fx-border-width: 1;
+    -fx-padding: 9 14;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #9E9E9E;
+}
+
+.recipe-search-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #F5A623;
+    -fx-border-width: 1.5;
+}
+
+/* ── Modern Recipe Cards ──────────────────────────────────────────────── */
+
+.recipe-card-modern {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 2);
+}
+
+.recipe-card-modern:hover {
+    -fx-border-color: #F5A623;
+    -fx-effect: dropshadow(gaussian, rgba(245,166,35,0.22), 12, 0, 0, 4);
+    -fx-translate-y: -2px;
+}
+
+.recipe-thumb-container {
+    -fx-background-radius: 15 15 0 0;
+    -fx-border-radius: 15 15 0 0;
+}
+
+.recipe-badge-tag {
+    -fx-background-color: rgba(255, 255, 255, 0.92);
+    -fx-background-radius: 10;
+    -fx-padding: 3 8;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+}
+
+.badge-high-protein {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+}
+
+.badge-quick {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+}
+
+.badge-vegetarian {
+    -fx-background-color: #F3E5F5;
+    -fx-text-fill: #7B1FA2;
+}
+
+.badge-healthy {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1565C0;
+}
+
+.fav-heart-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.88);
+    -fx-background-radius: 16;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-padding: 0;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 1);
+}
+
+.fav-heart-btn:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.fav-heart-active {
+    -fx-text-fill: #FF5252 !important;
+}
+
+.card-tag-pill {
+    -fx-background-color: #F0EBE0;
+    -fx-background-radius: 8;
+    -fx-padding: 2 7;
+    -fx-font-size: 10px;
+    -fx-text-fill: #6B6B6B;
+}
+
+.card-arrow-circle {
+    -fx-background-color: #F8F6F1;
+    -fx-background-radius: 14;
+    -fx-min-width: 26;
+    -fx-min-height: 26;
+    -fx-alignment: CENTER;
+    -fx-font-size: 12px;
+    -fx-text-fill: #6B6B6B;
+}
+
+.recipe-card-modern:hover .card-arrow-circle {
+    -fx-background-color: #FFE4B5;
+    -fx-text-fill: #D4842A;
+}
+
+/* ── Motivational Banner Strip ────────────────────────────────────────── */
+
+.motivation-strip {
+    -fx-background-color: linear-gradient(to right, #F0F7FF 0%, #F5FBF6 100%);
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #DCECFB;
+    -fx-border-width: 1;
+    -fx-padding: 12 18;
+    -fx-cursor: hand;
+}
+
+.motivation-strip:hover {
+    -fx-border-color: #B9DCFA;
+    -fx-effect: dropshadow(gaussian, rgba(66,165,245,0.12), 6, 0, 0, 2);
+}
+
+.motivation-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2B577A;
+    -fx-font-weight: 500;
+}
+
+/* ── Nutrition Progress Bars ──────────────────────────────────────────── */
+
+.macro-bar-protein > .track {
+    -fx-background-color: #E8F5E9;
+    -fx-background-radius: 4;
+}
+
+.macro-bar-protein > .bar {
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 4;
+}
+
+.macro-bar-carbs > .track {
+    -fx-background-color: #FFF3E0;
+    -fx-background-radius: 4;
+}
+
+.macro-bar-carbs > .bar {
+    -fx-background-color: #F5A623;
+    -fx-background-radius: 4;
+}
+
+.macro-bar-fat > .track {
+    -fx-background-color: #FFEBEE;
+    -fx-background-radius: 4;
+}
+
+.macro-bar-fat > .bar {
+    -fx-background-color: #FF7043;
+    -fx-background-radius: 4;
+}
+
+/* ── Meal Plan Item Rows ──────────────────────────────────────────────── */
+
+.meal-plan-item {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-padding: 8 12;
+    -fx-cursor: hand;
+}
+
+.meal-plan-item:hover {
+    -fx-background-color: #FFF8ED;
+    -fx-border-color: #F5A623;
+}
+
+.meal-status-done {
+    -fx-background-color: #E8F5E9;
+    -fx-background-radius: 8;
+    -fx-text-fill: #2E7D32;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 6;
+}
+
+.meal-status-upcoming {
+    -fx-background-color: #FFF3E0;
+    -fx-background-radius: 8;
+    -fx-text-fill: #E65100;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 6;
+}
+
+/* ── AI Suggestion Card (Beta) ────────────────────────────────────────── */
+
+.ai-meal-card {
+    -fx-background-color: linear-gradient(to bottom right, #F6F3FF, #EFEAFF);
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #E2D9FF;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(124,111,228,0.1), 8, 0, 0, 2);
+}
+
+.ai-meal-btn {
+    -fx-background-color: #7C6FE4;
+    -fx-background-radius: 10;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(124,111,228,0.3), 6, 0, 0, 2);
+}
+
+.ai-meal-btn:hover {
+    -fx-background-color: #6C5ED6;
+}
+
+/* ── Modal & Recipe Details Overlay ───────────────────────────────────── */
+
+.modal-backdrop {
+    -fx-background-color: rgba(0, 0, 0, 0.45);
+}
+
+.modal-dialog-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #F0E8D8;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 24, 0, 0, 8);
+    -fx-padding: 24;
+}
+
+/* ── AI Plan Coach Button ─────────────────────────────────────────────── */
+
+.ai-plan-btn {
+    -fx-background-color: #EDE7F6;
+    -fx-text-fill: #5B4FC4;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-border-color: #D1C4E9;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+
+.ai-plan-btn:hover {
+    -fx-background-color: #D1C4E9;
+    -fx-text-fill: #4527A0;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   MEALS & NUTRITION (Mockup Design)
+   ═════════════════════════════════════════════════════════════════════════ */
+
+.meals-page-root {
+    -fx-background-color: #F8FAFC;
+}
+
+.meals-section-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #94A3B8;
+}
+
+.meals-page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.meals-sub-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.meals-sub-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748B;
+}
+
+.meals-icon-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-pref-width: 40px;
+    -fx-pref-height: 40px;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.04), 4, 0, 0, 1);
+}
+
+.meals-icon-btn:hover {
+    -fx-background-color: #F1F5F9;
+    -fx-border-color: #CBD5E1;
+}
+
+.meals-add-plan-btn, .meals-add-recipe-btn {
+    -fx-background-color: #F97316;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 9 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(249, 115, 22, 0.25), 6, 0, 0, 2);
+}
+
+.meals-add-plan-btn:hover, .meals-add-recipe-btn:hover {
+    -fx-background-color: #EA580C;
+}
+
+.meals-recipe-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #F1F5F9;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.06), 12, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.meals-recipe-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 16, 0, 0, 5);
+}
+
+.meals-meta-pill {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 3 8;
+    -fx-font-size: 11px;
+    -fx-text-fill: #64748B;
+}
+
+.meals-add-to-plan-btn {
+    -fx-background-color: #F97316;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 9 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(249, 115, 22, 0.2), 4, 0, 0, 2);
+}
+
+.meals-add-to-plan-btn:hover {
+    -fx-background-color: #EA580C;
+}
+
+.meals-plan-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-color: #F1F5F9;
+    -fx-border-width: 1;
+    -fx-padding: 22 26;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2);
+}
+
+.meals-plan-heading {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+.meals-plan-link {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748B;
+    -fx-underline: false;
+    -fx-cursor: hand;
+}
+
+.meals-plan-link:hover {
+    -fx-text-fill: #1E293B;
+    -fx-underline: true;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Theme Toggle Button (Light/Dark Mode)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.theme-toggle-btn {
+    -fx-background-color: #F1F5F9;
+    -fx-text-fill: #334155;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 7 12;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.theme-toggle-btn:hover {
+    -fx-background-color: #FFF3E0;
+    -fx-border-color: #F5A623;
+    -fx-text-fill: #E65100;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LifeSync AI Coach Chatbot
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.chat-root {
+    -fx-background-color: #F8F6F1;
+}
+
+.chat-header-area {
+    -fx-background-color: #FFFFFF;
+}
+
+.chat-header-bar {
+    -fx-background-color: #FFFFFF;
+}
+
+.chat-title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+}
+
+.chat-subtitle-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #64748B;
+}
+
+.chat-status-online {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E7D32;
+    -fx-background-color: #E8F5E9;
+    -fx-padding: 4 10;
+    -fx-background-radius: 12;
+}
+
+.chat-clear-btn {
+    -fx-background-color: #F1F5F9;
+    -fx-text-fill: #64748B;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+
+.chat-clear-btn:hover {
+    -fx-background-color: #E2E8F0;
+    -fx-text-fill: #1E293B;
+}
+
+.chat-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: #FFFFFF;
+    -fx-border-color: transparent;
+}
+
+.chat-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.chat-messages-container {
+    -fx-background-color: transparent;
+}
+
+.chat-input-area {
+    -fx-background-color: #FFFFFF;
+}
+
+.chat-input-bar {
+    -fx-background-color: #FFFFFF;
+}
+
+.chat-input-field {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 12;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+    -fx-padding: 10 16;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1A1A1A;
+}
+
+.chat-input-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #F5A623;
+    -fx-effect: dropshadow(gaussian, rgba(245, 166, 35, 0.25), 6, 0, 0, 0);
+}
+
+.chat-send-btn {
+    -fx-background-color: #F5A623;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(245, 166, 35, 0.3), 4, 0, 0, 2);
+}
+
+.chat-send-btn:hover {
+    -fx-background-color: #E09612;
+}
+
+.chat-send-btn:disabled {
+    -fx-background-color: #CBD5E1;
+    -fx-opacity: 0.7;
+    -fx-cursor: default;
+}
+
+.chat-typing-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748B;
+    -fx-font-style: italic;
+}
+
+.chat-user-bubble {
+    -fx-background-color: #F5A623;
+    -fx-background-radius: 16 16 4 16;
+}
+
+.chat-user-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.chat-user-time {
+    -fx-font-size: 10px;
+    -fx-text-fill: rgba(255, 255, 255, 0.75);
+}
+
+.chat-bot-bubble {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: #F0E8D8;
+    -fx-border-radius: 16 16 16 4;
+    -fx-border-width: 1;
+}
+
+.chat-bot-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #1A1A1A;
+    -fx-line-spacing: 2;
+}
+
+.chat-bot-text-bold {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+    -fx-line-spacing: 2;
+}
+
+.chat-bot-time {
+    -fx-font-size: 10px;
+    -fx-text-fill: #9CA3AF;
+}
+
+/* ── AI Chef Banner ───────────────────────────────────────────────────── */
+.ai-chef-banner {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 14;
+    -fx-padding: 12 18;
+    -fx-border-color: #FFE4B5;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+.ai-chef-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #D4842A;
+}
+
+.ai-chef-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #4A4A4A;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Theme-Aware Component Classes (Light Mode defaults)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Sidebar bottom-section avatar ────────────────────────────────────── */
+
+.sidebar-avatar-circle {
+    -fx-fill: #F5A623;
+}
+
+.header-username {
+    -fx-text-fill: #2D2D2D;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ── Profile View ─────────────────────────────────────────────────────── */
+
+.profile-avatar-circle {
+    -fx-fill: #F5A623;
+}
+
+.profile-avatar-initials {
+    -fx-font-size: 28;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.profile-fullname {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.profile-username {
+    -fx-font-size: 14;
+    -fx-text-fill: #8E8E93;
+}
+
+.profile-membersince {
+    -fx-font-size: 12;
+    -fx-text-fill: #B0B0B0;
+}
+
+.profile-calc-label {
+    -fx-text-fill: #8E8E93;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.profile-bmi-value {
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.profile-bmi-badge {
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 8;
+}
+
+.profile-healthy-range {
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 11;
+}
+
+.profile-bmr-value {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.profile-tdee-value {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F5A623;
+}
+
+.profile-hint-label {
+    -fx-text-fill: #8E8E93;
+    -fx-font-size: 11;
+    -fx-font-style: italic;
+}
+
+.profile-textarea {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-background-color: #F8F9FA;
+    -fx-border-color: #E2E8F0;
+    -fx-text-fill: #1A1A1A;
+    -fx-prompt-text-fill: #8E8E93;
+}
+
+.profile-textarea .text {
+    -fx-fill: #1A1A1A;
+}
+
+.profile-textarea .content {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 12;
+}
+
+.profile-textarea:focused .content {
+    -fx-background-color: #FFFFFF;
+}
+
+.profile-save-btn {
+    -fx-background-color: linear-gradient(to right, #F5C842, #F5A623);
+    -fx-background-radius: 12;
+    -fx-text-fill: #2D2D2D;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-padding: 14 24;
+    -fx-cursor: hand;
+}
+
+.profile-logout-btn {
+    -fx-background-color: #FFEBEE;
+    -fx-background-radius: 12;
+    -fx-text-fill: #C62828;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 12 24;
+    -fx-cursor: hand;
+}
+
+/* ── BMI Category Badges (universal, work in both themes) ────────────── */
+
+.badge-underweight {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1976D2;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 8;
+}
+
+.badge-normal {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 8;
+}
+
+.badge-overweight {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 8;
+}
+
+.badge-obese {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 8;
+}
+
+.badge-pending {
+    -fx-background-color: #F0EBE0;
+    -fx-text-fill: #8E8E93;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-padding: 3 8;
+    -fx-background-radius: 8;
+}
+
+/* ── Activity View — BMI Focus Card ───────────────────────────────────── */
+
+.bmi-focus-card {
+    -fx-background-color: #FFFDF9;
+    -fx-border-color: #FFE0B2;
+    -fx-border-radius: 16;
+    -fx-background-radius: 16;
+}
+
+.bmi-focus-title {
+    -fx-font-size: 14;
+    -fx-text-fill: #D4842A;
+}
+
+.bmi-focus-desc {
+    -fx-font-size: 12;
+    -fx-text-fill: #1A1A1A;
+}
+
+.activity-add-workout-btn {
+    -fx-background-color: linear-gradient(to right, #F5C842, #F5A623);
+    -fx-text-fill: #2D2D2D;
+    -fx-font-weight: bold;
+}
+
+/* ── Activity View — Programmatic Item Rows ───────────────────────────── */
+
+.activity-item-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-fill: #2D2D2D;
+}
+
+.activity-item-subtitle {
+    -fx-font-size: 12;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ── Activity View — This Week Breakdown ──────────────────────────────── */
+
+.this-week-row {
+    -fx-background-radius: 8;
+}
+
+.this-week-row-today {
+    -fx-background-color: #FFF8ED;
+    -fx-background-radius: 8;
+}
+
+.this-week-day {
+    -fx-font-weight: bold;
+    -fx-text-fill: #6B6B6B;
+}
+
+.this-week-day-today {
+    -fx-font-weight: bold;
+    -fx-text-fill: #F5A623;
+}
+
+.this-week-date {
+    -fx-text-fill: #B0B0B0;
+    -fx-font-size: 12;
+}
+
+.this-week-count {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Meals View — Recipe Card Text ────────────────────────────────────── */
+
+.recipe-card-title {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+}
+
+.recipe-card-desc {
+    -fx-font-size: 12;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ── Meals View — Meal Plan Item Row ──────────────────────────────────── */
+
+.meal-plan-item-row {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #F0E8D8;
+    -fx-border-radius: 12;
+}
+
+.meal-plan-item-time {
+    -fx-font-size: 12;
+    -fx-text-fill: #6B7280;
+    -fx-font-weight: bold;
+}
+
+.meal-plan-item-title {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+}
+
+/* ── Home Dashboard — AI Suggestion Card Text ─────────────────────────── */
+
+.section-heading {
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-text-fill: #2D2D2D;
+}
+
+.ai-suggestion-text {
+    -fx-text-fill: #2D2D2D;
+    -fx-font-size: 13;
+    -fx-line-spacing: 3;
+}
+
+/* ── Filter Label in Activity View ────────────────────────────────────── */
+
+.filter-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #6B6B6B;
+}
+
+/* ── Activity View Action Buttons ─────────────────────────────────────── */
+
+.action-complete-btn {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 12;
+}
+
+.action-cancel-btn {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 12;
+}
+
+.action-delete-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #B0B0B0;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 12;
+}
+
+.activity-item-icon {
+    -fx-font-size: 20px;
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Quick Stats Labels & Values ──────────────────────────────────────── */
+
+.stat-label {
+    -fx-text-fill: #6B6B6B;
+}
+
+.stat-value {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.stat-completed {
+    -fx-text-fill: #4CAF50;
+}
+
+.stat-upcoming {
+    -fx-text-fill: #F5A623;
+}
+
+.stat-cancelled {
+    -fx-text-fill: #FF5252;
+}
+
+.stat-rate {
+    -fx-text-fill: #2D2D2D;
+}
+
+/* ── Empty State Cards ────────────────────────────────────────────────── */
+
+.empty-state-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-color: #F0E8D8;
+    -fx-border-radius: 16;
+}
+
+.empty-state-icon {
+    -fx-font-size: 40;
+}
+
+.empty-state-heading {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+}
+
+.empty-state-message {
+    -fx-font-size: 13;
+    -fx-text-fill: #6B7280;
+    -fx-text-alignment: center;
+}
+
+/* ── Recipe Details & Catalog ─────────────────────────────────────────── */
+
+.diet-pill {
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+    -fx-padding: 3 6;
+    -fx-background-radius: 6;
+}
+
+.diet-pill-success {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+}
+
+.recipe-card-emoji {
+    -fx-font-size: 48;
+}
+
+.meal-plan-placeholder {
+    -fx-font-size: 13;
+    -fx-text-fill: #9CA3AF;
+    -fx-padding: 20 0;
+}
+
+.meal-plan-remove-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #C62828;
+    -fx-font-size: 12;
+    -fx-cursor: hand;
+}
+
+.recipe-search-row {
+    -fx-background-color: #FAFAFA;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+}
+
+.recipe-search-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-text-fill: #1A1A1A;
+}
+
+.recipe-search-meta {
+    -fx-font-size: 11;
+    -fx-text-fill: #8E8E93;
+}
+
+.recipe-search-add-btn {
+    -fx-background-color: #F5A623;
+    -fx-text-fill: white;
+    -fx-font-size: 11;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+/* ── AI Advice Dialog Components ──────────────────────────────────────── */
+
+.meal-ai-pill-bmi {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.meal-ai-pill-cal {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.meal-ai-pill-pantry {
+    -fx-background-color: #EDE7F6;
+    -fx-text-fill: #5B4FC4;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.meal-ai-advice-text {
+    -fx-font-size: 13;
+    -fx-line-spacing: 4;
+    -fx-text-fill: #3A3A3A;
+}
+
+.meal-ai-match-heading {
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-text-fill: #1A1A1A;
+    -fx-padding: 8 0 0 0;
+}
+
+.meal-ai-match-row {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10;
+}
+
+.meal-ai-match-score {
+    -fx-font-size: 11;
+    -fx-text-fill: #2E7D32;
+    -fx-font-weight: bold;
+}
+
+.meal-ai-match-btn {
+    -fx-background-color: #F5A623;
+    -fx-text-fill: white;
+    -fx-font-size: 11;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+/* ── Plan AI Advice Components ────────────────────────────────────────── */
+
+.plan-ai-pill-blue {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1976D2;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.plan-ai-pill-purple {
+    -fx-background-color: #EDE7F6;
+    -fx-text-fill: #5B4FC4;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.plan-ai-pill-orange {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #E65100;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.plan-ai-advice-label {
+    -fx-font-size: 13;
+    -fx-line-spacing: 4;
+    -fx-text-fill: #3A3A3A;
+}
+
+/* ── Recipe Modal Dialog Components ───────────────────────────────────── */
+
+.recipe-modal-specs-box {
+    -fx-background-color: #F8F6F1;
+    -fx-background-radius: 12;
+    -fx-padding: 12 16;
+}
+
+.recipe-modal-desc {
+    -fx-font-size: 13;
+    -fx-text-fill: #5A5A5A;
+}
+
+.recipe-modal-directions {
+    -fx-line-spacing: 4;
+    -fx-font-size: 13;
+    -fx-text-fill: #3A3A3A;
+}
+
+.recipe-modal-checkbox {
+    -fx-font-size: 13;
+    -fx-text-fill: #3A3A3A;
+}
+
+/* ── Sign-up View Form ────────────────────────────────────────────────── */
+
+.signup-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: #FFFFFF;
+}
+
+.signup-section-heading {
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-text-fill: #F5A623;
+}
+
+.signup-section-sub {
+    -fx-font-size: 11;
+    -fx-text-fill: #8E8E93;
+}
+
+.signup-field-label {
+    -fx-font-size: 11;
+    -fx-text-fill: #6B6B6B;
+    -fx-font-weight: bold;
+}
+
+.signup-note-box {
+    -fx-background-color: #FFF8ED;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-border-color: #FFE4B5;
+    -fx-border-radius: 8;
+}
+
+.signup-note-text {
+    -fx-font-size: 11;
+    -fx-text-fill: #6B5B3C;
+}
+
+/* ── Profile, Pantry & Chat Helpers ───────────────────────────────────── */
+
+.profile-field-readonly {
+    -fx-opacity: 0.7;
+}
+
+.profile-status-label {
+    -fx-font-size: 13;
+}
+
+.status-error-text {
+    -fx-text-fill: #FF5252;
+}
+
+.status-success-text {
+    -fx-text-fill: #4CAF50;
+}
+
+.pantry-qty-low {
+    -fx-text-fill: #FF5252;
+    -fx-font-weight: bold;
+}
+
+.summary-card-count-danger {
+    -fx-text-fill: #FF5252;
+}
+
+.chat-avatar-fallback {
+    -fx-font-size: 22;
+}
+
+.chat-status-thinking {
+    -fx-text-fill: #F5A623;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.chat-status-online {
+    -fx-text-fill: #2E7D32;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.placeholder-root {
+    -fx-background-color: transparent;
+}
+
+.placeholder-icon {
+    -fx-font-size: 48;
+}
+
+.placeholder-heading {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A1A1A;
+}
+
+.placeholder-subtitle {
+    -fx-font-size: 14;
+    -fx-text-fill: #8E8E93;
+}
+
+.sidebar-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D2D2D;
+}
+
+.sidebar-avatar-icon {
+    -fx-font-size: 15;
+}
+
+.transparent-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.bmi-focus-icon {
+    -fx-font-size: 16;
+}
+
+/* ── Dialog & Alert Theming ──────────────────────────────────────────── */
+
+.dialog-pane {
+    -fx-background-color: #FFFFFF;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: #FFF9F2;
+}
+
+.dialog-pane > .label {
+    -fx-text-fill: #1A1A1A;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-text-fill: #1A1A1A;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane > .content.label {
+    -fx-text-fill: #4A5568;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: #FFFDF9;
+}

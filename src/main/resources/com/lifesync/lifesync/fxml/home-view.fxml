@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    home-view.fxml – Main dashboard view for LifeSync.
+
+    Displays a greeting, summary cards, today's plan timeline,
+    nutrition overview, AI suggestions, upcoming plans, and
+    recent activity updates. All dynamic content is populated
+    by HomeController via fx:id bindings.
+-->
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.HomeController"
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            styleClass="dashboard-scroll-pane">
+
+    <VBox spacing="20" styleClass="dashboard-root">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+
+        <!-- ════════════════════════════════════════════════════════════
+             ROW 1: Greeting
+             ════════════════════════════════════════════════════════════ -->
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <!-- Dynamic greeting – updated by controller based on time of day -->
+                <Label fx:id="greetingLabel"
+                       text="☀ Good morning, User!"
+                       styleClass="greeting-heading"/>
+                <Label text="Healthy choices today, a better you tomorrow. 🧡"
+                       styleClass="greeting-subtitle"/>
+            </VBox>
+            <ImageView fitHeight="76" fitWidth="76" preserveRatio="true">
+                <image>
+                    <Image url="@../images/home.png"/>
+                </image>
+            </ImageView>
+        </HBox>
+
+        <!-- ════════════════════════════════════════════════════════════
+             ROW 2: Summary Cards (4 cards in a horizontal row)
+             ════════════════════════════════════════════════════════════ -->
+        <HBox spacing="15" styleClass="summary-cards-row">
+
+            <!-- Card 1: Today's Plan -->
+            <VBox onMouseClicked="#handleGoToPlan" prefWidth="200" styleClass="summary-card, clickable-card">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="📋" styleClass="card-icon"/>
+                <Label text="Today's Plan" styleClass="card-title"/>
+                <Label fx:id="planCountLabel" text="0 / 0 tasks" styleClass="card-count"/>
+                <ProgressBar fx:id="planProgressBar" progress="0" maxWidth="Infinity"
+                             styleClass="card-progress"/>
+            </VBox>
+
+            <!-- Card 2: Meals -->
+            <VBox onMouseClicked="#handleGoToMeals" prefWidth="200" styleClass="summary-card, clickable-card">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="🍽️" styleClass="card-icon"/>
+                <Label text="Meals" styleClass="card-title"/>
+                <Label fx:id="mealsCountLabel" text="0 / 3 meals" styleClass="card-count"/>
+                <ProgressBar fx:id="mealsProgressBar" progress="0" maxWidth="Infinity"
+                             styleClass="card-progress"/>
+            </VBox>
+
+            <!-- Card 3: Activity -->
+            <VBox onMouseClicked="#handleGoToActivity" prefWidth="200" styleClass="summary-card, clickable-card">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="💪" styleClass="card-icon"/>
+                <Label text="Activity" styleClass="card-title"/>
+                <Label fx:id="activityCountLabel" text="0 / 0 activities" styleClass="card-count"/>
+                <ProgressBar fx:id="activityProgressBar" progress="0" maxWidth="Infinity"
+                             styleClass="card-progress"/>
+            </VBox>
+
+            <!-- Card 4: Pantry -->
+            <VBox onMouseClicked="#handleGoToPantry" prefWidth="200" styleClass="summary-card, clickable-card">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="📦" styleClass="card-icon"/>
+                <Label text="Pantry" styleClass="card-title"/>
+                <Label fx:id="pantryCountLabel" text="0 items low" styleClass="card-count"/>
+                <ProgressBar fx:id="pantryProgressBar" progress="1.0" maxWidth="Infinity"
+                             styleClass="card-progress"/>
+            </VBox>
+
+        </HBox>
+
+        <!-- ════════════════════════════════════════════════════════════
+             ROW 3: Main Content Grid (3 columns)
+             ════════════════════════════════════════════════════════════ -->
+        <HBox spacing="15" VBox.vgrow="ALWAYS">
+
+            <!-- LEFT COLUMN: Today's Plan Timeline -->
+            <VBox HBox.hgrow="ALWAYS" spacing="0">
+                <VBox styleClass="dashboard-card">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <!-- Header row: title + date -->
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="📋 Today's Plan" styleClass="section-heading"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="todayDateLabel" text="Mon, Jan 1, 2024"
+                               styleClass="muted-text"/>
+                    </HBox>
+
+                    <Separator>
+                        <VBox.margin>
+                            <Insets top="10" bottom="10"/>
+                        </VBox.margin>
+                    </Separator>
+
+                    <!-- Activity list – populated programmatically by controller -->
+                    <VBox fx:id="todayPlanList" spacing="8">
+                        <Label text="No activities planned for today." styleClass="muted-text"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- CENTER COLUMN: Nutrition Overview -->
+            <VBox prefWidth="280">
+                <VBox styleClass="dashboard-card">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <Label text="Nutrition Overview" styleClass="section-heading"/>
+
+                    <!-- Calorie summary (centered) -->
+                    <HBox alignment="CENTER">
+                        <padding>
+                            <Insets top="15" bottom="15"/>
+                        </padding>
+                        <VBox alignment="CENTER" spacing="2">
+                            <Label fx:id="calorieCountLabel" text="0"
+                                   styleClass="calorie-count"/>
+                            <Label text="kcal" styleClass="calorie-unit"/>
+                            <Label fx:id="calorieTargetLabel" text="of 2,000"
+                                   styleClass="muted-text"/>
+                        </VBox>
+                    </HBox>
+
+                    <Separator>
+                        <VBox.margin>
+                            <Insets top="5" bottom="10"/>
+                        </VBox.margin>
+                    </Separator>
+
+                    <!-- Macro nutrient bars -->
+                    <VBox spacing="8">
+
+                        <!-- Protein -->
+                        <VBox spacing="4">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Protein" styleClass="macro-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="proteinGramsLabel" text="0 g"
+                                       styleClass="macro-value"/>
+                                <Label fx:id="proteinPercentLabel" text="0%"
+                                       styleClass="macro-percent">
+                                    <HBox.margin>
+                                        <Insets left="8"/>
+                                    </HBox.margin>
+                                </Label>
+                            </HBox>
+                            <ProgressBar fx:id="proteinProgressBar" progress="0"
+                                         maxWidth="Infinity" styleClass="protein-bar"/>
+                        </VBox>
+
+                        <!-- Carbs -->
+                        <VBox spacing="4">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Carbs" styleClass="macro-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="carbsGramsLabel" text="0 g"
+                                       styleClass="macro-value"/>
+                                <Label fx:id="carbsPercentLabel" text="0%"
+                                       styleClass="macro-percent">
+                                    <HBox.margin>
+                                        <Insets left="8"/>
+                                    </HBox.margin>
+                                </Label>
+                            </HBox>
+                            <ProgressBar fx:id="carbsProgressBar" progress="0"
+                                         maxWidth="Infinity" styleClass="carbs-bar"/>
+                        </VBox>
+
+                        <!-- Fats -->
+                        <VBox spacing="4">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Fats" styleClass="macro-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="fatGramsLabel" text="0 g"
+                                       styleClass="macro-value"/>
+                                <Label fx:id="fatPercentLabel" text="0%"
+                                       styleClass="macro-percent">
+                                    <HBox.margin>
+                                        <Insets left="8"/>
+                                    </HBox.margin>
+                                </Label>
+                            </HBox>
+                            <ProgressBar fx:id="fatProgressBar" progress="0"
+                                         maxWidth="Infinity" styleClass="fat-bar"/>
+                        </VBox>
+
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- RIGHT COLUMN: AI Suggestion -->
+            <VBox prefWidth="250">
+                <VBox styleClass="dashboard-card, ai-card">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <!-- Header with Beta pill -->
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <Label text="✨ AI Suggestion" styleClass="section-heading"/>
+                        <Label text="Beta" styleClass="beta-pill"/>
+                    </HBox>
+
+                    <Label text="Based on your profile and current plans, here's a quick suggestion:"
+                           wrapText="true" styleClass="muted-text">
+                        <VBox.margin>
+                            <Insets top="10" bottom="10"/>
+                        </VBox.margin>
+                    </Label>
+
+                    <!-- AI suggestion text – updated by controller -->
+                    <Label fx:id="aiSuggestionLabel"
+                           text="Try a high-protein smoothie using your available ingredients: Banana • Greek Yogurt • Oats"
+                           wrapText="true" styleClass="ai-suggestion-text"/>
+                </VBox>
+            </VBox>
+
+        </HBox>
+
+        <!-- ════════════════════════════════════════════════════════════
+             ROW 4: Bottom Content (Upcoming Plans + Recent Updates)
+             ════════════════════════════════════════════════════════════ -->
+        <HBox spacing="15">
+
+            <!-- LEFT: Upcoming Plans -->
+            <VBox HBox.hgrow="ALWAYS">
+                <VBox styleClass="dashboard-card">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="📅 Upcoming Plans" styleClass="section-heading"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Hyperlink text="View All →" onAction="#handleGoToPlan" styleClass="view-all-link"/>
+                    </HBox>
+
+                    <!-- Upcoming plans list – populated programmatically -->
+                    <VBox fx:id="upcomingPlansList" spacing="8">
+                        <padding>
+                            <Insets top="10"/>
+                        </padding>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- RIGHT: Recent Updates -->
+            <VBox prefWidth="350">
+                <VBox styleClass="dashboard-card">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="🔔 Recent Updates" styleClass="section-heading"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Hyperlink text="View All →" onAction="#handleGoToActivity" styleClass="view-all-link"/>
+                    </HBox>
+
+                    <!-- Recent updates list – populated programmatically -->
+                    <VBox fx:id="recentUpdatesList" spacing="8">
+                        <padding>
+                            <Insets top="10"/>
+                        </padding>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+        </HBox>
+
+    </VBox>
+</ScrollPane>

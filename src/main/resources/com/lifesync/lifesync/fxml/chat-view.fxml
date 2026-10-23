@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  chat-view.fxml — LifeSync AI Coach Chat View
+  ─────────────────────────────────────────────
+  A full-featured in-app chatbot restricted to health, nutrition, meals,
+  fitness, BMI, pantry, and daily planning topics.
+
+  Layout:
+    - Top header with title and Clear button
+    - ScrollPane → VBox (chat message bubbles filled programmatically)
+    - Bottom input row: TextField + Send button
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.ChatController"
+            styleClass="chat-root">
+
+    <!-- ════════════════════════════════════════════════════════════════
+         TOP HEADER BAR
+         ════════════════════════════════════════════════════════════════ -->
+    <top>
+        <VBox styleClass="chat-header-area">
+            <HBox alignment="CENTER_LEFT" spacing="14" styleClass="chat-header-bar">
+                <padding><Insets top="16" right="24" bottom="16" left="24"/></padding>
+
+                <ImageView fitHeight="44" fitWidth="44" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/chatbot.png"/>
+                    </image>
+                </ImageView>
+
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label text="LifeSync AI Coach" styleClass="chat-title-label"/>
+                    <Label text="Ask me anything about your health, meals, fitness, and daily plans."
+                           styleClass="chat-subtitle-label" wrapText="true"/>
+                </VBox>
+
+                <!-- Status pill -->
+                <Label fx:id="statusPill" text="● Online" styleClass="chat-status-online"/>
+
+                <!-- Clear chat button -->
+                <Button text="🗑 Clear" styleClass="chat-clear-btn" onAction="#handleClearChat"/>
+            </HBox>
+            <Separator/>
+        </VBox>
+    </top>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         CENTER – Scrollable chat message area
+         ════════════════════════════════════════════════════════════════ -->
+    <center>
+        <ScrollPane fx:id="chatScrollPane"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    vbarPolicy="AS_NEEDED"
+                    styleClass="chat-scroll-pane">
+
+            <VBox fx:id="chatMessagesBox"
+                  spacing="12"
+                  styleClass="chat-messages-container">
+                <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+                <!-- Messages are inserted here programmatically by ChatController -->
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- ════════════════════════════════════════════════════════════════
+         BOTTOM – Input row
+         ════════════════════════════════════════════════════════════════ -->
+    <bottom>
+        <VBox styleClass="chat-input-area">
+            <Separator/>
+            <HBox spacing="10" alignment="CENTER" styleClass="chat-input-bar">
+                <padding><Insets top="14" right="20" bottom="14" left="20"/></padding>
+
+                <TextField fx:id="chatInputField"
+                           promptText="Ask about meals, fitness, BMI, pantry, plans..."
+                           styleClass="chat-input-field"
+                           onAction="#handleSendMessage"
+                           HBox.hgrow="ALWAYS"/>
+
+                <Button fx:id="sendButton"
+                        text="Send ➤"
+                        styleClass="chat-send-btn"
+                        onAction="#handleSendMessage"/>
+            </HBox>
+
+            <!-- Typing indicator (hidden by default) -->
+            <HBox fx:id="typingIndicatorBox" spacing="8" alignment="CENTER_LEFT"
+                  visible="false" managed="false">
+                <padding><Insets top="0" right="20" bottom="10" left="20"/></padding>
+                <ProgressIndicator fx:id="typingSpinner" prefWidth="16" prefHeight="16"/>
+                <Label text="LifeSync AI Coach is thinking..." styleClass="chat-typing-label"/>
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>

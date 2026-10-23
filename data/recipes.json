@@ -1,0 +1,468 @@
+[
+  {
+    "id": "e5b19a41-7d22-4067-9f88-2bdf0b101c5b",
+    "name": "Grilled chicken rice bowl",
+    "description": "Chicken, rice, avocado, greens",
+    "ingredients": [
+      "Chicken",
+      "Rice",
+      "Avocado",
+      "Greens"
+    ],
+    "instructions": "1. Season and grill chicken breast until golden. 2. Warm the rice. 3. Slice avocado and toss fresh greens. 4. Assemble into a wholesome bowl.",
+    "cookingMethod": "Grill",
+    "prepTimeMinutes": 15,
+    "cookTimeMinutes": 10,
+    "calories": 520.0,
+    "proteinG": 42.0,
+    "carbsG": 55.0,
+    "fatG": 14.0,
+    "tags": [
+      "High Protein",
+      "Healthy",
+      "Lunch",
+      "Gluten Free"
+    ],
+    "favorite": false,
+    "mealType": "Lunch",
+    "popularity": 100
+  },
+  {
+    "id": "bb1e3fef-0ff4-43cd-9293-cdb2688ac2a4",
+    "name": "Spinach omelette",
+    "description": "Eggs, spinach, herbs",
+    "ingredients": [
+      "Eggs",
+      "Spinach",
+      "Herbs",
+      "Feta cheese"
+    ],
+    "instructions": "1. Whisk eggs with a pinch of salt and pepper. 2. Sauté baby spinach until wilted. 3. Pour eggs over spinach and cook on low heat. 4. Fold with fresh herbs and feta.",
+    "cookingMethod": "Pan-fry",
+    "prepTimeMinutes": 5,
+    "cookTimeMinutes": 10,
+    "calories": 280.0,
+    "proteinG": 22.0,
+    "carbsG": 6.0,
+    "fatG": 18.0,
+    "tags": [
+      "Breakfast",
+      "Vegetarian",
+      "Quick",
+      "Low Carb"
+    ],
+    "favorite": true,
+    "mealType": "Breakfast",
+    "popularity": 99
+  },
+  {
+    "id": "49521ecd-ebbc-4489-9e04-1fe0cea14f81",
+    "name": "Chicken \u0026 greens skillet",
+    "description": "Chicken with seasonal vegetables",
+    "ingredients": [
+      "Chicken",
+      "Seasonal vegetables",
+      "Greens",
+      "Garlic"
+    ],
+    "instructions": "1. Cut chicken breast into bite-sized strips. 2. Sauté garlic in olive oil. 3. Add chicken and sear until cooked through. 4. Toss with seasonal vegetables and simmer until crisp-tender.",
+    "cookingMethod": "Skillet",
+    "prepTimeMinutes": 10,
+    "cookTimeMinutes": 10,
+    "calories": 410.0,
+    "proteinG": 38.0,
+    "carbsG": 18.0,
+    "fatG": 15.0,
+    "tags": [
+      "Healthy",
+      "High Protein",
+      "Dinner",
+      "Low Carb"
+    ],
+    "favorite": false,
+    "mealType": "Dinner",
+    "popularity": 97
+  },
+  {
+    "id": "a0b026ac-2375-4edf-81ce-a6e112b21cdb",
+    "name": "Grilled Chicken Bowl",
+    "description": "Tender seasoned grilled chicken breast served over quinoa, charred corn, sweet tomatoes, and sliced fresh avocado.",
+    "ingredients": [
+      "Chicken breast",
+      "Quinoa",
+      "Sweet corn",
+      "Cherry tomatoes",
+      "Avocado",
+      "Olive oil",
+      "Cilantro",
+      "Lime"
+    ],
+    "instructions": "1. Season chicken with salt, pepper, cumin, and lime juice. 2. Grill for 6-8 minutes per side until charred and cooked through. 3. Warm quinoa and corn. 4. Arrange in a bowl with tomatoes, avocado, and chopped cilantro.",
+    "cookingMethod": "Grill",
+    "prepTimeMinutes": 15,
+    "cookTimeMinutes": 10,
+    "calories": 420.0,
+    "proteinG": 40.0,
+    "carbsG": 35.0,
+    "fatG": 12.0,
+    "tags": [
+      "High Protein",
+      "Healthy",
+      "Lunch",
+      "Gluten Free"
+    ],
+    "favorite": false,
+    "mealType": "Lunch",
+    "imagePath": "/com/lifesync/lifesync/images/grilled_chicken_bowl.jpg",
+    "popularity": 98
+  },
+  {
+    "id": "e46534ab-b22c-469c-85c7-ea01b7005822",
+    "name": "Garlic Butter Pasta",
+    "description": "Silky al dente spaghetti tossed in rich golden garlic butter, finished with cracked black pepper and freshly grated parmesan.",
+    "ingredients": [
+      "Spaghetti",
+      "Butter",
+      "Garlic",
+      "Parmesan cheese",
+      "Fresh parsley",
+      "Black pepper",
+      "Olive oil"
+    ],
+    "instructions": "1. Boil spaghetti in salted water until al dente. 2. In a skillet, melt butter with olive oil over medium-low heat. 3. Sauté minced garlic until fragrant and golden. 4. Toss pasta into garlic butter with pasta water. 5. Top with parmesan and parsley.",
+    "cookingMethod": "Stir-fry",
+    "prepTimeMinutes": 5,
+    "cookTimeMinutes": 15,
+    "calories": 380.0,
+    "proteinG": 12.0,
+    "carbsG": 54.0,
+    "fatG": 14.0,
+    "tags": [
+      "Quick",
+      "Comfort Food",
+      "Dinner",
+      "Vegetarian"
+    ],
+    "favorite": false,
+    "mealType": "Dinner",
+    "imagePath": "/com/lifesync/lifesync/images/garlic_butter_pasta.jpg",
+    "popularity": 95
+  },
+  {
+    "id": "2eb26d27-55ba-4223-ab94-692ad05d9da8",
+    "name": "Berry Smoothie Bowl",
+    "description": "Thick blended acai and wild berries topped with fresh strawberries, blueberries, chia seeds, sliced bananas, and coconut flakes.",
+    "ingredients": [
+      "Frozen mixed berries",
+      "Banana",
+      "Almond milk",
+      "Chia seeds",
+      "Blueberries",
+      "Strawberries",
+      "Coconut flakes"
+    ],
+    "instructions": "1. Blend frozen berries, 1/2 banana, and almond milk on high until smooth and thick. 2. Pour into a chilled bowl. 3. Neatly arrange sliced strawberries, blueberries, chia seeds, and coconut flakes on top.",
+    "cookingMethod": "Blend",
+    "prepTimeMinutes": 10,
+    "cookTimeMinutes": 0,
+    "calories": 290.0,
+    "proteinG": 14.0,
+    "carbsG": 46.0,
+    "fatG": 6.0,
+    "tags": [
+      "Vegetarian",
+      "Vegan",
+      "Gluten Free",
+      "Dairy Free",
+      "Healthy",
+      "Breakfast"
+    ],
+    "favorite": false,
+    "mealType": "Breakfast",
+    "imagePath": "/com/lifesync/lifesync/images/berry_smoothie_bowl.jpg",
+    "popularity": 92
+  },
+  {
+    "id": "21373d70-1e97-4949-ba30-a192f9344311",
+    "name": "Mediterranean Chicken Bowl",
+    "description": "Herb-roasted chicken served over Greek lemon quinoa with crisp cucumbers, kalamata olives, tangy feta cheese, and tzatziki.",
+    "ingredients": [
+      "Chicken breast",
+      "Quinoa",
+      "Cucumber",
+      "Kalamata olives",
+      "Feta cheese",
+      "Cherry tomatoes",
+      "Tzatziki sauce",
+      "Oregano"
+    ],
+    "instructions": "1. Marinate chicken with oregano, garlic, olive oil, and lemon. 2. Grill or bake at 200°C for 20 minutes. 3. Slice chicken. 4. Assemble bowl with cucumber, olives, tomatoes, and crumbled feta. 5. Dollop fresh tzatziki.",
+    "cookingMethod": "Grill",
+    "prepTimeMinutes": 15,
+    "cookTimeMinutes": 15,
+    "calories": 450.0,
+    "proteinG": 42.0,
+    "carbsG": 38.0,
+    "fatG": 14.0,
+    "tags": [
+      "High Protein",
+      "Balanced",
+      "Lunch",
+      "Dinner",
+      "Gluten Free"
+    ],
+    "favorite": false,
+    "mealType": "Lunch",
+    "imagePath": "/com/lifesync/lifesync/images/mediterranean_chicken_bowl.jpg",
+    "popularity": 96
+  },
+  {
+    "id": "b1270f46-4a68-4f6e-91af-beaddbd00764",
+    "name": "Chicken Caesar Salad",
+    "description": "Crisp romaine lettuce hearts tossed in creamy Caesar dressing with grilled chicken strips, shaved parmesan, and sourdough croutons.",
+    "ingredients": [
+      "Chicken breast",
+      "Romaine lettuce",
+      "Caesar dressing",
+      "Parmesan cheese",
+      "Croutons",
+      "Black pepper",
+      "Lemon"
+    ],
+    "instructions": "1. Season and sear chicken breast. 2. Chop crisp romaine lettuce. 3. Toss greens with Caesar dressing. 4. Top with sliced chicken, shaved parmesan, croutons, and cracked pepper.",
+    "cookingMethod": "Grill",
+    "prepTimeMinutes": 15,
+    "cookTimeMinutes": 5,
+    "calories": 350.0,
+    "proteinG": 32.0,
+    "carbsG": 10.0,
+    "fatG": 18.0,
+    "tags": [
+      "Healthy",
+      "High Protein",
+      "Lunch",
+      "Low Carb"
+    ],
+    "favorite": false,
+    "mealType": "Lunch",
+    "popularity": 94
+  },
+  {
+    "id": "1a3604a1-f4d1-4774-8168-93c4bb5eeafb",
+    "name": "Tuna Pasta Salad",
+    "description": "Chilled fusilli pasta with flaked tuna, sweet corn, diced red onion, celery, and a light Greek yogurt lemon-dill dressing.",
+    "ingredients": [
+      "Fusilli pasta",
+      "Canned tuna",
+      "Sweet corn",
+      "Red onion",
+      "Celery",
+      "Greek yogurt",
+      "Lemon",
+      "Dill"
+    ],
+    "instructions": "1. Cook pasta al dente and rinse with cool water. 2. Drain and flake tuna. 3. Mix yogurt, lemon juice, salt, and dill. 4. Combine pasta, tuna, corn, red onion, and celery with dressing. Chill before serving.",
+    "cookingMethod": "Boil",
+    "prepTimeMinutes": 15,
+    "cookTimeMinutes": 10,
+    "calories": 410.0,
+    "proteinG": 34.0,
+    "carbsG": 45.0,
+    "fatG": 11.0,
+    "tags": [
+      "High Protein",
+      "Lunch",
+      "Quick",
+      "Dairy Free"
+    ],
+    "favorite": false,
+    "mealType": "Lunch",
+    "popularity": 89
+  },
+  {
+    "id": "f041f276-049b-4b10-9121-9d6db397d718",
+    "name": "Banana Pancakes",
+    "description": "Fluffy golden whole-wheat pancakes made with ripe mashed bananas, served with pure maple syrup and fresh banana coins.",
+    "ingredients": [
+      "Whole wheat flour",
+      "Ripe bananas",
+      "Eggs",
+      "Milk",
+      "Baking powder",
+      "Cinnamon",
+      "Maple syrup"
+    ],
+    "instructions": "1. Mash bananas in a bowl. 2. Whisk in eggs and milk. 3. Fold in flour, baking powder, and cinnamon. 4. Cook ladlefuls on a lightly greased non-stick skillet for 2-3 min per side. 5. Serve warm with maple syrup.",
+    "cookingMethod": "Grill",
+    "prepTimeMinutes": 5,
+    "cookTimeMinutes": 10,
+    "calories": 320.0,
+    "proteinG": 8.0,
+    "carbsG": 52.0,
+    "fatG": 7.0,
+    "tags": [
+      "Vegetarian",
+      "Breakfast",
+      "Comfort Food"
+    ],
+    "favorite": false,
+    "mealType": "Breakfast",
+    "popularity": 87
+  },
+  {
+    "id": "9d32e9ab-a759-46fc-bdcd-01b0d7c71381",
+    "name": "Avocado Toast",
+    "description": "Artisan toasted sourdough bread spread with creamy mashed avocado, everything bagel seasoning, chili flakes, and microgreens.",
+    "ingredients": [
+      "Sourdough bread",
+      "Ripe avocado",
+      "Lemon juice",
+      "Everything bagel seasoning",
+      "Red chili flakes",
+      "Olive oil",
+      "Microgreens"
+    ],
+    "instructions": "1. Toast sourdough slices until crispy and golden. 2. Mash avocado with lemon juice, salt, and pepper. 3. Spread generously on warm toast. 4. Drizzle with extra virgin olive oil, sprinkle seasoning, and top with microgreens.",
+    "cookingMethod": "No cook",
+    "prepTimeMinutes": 10,
+    "cookTimeMinutes": 0,
+    "calories": 260.0,
+    "proteinG": 7.0,
+    "carbsG": 28.0,
+    "fatG": 15.0,
+    "tags": [
+      "Healthy",
+      "Breakfast",
+      "Vegetarian",
+      "Vegan",
+      "Dairy Free"
+    ],
+    "favorite": false,
+    "mealType": "Breakfast",
+    "popularity": 91
+  },
+  {
+    "id": "47b05ab9-1403-484f-b833-9695534039bf",
+    "name": "Baked Salmon with Vegetables",
+    "description": "Oven-baked Atlantic salmon fillet seasoned with lemon herb butter, roasted alongside fresh tender asparagus spears.",
+    "ingredients": [
+      "Salmon fillet",
+      "Asparagus",
+      "Olive oil",
+      "Lemon",
+      "Garlic",
+      "Butter",
+      "Salt",
+      "Pepper"
+    ],
+    "instructions": "1. Preheat oven to 200°C. 2. Season salmon with lemon, garlic, salt, and pepper. 3. Toss asparagus in olive oil. 4. Bake on a lined sheet pan for 18-20 minutes until salmon flakes easily with a fork.",
+    "cookingMethod": "Bake",
+    "prepTimeMinutes": 10,
+    "cookTimeMinutes": 20,
+    "calories": 480.0,
+    "proteinG": 38.0,
+    "carbsG": 8.0,
+    "fatG": 24.0,
+    "tags": [
+      "High Protein",
+      "Healthy",
+      "Dinner",
+      "Gluten Free",
+      "Low Carb"
+    ],
+    "favorite": false,
+    "mealType": "Dinner",
+    "popularity": 93
+  },
+  {
+    "id": "54fb40a1-3852-42ff-94fd-368794076a20",
+    "name": "Teriyaki Chicken Bowl",
+    "description": "Succulent pan-seared chicken glazed in homemade savory-sweet teriyaki sauce over steamed jasmine rice with broccoli.",
+    "ingredients": [
+      "Chicken breast",
+      "Jasmine rice",
+      "Soy sauce",
+      "Honey",
+      "Garlic",
+      "Ginger",
+      "Broccoli",
+      "Sesame seeds"
+    ],
+    "instructions": "1. Steam jasmine rice. 2. Sauté sliced chicken until browned. 3. Whisk soy sauce, honey, garlic, and ginger. 4. Simmer sauce until glaze forms over chicken. 5. Serve with steamed broccoli and sesame seeds.",
+    "cookingMethod": "Stir-fry",
+    "prepTimeMinutes": 15,
+    "cookTimeMinutes": 25,
+    "calories": 520.0,
+    "proteinG": 42.0,
+    "carbsG": 58.0,
+    "fatG": 12.0,
+    "tags": [
+      "High Protein",
+      "Balanced",
+      "Dinner",
+      "Asian"
+    ],
+    "favorite": false,
+    "mealType": "Dinner",
+    "popularity": 90
+  },
+  {
+    "id": "9933beb4-2606-4ab3-99ce-294b3c29af20",
+    "name": "Greek Yogurt Bowl",
+    "description": "Creamy Greek yogurt layered with organic honey, crunchy almond granola, and fresh seasonal strawberries.",
+    "ingredients": [
+      "Greek yogurt",
+      "Honey",
+      "Granola",
+      "Strawberries",
+      "Chia seeds"
+    ],
+    "instructions": "1. Spoon Greek yogurt into a bowl. 2. Top with crunchy granola. 3. Slice strawberries and arrange on top. 4. Drizzle pure honey.",
+    "cookingMethod": "No cook",
+    "prepTimeMinutes": 5,
+    "cookTimeMinutes": 0,
+    "calories": 280.0,
+    "proteinG": 20.0,
+    "carbsG": 32.0,
+    "fatG": 5.0,
+    "tags": [
+      "Breakfast",
+      "Quick",
+      "Vegetarian",
+      "High Protein"
+    ],
+    "favorite": false,
+    "mealType": "Breakfast",
+    "popularity": 88
+  },
+  {
+    "id": "b47066b5-deb9-4af1-86a6-17bb012f87e8",
+    "name": "Mixed Nuts \u0026 Cranberries",
+    "description": "Nutrient-dense raw almonds, walnuts, pumpkin seeds, and dried cranberries for sustained daily energy.",
+    "ingredients": [
+      "Almonds",
+      "Walnuts",
+      "Pumpkin seeds",
+      "Dried cranberries",
+      "Sea salt"
+    ],
+    "instructions": "1. Combine measured almonds, walnuts, and pumpkin seeds. 2. Toss with dried cranberries and a pinch of fine sea salt. 3. Portion into snack bags.",
+    "cookingMethod": "No cook",
+    "prepTimeMinutes": 5,
+    "cookTimeMinutes": 0,
+    "calories": 200.0,
+    "proteinG": 6.0,
+    "carbsG": 18.0,
+    "fatG": 14.0,
+    "tags": [
+      "Snacks",
+      "Vegan",
+      "Gluten Free",
+      "Dairy Free",
+      "Quick"
+    ],
+    "favorite": false,
+    "mealType": "Snacks",
+    "popularity": 82
+  }
+]

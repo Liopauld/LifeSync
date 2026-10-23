@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  meals-view.fxml — Clean Meals & Nutrition View
+  LifeSync Desktop Application (CC 102 Project)
+
+  Matches the team UI mockup:
+    - Top heading with "FOOD & NUTRITION" / "Meals"
+    - "Meals & Nutrition" subheading with "+ Add recipe" button
+    - Horizontal recipe cards with food emoji, name, ingredients summary,
+      time, calories, and orange "Add to meal plan" button
+    - "Meal plan" section at the bottom showing scheduled meals
+    - Recipe detail modal overlay
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.lifesync.lifesync.controller.MealsController">
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         MAIN SCROLLABLE CONTENT
+         ═══════════════════════════════════════════════════════════════════ -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="dashboard-scroll-pane">
+        <VBox spacing="24" styleClass="meals-page-root">
+            <padding>
+                <Insets top="30" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <!-- ═══════ TOP HEADER ROW ═══════ -->
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="2">
+                    <Label text="FOOD &amp; NUTRITION" styleClass="meals-section-label"/>
+                    <Label text="Meals" styleClass="meals-page-title"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Button text="✨" styleClass="meals-icon-btn" onAction="#handleAiSuggest"/>
+                    <Button text="+ Add to Plan" styleClass="meals-add-plan-btn" onAction="#handleQuickPlanMeal"/>
+                </HBox>
+            </HBox>
+
+            <!-- ═══════ SUB-HEADER ROW ═══════ -->
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="4">
+                    <Label text="Meals &amp; Nutrition" styleClass="meals-sub-title"/>
+                    <Label text="Organize recipes, meal plans, and estimated nutrition information."
+                           styleClass="meals-sub-desc"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="+ Add recipe" styleClass="meals-add-recipe-btn" onAction="#handleAddRecipe"/>
+            </HBox>
+
+            <!-- ═══════ AI CHEF PANTRY BANNER ═══════ -->
+            <HBox fx:id="aiChefBanner" alignment="CENTER_LEFT" spacing="14" styleClass="ai-chef-banner">
+                <ImageView fitHeight="48" fitWidth="48" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/meals.png"/>
+                    </image>
+                </ImageView>
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label fx:id="aiChefTitleLabel" text="AI Chef • Personalized Pantry Recipes"
+                           styleClass="ai-chef-title"/>
+                    <Label fx:id="aiChefSubtitleLabel" text="Recipes dynamically created from your available pantry ingredients and tailored to your dietary goals."
+                           styleClass="ai-chef-subtitle" wrapText="true"/>
+                </VBox>
+                <Button fx:id="btnRegenerateAi" text="🔄 Create New Recipes"
+                        styleClass="meals-add-plan-btn"
+                        onAction="#handleRegenerateRecipes"/>
+                <Button fx:id="btnGoPantry" text="🥫 Pantry"
+                        styleClass="action-btn"
+                        onAction="#handleGoToPantry"/>
+            </HBox>
+
+            <!-- ═══════ RECIPE CARDS ROW (horizontally scrollable) ═══════ -->
+            <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"
+                        styleClass="transparent-scroll-pane">
+                <HBox fx:id="recipeCardsContainer" spacing="20">
+                    <!-- Populated dynamically -->
+                </HBox>
+            </ScrollPane>
+
+            <!-- ═══════ MEAL PLAN SECTION ═══════ -->
+            <VBox styleClass="meals-plan-card" spacing="14">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Meal plan" styleClass="meals-plan-heading"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Hyperlink text="Plan meals by date" onAction="#handlePlanByDate" styleClass="meals-plan-link"/>
+                </HBox>
+
+                <VBox fx:id="mealPlanListBox" spacing="10" alignment="CENTER">
+                    <!-- Populated dynamically; placeholder shown when empty -->
+                </VBox>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         RECIPE DETAIL MODAL OVERLAY
+         ═══════════════════════════════════════════════════════════════════ -->
+    <StackPane fx:id="recipeModalOverlay" styleClass="modal-backdrop" visible="false" managed="false">
+        <VBox styleClass="modal-dialog-card" maxWidth="640" maxHeight="720" spacing="16">
+            <!-- Header row: Title + Actions -->
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label fx:id="modalTitle" text="Recipe Title" styleClass="page-heading"/>
+                    <HBox fx:id="modalTagsBox" spacing="6"/>
+                </VBox>
+                <Button fx:id="modalFavBtn" text="❤️ Favorite" styleClass="action-btn" onAction="#handleToggleModalFavorite"/>
+                <Button text="✕" styleClass="close-btn" onAction="#handleCloseModal"/>
+            </HBox>
+
+            <Separator/>
+
+            <!-- Nutrient & Cooking Specs -->
+            <HBox spacing="16" alignment="CENTER_LEFT" styleClass="recipe-modal-specs-box">
+                <VBox spacing="2">
+                    <Label text="Calories" styleClass="macro-name"/>
+                    <Label fx:id="modalCalories" text="420 kcal" styleClass="macro-value"/>
+                </VBox>
+                <Separator orientation="VERTICAL"/>
+                <VBox spacing="2">
+                    <Label text="Protein" styleClass="macro-name"/>
+                    <Label fx:id="modalProtein" text="40g" styleClass="macro-value, stat-completed"/>
+                </VBox>
+                <Separator orientation="VERTICAL"/>
+                <VBox spacing="2">
+                    <Label text="Carbs" styleClass="macro-name"/>
+                    <Label fx:id="modalCarbs" text="35g" styleClass="macro-value, stat-upcoming"/>
+                </VBox>
+                <Separator orientation="VERTICAL"/>
+                <VBox spacing="2">
+                    <Label text="Fat" styleClass="macro-name"/>
+                    <Label fx:id="modalFat" text="12g" styleClass="macro-value, stat-cancelled"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox spacing="2">
+                    <Label text="Prep Time" styleClass="macro-name"/>
+                    <Label fx:id="modalPrepTime" text="15 min" styleClass="macro-value"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="Cook Time" styleClass="macro-name"/>
+                    <Label fx:id="modalCookTime" text="10 min" styleClass="macro-value"/>
+                </VBox>
+            </HBox>
+
+            <!-- Scrollable Content: Description, Ingredients, Instructions -->
+            <ScrollPane fitToWidth="true" maxHeight="320" styleClass="transparent-scroll-pane">
+                <VBox spacing="12">
+                    <Label fx:id="modalDescription" wrapText="true" styleClass="recipe-modal-desc"/>
+
+                    <Label text="Ingredients" styleClass="section-title"/>
+                    <VBox fx:id="modalIngredientsList" spacing="5"/>
+
+                    <Label text="Cooking Directions" styleClass="section-title"/>
+                    <Label fx:id="modalInstructions" wrapText="true" styleClass="recipe-modal-directions"/>
+                </VBox>
+            </ScrollPane>
+
+            <Separator/>
+
+            <!-- Actions Footer -->
+            <HBox spacing="12" alignment="CENTER_RIGHT">
+                <Button text="🍽 Log as Eaten Today" styleClass="action-btn" onAction="#handleModalLogNutrition"/>
+                <Button text="📅 Add to meal plan" styleClass="login-button" onAction="#handleModalAddToPlan"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+
+</StackPane>

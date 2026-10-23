@@ -1,0 +1,1425 @@
+/*
+ * ============================================================================
+ * LifeSync Dark Mode Stylesheet (Dark/Purple Scheme)
+ * ============================================================================
+ *
+ * Activated when Dark Mode is enabled.
+ * Transforms the default Light/Orange palette (#F5A623 / #F8F6F1)
+ * into a sleek, immersive Dark/Purple palette:
+ *   - Background:        #0E0C18 / #131022 (deep midnight purple)
+ *   - Card background:   #1A162B / #1E1A33 (elevated dark violet)
+ *   - Primary accent:    #9333EA / #A855F7 (vivid royal purple / electric violet)
+ *   - Secondary accent:  #7C3AED / #C084FC (bright neon amethyst)
+ *   - Borders / Dividers:#2D264A / #392F5C (soft glowing dark borders)
+ *   - Text primary:      #F8FAFC / #EDE9FE (pure white / luminous silver)
+ *   - Text muted:        #A5B4FC / #94A3B8 (soft lavender slate)
+ * ============================================================================
+ */
+
+/* ── Root & Viewports ─────────────────────────────────────────────────── */
+
+.root, .dark-theme {
+    -fx-background-color: #0E0C18;
+    -fx-background: #0E0C18;
+    -fx-text-fill: #F8FAFC;
+}
+
+.label {
+    -fx-text-fill: #F8FAFC;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport,
+.edge-to-edge-scroll,
+.edge-to-edge-scroll > .viewport,
+.dashboard-scroll-pane,
+.dashboard-scroll-pane > .viewport,
+.transparent-scroll-pane,
+.transparent-scroll-pane > .viewport,
+.timeline-scroll,
+.timeline-scroll > .viewport {
+    -fx-background-color: #0E0C18;
+    -fx-background: #0E0C18;
+}
+
+.content-area {
+    -fx-background-color: #0E0C18;
+}
+
+.dashboard-root,
+.plan-root,
+.meals-page-root,
+.chat-root {
+    -fx-background-color: #0E0C18;
+}
+
+/* ── Typography & Headings ────────────────────────────────────────────── */
+
+.page-heading,
+.greeting-heading,
+.meals-page-title,
+.form-heading,
+.chat-title-label,
+.section-title,
+.card-section-title,
+.day-view-heading,
+.calendar-month-label,
+.detail-title {
+    -fx-text-fill: #F8FAFC;
+}
+
+.detail-description {
+    -fx-text-fill: #CBD5E1;
+}
+
+.summary-card-icon,
+.activity-item-icon,
+.card-icon {
+    -fx-text-fill: #EDE9FE;
+}
+
+.page-subtitle,
+.greeting-subtitle,
+.meals-sub-desc,
+.meals-section-label,
+.form-subtitle,
+.chat-subtitle-label,
+.muted-text {
+    -fx-text-fill: #A5B4FC;
+}
+
+.brand-title,
+.form-brand-title {
+    -fx-text-fill: #C084FC;
+}
+
+/* ── Sidebar Navigation ───────────────────────────────────────────────── */
+
+.sidebar {
+    -fx-background-color: #141024;
+    -fx-border-color: #2D2549;
+    -fx-border-width: 0 1 0 0;
+}
+
+.sidebar-logo Label {
+    -fx-text-fill: #EDE9FE;
+}
+
+.sidebar-btn {
+    -fx-text-fill: #CBD5E1;
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: #221A3D;
+    -fx-text-fill: #E9D5FF;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: #2E1F54;
+    -fx-text-fill: #C084FC;
+    -fx-border-color: #9333EA;
+    -fx-border-width: 0 0 0 3;
+    -fx-font-weight: bold;
+}
+
+.header-username {
+    -fx-text-fill: #EDE9FE;
+}
+
+.header-icon {
+    -fx-text-fill: #C084FC;
+}
+
+/* ── Theme Toggle Button ──────────────────────────────────────────────── */
+
+.theme-toggle-btn {
+    -fx-background-color: #261B45;
+    -fx-text-fill: #E9D5FF;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-color: #4A3578;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-padding: 7 12;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.25), 6, 0, 0, 1);
+}
+
+.theme-toggle-btn:hover {
+    -fx-background-color: #3B2668;
+    -fx-border-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* ── Cards & Containers ───────────────────────────────────────────────── */
+
+.dashboard-card,
+.summary-card,
+.meals-plan-card,
+.meals-recipe-card,
+.activity-card,
+.modal-dialog-card {
+    -fx-background-color: #1A162B;
+    -fx-background-radius: 16;
+    -fx-border-color: #2D264A;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 10, 0, 0, 3);
+}
+
+.activity-card:hover,
+.meals-recipe-card:hover,
+.recipe-card:hover,
+.recipe-card-modern:hover,
+.pantry-item-row:hover,
+.meal-plan-item-row:hover,
+.meal-plan-item:hover,
+.workout-history-card:hover,
+.recipe-search-row:hover {
+    -fx-background-color: #261D42;
+    -fx-border-color: #A855F7;
+    -fx-effect: dropshadow(gaussian, rgba(168, 85, 247, 0.3), 10, 0, 0, 3);
+}
+
+.summary-card-title,
+.card-title,
+.meals-plan-heading {
+    -fx-text-fill: #EDE9FE;
+}
+
+.summary-card-count,
+.card-count {
+    -fx-text-fill: #C084FC;
+}
+
+.clickable-card {
+    -fx-cursor: hand;
+}
+
+.clickable-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.45), 12, 0, 0, 4);
+    -fx-border-color: #9333EA;
+}
+
+.calorie-count {
+    -fx-text-fill: #F8FAFC;
+}
+
+.calorie-target,
+.calorie-unit {
+    -fx-text-fill: #A5B4FC;
+}
+
+.macro-name,
+.macro-label {
+    -fx-text-fill: #CBD5E1;
+}
+
+.macro-value {
+    -fx-text-fill: #EDE9FE;
+}
+
+.macro-percent {
+    -fx-text-fill: #A5B4FC;
+}
+
+.goal-label {
+    -fx-text-fill: #CBD5E1;
+}
+
+.goal-percent {
+    -fx-text-fill: #EDE9FE;
+}
+
+.stat-label,
+.filter-label {
+    -fx-text-fill: #A5B4FC;
+}
+
+.stat-value {
+    -fx-text-fill: #EDE9FE;
+}
+
+/* ── AI Cards & Banners (Purple Glow) ─────────────────────────────────── */
+
+.ai-card {
+    -fx-background-color: linear-gradient(to bottom right, #241444, #1A1333);
+    -fx-border-color: #6B21A8;
+}
+
+.ai-card .label,
+.ai-suggestion-text {
+    -fx-text-fill: #EDE9FE;
+}
+
+.beta-pill {
+    -fx-background-color: #4C1D95;
+    -fx-text-fill: #E9D5FF;
+}
+
+.ai-chef-banner {
+    -fx-background-color: #1E1738;
+    -fx-border-color: #581C87;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 12 18;
+}
+
+.ai-chef-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #C084FC;
+}
+
+.ai-chef-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #DDD6FE;
+}
+
+.meals-sub-title {
+    -fx-text-fill: #EDE9FE;
+}
+
+.meals-plan-link {
+    -fx-text-fill: #A5B4FC;
+}
+
+.meals-plan-link:hover {
+    -fx-text-fill: #C084FC;
+}
+
+/* ── Primary & Action Buttons (Vibrant Purple) ────────────────────────── */
+
+.login-button,
+.meals-add-to-plan-btn,
+.meals-add-plan-btn,
+.meals-add-recipe-btn,
+.chat-send-btn,
+.ai-plan-btn,
+.today-btn {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.45), 8, 0, 0, 2);
+}
+
+.login-button:hover,
+.meals-add-to-plan-btn:hover,
+.meals-add-plan-btn:hover,
+.meals-add-recipe-btn:hover,
+.chat-send-btn:hover,
+.today-btn:hover {
+    -fx-background-color: #7E22CE;
+}
+
+.action-btn,
+.meals-icon-btn,
+.nav-arrow,
+.reset-filters-btn {
+    -fx-background-color: #241D3B;
+    -fx-text-fill: #EDE9FE;
+    -fx-border-color: #3E325C;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.action-btn:hover,
+.meals-icon-btn:hover,
+.nav-arrow:hover,
+.reset-filters-btn:hover,
+.meals-subnav-btn:hover {
+    -fx-background-color: #332754;
+    -fx-border-color: #9333EA;
+    -fx-text-fill: #C084FC;
+}
+
+.close-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A5B4FC;
+}
+
+.close-btn:hover {
+    -fx-background-color: #3B1219;
+    -fx-text-fill: #F87171;
+}
+
+.timeline-add-btn {
+    -fx-background-color: #241D3B;
+    -fx-text-fill: #A855F7;
+    -fx-border-color: #3E325C;
+}
+
+.timeline-add-btn:hover {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #A855F7;
+}
+
+.chat-clear-btn {
+    -fx-background-color: #241D3B;
+    -fx-text-fill: #A5B4FC;
+    -fx-border-color: #3E325C;
+}
+
+.chat-clear-btn:hover {
+    -fx-background-color: #332754;
+    -fx-text-fill: #EDE9FE;
+}
+
+/* ── Input Fields & Forms ─────────────────────────────────────────────── */
+
+.login-field,
+.profile-field,
+.chat-input-field,
+.recipe-search-field,
+.text-field,
+.text-area {
+    -fx-background-color: #1F1A35;
+    -fx-border-color: #3D3360;
+    -fx-text-fill: #F8FAFC;
+    -fx-prompt-text-fill: #7C749B;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.login-field:focused,
+.profile-field:focused,
+.chat-input-field:focused,
+.recipe-search-field:focused,
+.text-field:focused,
+.text-area:focused {
+    -fx-background-color: #252040;
+    -fx-border-color: #9333EA;
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.4), 8, 0, 0, 0);
+}
+
+.combo-box {
+    -fx-background-color: #1F1A35;
+    -fx-border-color: #3D3360;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #F8FAFC;
+    -fx-background-color: #1F1A35;
+}
+
+/* ── Progress Bars (Glowing Purple & Accents) ─────────────────────────── */
+
+.progress-bar > .track,
+.macro-bar-protein > .track,
+.macro-bar-carbs > .track,
+.macro-bar-fat > .track {
+    -fx-background-color: #261F3E;
+    -fx-background-radius: 6;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #7C3AED, #9333EA, #A855F7);
+    -fx-background-radius: 6;
+}
+
+.macro-bar-protein > .bar {
+    -fx-background-color: linear-gradient(to right, #059669, #10B981);
+}
+
+.macro-bar-carbs > .bar {
+    -fx-background-color: linear-gradient(to right, #7C3AED, #A855F7);
+}
+
+.macro-bar-fat > .bar {
+    -fx-background-color: linear-gradient(to right, #E11D48, #F43F5E);
+}
+
+/* ── Activity & Schedule Rows ─────────────────────────────────────────── */
+
+.activity-row,
+.upcoming-row,
+.update-row,
+.timeline-slot {
+    -fx-background-color: transparent;
+}
+
+.activity-row:hover,
+.upcoming-row:hover {
+    -fx-background-color: #231C3D;
+    -fx-background-radius: 8;
+}
+
+.activity-time,
+.upcoming-date,
+.upcoming-time {
+    -fx-text-fill: #A5B4FC;
+}
+
+.activity-title,
+.upcoming-title,
+.update-text {
+    -fx-text-fill: #F8FAFC;
+}
+
+.timeline-line {
+    -fx-background-color: #382E5C;
+}
+
+.timeline-activity-card {
+    -fx-background-color: #241D3B;
+    -fx-border-color: #3E325C;
+}
+
+.timeline-activity-card:hover {
+    -fx-background-color: #2F2450;
+    -fx-border-color: #9333EA;
+}
+
+/* ── Calendar Widget (Dark Mode) ──────────────────────────────────────── */
+
+.calendar-day-header {
+    -fx-text-fill: #A5B4FC;
+}
+
+.calendar-date {
+    -fx-text-fill: #EDE9FE;
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+}
+
+.calendar-date:hover {
+    -fx-background-color: #2C224B;
+    -fx-text-fill: #C084FC;
+}
+
+.calendar-today {
+    -fx-background-color: #2E1B54;
+    -fx-text-fill: #C084FC;
+    -fx-font-weight: bold;
+}
+
+.calendar-selected {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.current-date-label {
+    -fx-text-fill: #EDE9FE;
+}
+
+.view-toggle {
+    -fx-background-color: #1F1A35;
+    -fx-background-radius: 8;
+}
+
+.toggle-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #CBD5E1;
+}
+
+.toggle-btn:selected {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* ── Chatbot Elements (Dark Theme) ────────────────────────────────────── */
+
+.chat-header-area,
+.chat-header-bar,
+.chat-input-area,
+.chat-input-bar {
+    -fx-background-color: #141024;
+}
+
+.chat-status-online {
+    -fx-background-color: #241B45;
+    -fx-text-fill: #34D399;
+}
+
+.chat-typing-label {
+    -fx-text-fill: #A5B4FC;
+}
+
+.chat-user-bubble {
+    -fx-background-color: #9333EA;
+    -fx-background-radius: 16 16 4 16;
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.35), 8, 0, 0, 2);
+}
+
+.chat-user-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.chat-user-time {
+    -fx-font-size: 10px;
+    -fx-text-fill: rgba(255, 255, 255, 0.75);
+}
+
+.chat-bot-bubble {
+    -fx-background-color: #1A162B;
+    -fx-background-radius: 16 16 16 4;
+    -fx-border-color: #2D2549;
+    -fx-border-radius: 16 16 16 4;
+    -fx-border-width: 1;
+}
+
+.chat-bot-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #EDE9FE;
+    -fx-line-spacing: 2;
+}
+
+.chat-bot-text-bold {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF5FF;
+    -fx-line-spacing: 2;
+}
+
+.chat-bot-time {
+    -fx-font-size: 10px;
+    -fx-text-fill: #A5B4FC;
+}
+
+/* ── Status Pills & Badges ────────────────────────────────────────────── */
+
+.status-pill {
+    -fx-background-color: #2B1E4D;
+    -fx-text-fill: #C084FC;
+}
+
+.status-completed {
+    -fx-background-color: #064E3B;
+    -fx-text-fill: #34D399;
+}
+
+.status-upcoming {
+    -fx-background-color: #3B1B54;
+    -fx-text-fill: #C084FC;
+}
+
+.status-cancelled {
+    -fx-background-color: #4C0519;
+    -fx-text-fill: #FB7185;
+}
+
+.category-tag {
+    -fx-background-color: #241D3B;
+    -fx-text-fill: #C084FC;
+}
+
+.meals-meta-pill {
+    -fx-background-color: #241D3B;
+    -fx-text-fill: #C4B5FD;
+    -fx-border-color: #382E5C;
+}
+
+.recipe-tag {
+    -fx-background-color: #2B1D4C;
+    -fx-text-fill: #C084FC;
+}
+
+/* ── Login & Sign Up Split Screen ─────────────────────────────────────── */
+
+.login-brand-panel {
+    -fx-background-color: linear-gradient(to bottom right, #2E1065, #1E1B4B, #0F0A24);
+}
+
+.brand-heading {
+    -fx-text-fill: #FAF5FF;
+}
+
+.brand-welcome {
+    -fx-text-fill: #C4B5FD;
+}
+
+.brand-subtitle {
+    -fx-text-fill: #DDD6FE;
+}
+
+.brand-motto {
+    -fx-text-fill: #A855F7;
+}
+
+.login-form-panel {
+    -fx-background-color: #141024;
+}
+
+.link-text {
+    -fx-text-fill: #A855F7;
+}
+
+.link-text:hover {
+    -fx-text-fill: #C084FC;
+}
+
+.check-box {
+    -fx-text-fill: #CBD5E1;
+}
+
+.check-box .box {
+    -fx-background-color: #1F1A35;
+    -fx-border-color: #3D3360;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #9333EA;
+}
+
+/* ── Dividers & Separators ────────────────────────────────────────────── */
+
+.separator > .line {
+    -fx-border-color: #2D2549;
+    -fx-background-color: #2D2549;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Dark-Mode Overrides for Theme-Aware Component Classes
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Sidebar bottom-section ───────────────────────────────────────────── */
+
+.sidebar-avatar-circle {
+    -fx-fill: #9333EA;
+}
+
+.header-username {
+    -fx-text-fill: #EDE9FE;
+}
+
+/* ── Profile View ─────────────────────────────────────────────────────── */
+
+.profile-avatar-circle {
+    -fx-fill: #9333EA;
+}
+
+.profile-avatar-initials {
+    -fx-text-fill: #FAF5FF;
+}
+
+.profile-fullname {
+    -fx-text-fill: #FAF5FF;
+}
+
+.profile-username {
+    -fx-text-fill: #A5B4FC;
+}
+
+.profile-membersince {
+    -fx-text-fill: #94A3B8;
+}
+
+.profile-calc-label {
+    -fx-text-fill: #A5B4FC;
+}
+
+.profile-bmi-value {
+    -fx-text-fill: #FAF5FF;
+}
+
+.profile-healthy-range {
+    -fx-text-fill: #94A3B8;
+}
+
+.profile-bmr-value {
+    -fx-text-fill: #EDE9FE;
+}
+
+.profile-tdee-value {
+    -fx-text-fill: #A855F7;
+}
+
+.profile-hint-label {
+    -fx-text-fill: #A5B4FC;
+}
+
+.profile-textarea {
+    -fx-background-color: #1A162B;
+    -fx-border-color: #2D2549;
+    -fx-text-fill: #EDE9FE;
+    -fx-prompt-text-fill: #7C749B;
+}
+
+.profile-textarea .content,
+.profile-textarea:focused .content {
+    -fx-background-color: #1A162B;
+}
+
+.profile-textarea:focused {
+    -fx-border-color: #9333EA;
+}
+
+.text-area {
+    -fx-text-fill: #EDE9FE;
+}
+
+.text-area .text {
+    -fx-fill: #EDE9FE;
+}
+
+.text-area .content,
+.text-area:focused .content {
+    -fx-background-color: #1F1A35;
+}
+
+.profile-save-btn {
+    -fx-background-color: linear-gradient(to right, #9333EA, #A855F7);
+    -fx-text-fill: #FFFFFF;
+}
+
+.profile-logout-btn {
+    -fx-background-color: #2D1020;
+    -fx-text-fill: #FB7185;
+    -fx-border-color: #4C0519;
+    -fx-border-radius: 12;
+    -fx-border-width: 1;
+}
+
+/* ── Activity View — BMI Focus Card ───────────────────────────────────── */
+
+.bmi-focus-card {
+    -fx-background-color: #1E1738;
+    -fx-border-color: #581C87;
+}
+
+.bmi-focus-title {
+    -fx-text-fill: #C084FC;
+}
+
+.bmi-focus-desc {
+    -fx-text-fill: #DDD6FE;
+}
+
+.activity-add-workout-btn {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* ── Activity View — Programmatic Item Rows ───────────────────────────── */
+
+.activity-item-title {
+    -fx-text-fill: #FAF5FF;
+}
+
+.activity-item-subtitle {
+    -fx-text-fill: #A5B4FC;
+}
+
+/* ── Activity View — This Week Breakdown ──────────────────────────────── */
+
+.this-week-row-today {
+    -fx-background-color: #241D3B;
+}
+
+.this-week-day {
+    -fx-text-fill: #CBD5E1;
+}
+
+.this-week-day-today {
+    -fx-text-fill: #A855F7;
+}
+
+.this-week-date {
+    -fx-text-fill: #94A3B8;
+}
+
+.this-week-count {
+    -fx-text-fill: #EDE9FE;
+}
+
+/* ── Meals View — Recipe Card Text ────────────────────────────────────── */
+
+.recipe-card-title {
+    -fx-text-fill: #FAF5FF;
+}
+
+.recipe-card-desc {
+    -fx-text-fill: #A5B4FC;
+}
+
+/* ── Meals View — Meal Plan Item Row ──────────────────────────────────── */
+
+.meal-plan-item-row {
+    -fx-background-color: #1A162B;
+    -fx-border-color: #2D2549;
+}
+
+.meal-plan-item-time {
+    -fx-text-fill: #A5B4FC;
+}
+
+.meal-plan-item-title {
+    -fx-text-fill: #FAF5FF;
+}
+
+/* ── Home Dashboard — AI Suggestion Card ──────────────────────────────── */
+
+.section-heading {
+    -fx-text-fill: #FAF5FF;
+}
+
+.ai-suggestion-text {
+    -fx-text-fill: #DDD6FE;
+}
+
+/* ── Filter Label ─────────────────────────────────────────────────────── */
+
+.filter-label {
+    -fx-text-fill: #CBD5E1;
+}
+
+/* ── ComboBox / ChoiceBox in dark mode ────────────────────────────────── */
+
+.combo-box,
+.choice-box {
+    -fx-background-color: #1A162B;
+    -fx-border-color: #2D2549;
+    -fx-text-fill: #EDE9FE;
+}
+
+.combo-box .list-cell,
+.choice-box .list-cell {
+    -fx-text-fill: #EDE9FE;
+    -fx-background-color: #1A162B;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1A162B;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #EDE9FE;
+    -fx-background-color: #1A162B;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #2E1F54;
+}
+
+/* ── Generic Label + Text fill fallback ───────────────────────────────── */
+
+.label {
+    -fx-text-fill: #F8FAFC;
+}
+
+/* ── Profile field overrides ──────────────────────────────────────────── */
+
+.profile-field {
+    -fx-background-color: #1A162B;
+    -fx-border-color: #2D2549;
+    -fx-text-fill: #EDE9FE;
+    -fx-prompt-text-fill: #7C749B;
+}
+
+.profile-field .text {
+    -fx-fill: #EDE9FE;
+}
+
+.profile-field:focused {
+    -fx-border-color: #9333EA;
+    -fx-effect: dropshadow(gaussian, rgba(147, 51, 234, 0.3), 6, 0, 0, 0);
+    -fx-text-fill: #EDE9FE;
+}
+
+.profile-field-readonly {
+    -fx-opacity: 0.85;
+    -fx-background-color: #141022;
+    -fx-text-fill: #A5B4FC;
+}
+
+.profile-field-readonly .text {
+    -fx-fill: #A5B4FC;
+}
+
+.profile-textarea .text {
+    -fx-fill: #EDE9FE;
+}
+
+.combo-box .list-cell .text {
+    -fx-fill: #EDE9FE;
+}
+
+/* ── Form labels in dark mode ─────────────────────────────────────────── */
+
+.form-label {
+    -fx-text-fill: #CBD5E1;
+}
+
+.section-title {
+    -fx-text-fill: #FAF5FF;
+}
+
+/* ── Sidebar btn active MUST override for dark mode ───────────────────── */
+
+.sidebar-btn-active {
+    -fx-background-color: #2E1F54 !important;
+    -fx-text-fill: #C084FC !important;
+    -fx-border-color: #9333EA !important;
+    -fx-border-width: 0 0 0 3 !important;
+    -fx-font-weight: bold;
+}
+
+/* ── Hyperlink in dark mode ───────────────────────────────────────────── */
+
+.hyperlink {
+    -fx-text-fill: #A855F7;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #A855F7;
+}
+
+/* ── ScrollBar in dark mode ───────────────────────────────────────────── */
+
+.scroll-bar {
+    -fx-background-color: #0E0C18;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #392F5C;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #0E0C18;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+
+/* ── ProgressBar override (purple instead of orange) ──────────────────── */
+
+.progress-bar > .track {
+    -fx-background-color: #241D3B;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: #9333EA;
+}
+
+/* ── Filter View elements ─────────────────────────────────────────────── */
+
+.filter-panel {
+    -fx-background-color: #1A162B;
+    -fx-border-color: #2D2549;
+}
+
+.filter-section-title {
+    -fx-text-fill: #EDE9FE;
+}
+
+.filter-chip {
+    -fx-background-color: #1A162B;
+    -fx-border-color: #2D2549;
+    -fx-text-fill: #CBD5E1;
+}
+
+.filter-chip:hover {
+    -fx-background-color: #2E1F54;
+    -fx-border-color: #9333EA;
+    -fx-text-fill: #EDE9FE;
+}
+
+.filter-chip-selected {
+    -fx-background-color: #2E1F54 !important;
+    -fx-border-color: #9333EA !important;
+    -fx-text-fill: #C084FC !important;
+}
+
+.meals-subnav-btn-active {
+    -fx-background-color: #2E1F54 !important;
+    -fx-border-color: #9333EA !important;
+    -fx-text-fill: #C084FC !important;
+    -fx-font-weight: bold !important;
+}
+
+/* ── Activity View Action Buttons ─────────────────────────────────────── */
+
+.action-complete-btn {
+    -fx-background-color: #143520;
+    -fx-text-fill: #4ADE80;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 12;
+}
+
+.action-cancel-btn {
+    -fx-background-color: #3B1219;
+    -fx-text-fill: #F87171;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 12;
+}
+
+.action-delete-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 12;
+}
+
+/* ── Quick Stats Labels & Values ──────────────────────────────────────── */
+
+.stat-label {
+    -fx-text-fill: #94A3B8;
+}
+
+.stat-value {
+    -fx-font-weight: bold;
+    -fx-text-fill: #F1F5F9;
+}
+
+.stat-completed {
+    -fx-text-fill: #4ADE80;
+}
+
+.stat-upcoming {
+    -fx-text-fill: #C084FC;
+}
+
+.stat-cancelled {
+    -fx-text-fill: #F87171;
+}
+
+.stat-rate {
+    -fx-text-fill: #E2E8F0;
+}
+
+/* ── Empty State Cards ────────────────────────────────────────────────── */
+
+.empty-state-card {
+    -fx-background-color: #1A162B;
+    -fx-background-radius: 16;
+    -fx-border-color: #2D2549;
+    -fx-border-radius: 16;
+}
+
+.empty-state-heading {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF5FF;
+}
+
+.empty-state-message {
+    -fx-font-size: 13;
+    -fx-text-fill: #94A3B8;
+    -fx-text-alignment: center;
+}
+
+/* ── Recipe Details & Catalog ─────────────────────────────────────────── */
+
+.diet-pill {
+    -fx-font-size: 10;
+    -fx-font-weight: bold;
+    -fx-padding: 3 6;
+    -fx-background-radius: 6;
+}
+
+.diet-pill-success {
+    -fx-background-color: #143520;
+    -fx-text-fill: #4ADE80;
+}
+
+.meal-plan-placeholder {
+    -fx-font-size: 13;
+    -fx-text-fill: #7C749B;
+    -fx-padding: 20 0;
+}
+
+.meal-plan-remove-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F87171;
+    -fx-font-size: 12;
+    -fx-cursor: hand;
+}
+
+.recipe-search-row {
+    -fx-background-color: #1F1A35;
+    -fx-background-radius: 8;
+    -fx-border-color: #2D2549;
+}
+
+.recipe-search-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-text-fill: #FAF5FF;
+}
+
+.recipe-search-meta {
+    -fx-font-size: 11;
+    -fx-text-fill: #94A3B8;
+}
+
+.recipe-search-add-btn {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: white;
+    -fx-font-size: 11;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+/* ── AI Advice Dialog Components ──────────────────────────────────────── */
+
+.meal-ai-pill-bmi {
+    -fx-background-color: #3B1C10;
+    -fx-text-fill: #FB923C;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.meal-ai-pill-cal {
+    -fx-background-color: #143520;
+    -fx-text-fill: #4ADE80;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.meal-ai-pill-pantry {
+    -fx-background-color: #2E1F54;
+    -fx-text-fill: #C084FC;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.meal-ai-advice-text {
+    -fx-font-size: 13;
+    -fx-line-spacing: 4;
+    -fx-text-fill: #EDE9FE;
+}
+
+.meal-ai-match-heading {
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-text-fill: #FAF5FF;
+    -fx-padding: 8 0 0 0;
+}
+
+.meal-ai-match-row {
+    -fx-background-color: #1F1A35;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10;
+}
+
+.meal-ai-match-score {
+    -fx-font-size: 11;
+    -fx-text-fill: #4ADE80;
+    -fx-font-weight: bold;
+}
+
+.meal-ai-match-btn {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: white;
+    -fx-font-size: 11;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+/* ── Plan AI Advice Components ────────────────────────────────────────── */
+
+.plan-ai-pill-blue {
+    -fx-background-color: #102A43;
+    -fx-text-fill: #60A5FA;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.plan-ai-pill-purple {
+    -fx-background-color: #2E1F54;
+    -fx-text-fill: #C084FC;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.plan-ai-pill-orange {
+    -fx-background-color: #3B1C10;
+    -fx-text-fill: #FB923C;
+    -fx-font-weight: bold;
+    -fx-padding: 4 8;
+    -fx-background-radius: 8;
+    -fx-font-size: 11;
+}
+
+.plan-ai-advice-label {
+    -fx-font-size: 13;
+    -fx-line-spacing: 4;
+    -fx-text-fill: #EDE9FE;
+}
+
+/* ── Recipe Modal Dialog Components ───────────────────────────────────── */
+
+.recipe-modal-specs-box {
+    -fx-background-color: #1F1A35;
+    -fx-background-radius: 12;
+    -fx-padding: 12 16;
+    -fx-border-color: #2D2549;
+    -fx-border-radius: 12;
+}
+
+.recipe-modal-desc {
+    -fx-font-size: 13;
+    -fx-text-fill: #CBD5E1;
+}
+
+.recipe-modal-directions {
+    -fx-line-spacing: 4;
+    -fx-font-size: 13;
+    -fx-text-fill: #EDE9FE;
+}
+
+.recipe-modal-checkbox {
+    -fx-font-size: 13;
+    -fx-text-fill: #EDE9FE;
+}
+
+/* ── Sign-up View Form ────────────────────────────────────────────────── */
+
+.signup-scroll-pane {
+    -fx-background-color: #0E0C18;
+    -fx-background: #0E0C18;
+}
+
+.signup-section-heading {
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-text-fill: #C084FC;
+}
+
+.signup-section-sub {
+    -fx-font-size: 11;
+    -fx-text-fill: #94A3B8;
+}
+
+.signup-field-label {
+    -fx-font-size: 11;
+    -fx-text-fill: #CBD5E1;
+    -fx-font-weight: bold;
+}
+
+.signup-note-box {
+    -fx-background-color: #1F1A35;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-border-color: #3D3360;
+    -fx-border-radius: 8;
+}
+
+.signup-note-text {
+    -fx-font-size: 11;
+    -fx-text-fill: #DDD6FE;
+}
+
+/* ── Profile, Pantry & Chat Helpers ───────────────────────────────────── */
+
+.status-error-text {
+    -fx-text-fill: #F87171;
+}
+
+.status-success-text {
+    -fx-text-fill: #4ADE80;
+}
+
+.pantry-qty-low {
+    -fx-text-fill: #F87171;
+    -fx-font-weight: bold;
+}
+
+.summary-card-count-danger {
+    -fx-text-fill: #F87171;
+}
+
+.chat-status-thinking {
+    -fx-text-fill: #C084FC;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.chat-status-online {
+    -fx-text-fill: #4ADE80;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+}
+
+.placeholder-heading {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF5FF;
+}
+
+.placeholder-subtitle {
+    -fx-font-size: 14;
+    -fx-text-fill: #94A3B8;
+}
+
+.sidebar-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF5FF;
+}
+
+/* ── Dialog & Alert Theming ──────────────────────────────────────────── */
+
+.dialog-pane {
+    -fx-background-color: #1A162B;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: #151026;
+}
+
+.dialog-pane > .label {
+    -fx-text-fill: #EDE9FE;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-text-fill: #EDE9FE;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane > .content.label {
+    -fx-text-fill: #DDD6FE;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: #151026;
+}
+
+.dialog-pane .button {
+    -fx-background-color: #241D3B;
+    -fx-text-fill: #EDE9FE;
+    -fx-border-color: #3E325C;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #332754;
+    -fx-border-color: #9333EA;
+    -fx-text-fill: #C084FC;
+}
+
+.dialog-pane .button:default {
+    -fx-background-color: #9333EA;
+    -fx-text-fill: #FFFFFF;
+}
+
+.dialog-pane .button:default:hover {
+    -fx-background-color: #7E22CE;
+}

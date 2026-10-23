@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<!--
+  Plan & Calendar View (plan-view.fxml)
+
+  Provides a comprehensive daily planning and calendar interface with:
+    - A mini calendar widget for quick date navigation
+    - A day timeline showing activities as styled cards
+    - An event detail panel for viewing/editing activity info
+    - Goals progress section tracking nutrition, activity, and plan completion
+    - Upcoming plans sidebar listing the next scheduled activities
+
+  Controller: com.lifesync.lifesync.controller.PlanController
+-->
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.lifesync.lifesync.controller.PlanController"
+            fitToWidth="true"
+            fitToHeight="true"
+            hbarPolicy="NEVER"
+            styleClass="edge-to-edge-scroll">
+
+    <!-- ════════════════════════════════════════════════════════════════
+         Root container: vertical stack of header, nav bar, and main content
+         ════════════════════════════════════════════════════════════════ -->
+    <VBox spacing="20" styleClass="plan-root">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/>
+        </padding>
+
+        <!-- ─── Header Row ─────────────────────────────────────────── -->
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="📅 Plan &amp; Calendar" styleClass="page-heading"/>
+                <Label text="Stay on track with your goals, one day at a time." styleClass="page-subtitle"/>
+            </VBox>
+            <ImageView fitHeight="70" fitWidth="70" preserveRatio="true">
+                <image>
+                    <Image url="@../images/plan.png"/>
+                </image>
+            </ImageView>
+        </HBox>
+
+        <!-- ─── View Toggle + Date Navigation Row ──────────────────── -->
+        <HBox alignment="CENTER_LEFT" spacing="15" styleClass="nav-bar">
+
+            <!-- View mode toggle buttons (Day / Week / Month) + 24H toggle -->
+            <HBox styleClass="view-toggle" spacing="0">
+                <ToggleButton fx:id="dayToggle" text="Day" selected="true" styleClass="toggle-btn"/>
+                <ToggleButton fx:id="weekToggle" text="Week" styleClass="toggle-btn"/>
+                <ToggleButton fx:id="monthToggle" text="Month" styleClass="toggle-btn"/>
+            </HBox>
+            <ToggleButton fx:id="toggle24Hour" text="🕒 24H View" onAction="#handleToggle24Hour" styleClass="action-btn"/>
+
+            <!-- Spacer pushes date nav to the right -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Date navigation: previous / current date / next / today -->
+            <Button text="◀" onAction="#handlePrevDay" styleClass="nav-arrow"/>
+            <Label fx:id="currentDateLabel" text="Apr 23, 2025" styleClass="current-date-label"/>
+            <Button text="▶" onAction="#handleNextDay" styleClass="nav-arrow"/>
+            <Button text="Today" onAction="#handleToday" styleClass="today-btn"/>
+        </HBox>
+
+        <!-- ─── Main Content Area (3-column layout) ────────────────── -->
+        <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+            <!-- ══════════════════════════════════════════════════════
+                 LEFT COLUMN: Mini Calendar + Goals Progress
+                 ══════════════════════════════════════════════════════ -->
+            <VBox prefWidth="275" minWidth="260" spacing="20">
+
+                <!-- ── Mini Calendar Widget ────────────────────────── -->
+                <VBox styleClass="dashboard-card" spacing="10">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+
+                    <!-- Month/Year header with prev/next arrows -->
+                    <HBox alignment="CENTER_LEFT" spacing="5">
+                        <Label fx:id="calendarMonthLabel" text="April 2025" styleClass="card-section-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="◀" onAction="#handlePrevMonth" styleClass="nav-arrow-small"/>
+                        <Button text="▶" onAction="#handleNextMonth" styleClass="nav-arrow-small"/>
+                    </HBox>
+
+                    <!-- Calendar grid: 7 columns (Sun-Sat), up to 6 rows of dates -->
+                    <GridPane fx:id="calendarGrid" hgap="2" vgap="2" alignment="CENTER">
+                        <!-- Column constraints for 7 equal-width day columns -->
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <!-- Row 0 headers and date cells are populated programmatically -->
+                    </GridPane>
+                </VBox>
+
+                <!-- ── Goals Progress Widget ───────────────────────── -->
+                <VBox styleClass="dashboard-card" spacing="10">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+
+                    <!-- Section header -->
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="🎯 Goals Progress" styleClass="card-section-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Hyperlink text="View All →" styleClass="view-all-link"/>
+                    </HBox>
+
+                    <!-- Individual goal rows -->
+                    <VBox spacing="10">
+
+                        <!-- Nutrition goal -->
+                        <VBox spacing="4">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Nutrition" styleClass="goal-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="nutritionGoalLabel" text="0%" styleClass="goal-percent"/>
+                            </HBox>
+                            <ProgressBar fx:id="nutritionGoalBar" progress="0" maxWidth="Infinity"
+                                         styleClass="goal-progress-bar"/>
+                        </VBox>
+
+                        <!-- Activity goal -->
+                        <VBox spacing="4">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Activity" styleClass="goal-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="activityGoalLabel" text="0%" styleClass="goal-percent"/>
+                            </HBox>
+                            <ProgressBar fx:id="activityGoalBar" progress="0" maxWidth="Infinity"
+                                         styleClass="goal-progress-bar"/>
+                        </VBox>
+
+                        <!-- Plan goal -->
+                        <VBox spacing="4">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Plan" styleClass="goal-label"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="planGoalLabel" text="0%" styleClass="goal-percent"/>
+                            </HBox>
+                            <ProgressBar fx:id="planGoalBar" progress="0" maxWidth="Infinity"
+                                         styleClass="goal-progress-bar"/>
+                        </VBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- ══════════════════════════════════════════════════════
+                 CENTER COLUMN: Day Timeline + Quick Actions
+                 ══════════════════════════════════════════════════════ -->
+            <VBox spacing="10" HBox.hgrow="ALWAYS">
+
+                <!-- ── Day View (timeline) ─────────────────────────── -->
+                <VBox styleClass="dashboard-card" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <!-- Day view date heading -->
+                    <Label fx:id="dayViewDateLabel" text="Wednesday, April 23, 2025"
+                           styleClass="day-view-heading"/>
+
+                    <!-- Scrollable timeline of hourly slots -->
+                    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                                hbarPolicy="NEVER" styleClass="timeline-scroll">
+                        <VBox fx:id="timelineContainer" spacing="2">
+                            <padding>
+                                <Insets top="10" right="5" bottom="10" left="5"/>
+                            </padding>
+                            <!-- Time slots (6 AM – 9 PM) are populated programmatically -->
+                        </VBox>
+                    </ScrollPane>
+                </VBox>
+
+                <!-- ── Quick Actions Row (FlowPane wraps on resize so buttons never truncate) ── -->
+                <FlowPane hgap="8" vgap="8">
+                    <padding>
+                        <Insets top="10"/>
+                    </padding>
+                    <Button text="➕ Add Event" onAction="#handleAddEvent" styleClass="action-btn"/>
+                    <Button fx:id="btnViewCalendar" text="📅 View Calendar" onAction="#handleViewCalendar" styleClass="action-btn"/>
+                    <Button fx:id="btnReschedule" text="🔄 Reschedule" onAction="#handleReschedule" styleClass="action-btn"/>
+                    <Button text="⚠️ Check Conflicts" onAction="#handleCheckConflicts" styleClass="action-btn"/>
+                    <Button text="✨ AI Plan Coach" onAction="#handleAIScheduleAdvice" styleClass="action-btn, ai-plan-btn"/>
+                </FlowPane>
+            </VBox>
+
+            <!-- ══════════════════════════════════════════════════════
+                 RIGHT COLUMN: Event Detail Panel + Upcoming Plans
+                 ══════════════════════════════════════════════════════ -->
+            <VBox prefWidth="285" minWidth="270" spacing="20">
+
+                <!-- ── Event Detail Panel (hidden by default) ──────── -->
+                <VBox fx:id="eventDetailPanel" styleClass="dashboard-card"
+                      visible="false" managed="false" spacing="10">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <!-- Detail header: title + close button -->
+                    <HBox alignment="CENTER_LEFT">
+                        <Label fx:id="detailTitle" text="" styleClass="detail-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Button text="✕" onAction="#handleCloseDetail" styleClass="close-btn"/>
+                    </HBox>
+
+                    <!-- Time and status -->
+                    <Label fx:id="detailTime" text="" styleClass="muted-text"/>
+                    <Label fx:id="detailStatus" text="" styleClass="status-pill"/>
+
+                    <Separator/>
+
+                    <!-- Description -->
+                    <Label fx:id="detailDescription" text="" wrapText="true" styleClass="detail-description"/>
+
+                    <Separator/>
+
+                    <!-- Mark as done checkbox -->
+                    <CheckBox fx:id="markDoneCheckbox" text="Mark as done" onAction="#handleMarkDone"/>
+
+                    <!-- Edit button (full width) -->
+                    <Button text="Edit Event" onAction="#handleEditEvent"
+                            styleClass="action-btn" maxWidth="Infinity"/>
+                </VBox>
+
+                <!-- ── Upcoming Plans ──────────────────────────────── -->
+                <VBox styleClass="dashboard-card" spacing="10">
+                    <padding>
+                        <Insets top="15" right="15" bottom="15" left="15"/>
+                    </padding>
+
+                    <!-- Section header -->
+                    <HBox alignment="CENTER_LEFT">
+                        <Label text="📅 Upcoming Plans" styleClass="card-section-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Hyperlink text="View All →" onAction="#handleViewCalendar" styleClass="view-all-link"/>
+                    </HBox>
+
+                    <!-- Upcoming plans list (populated programmatically) -->
+                    <VBox fx:id="upcomingPlansList" spacing="8">
+                        <!-- Rows added by controller -->
+                    </VBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>
